@@ -50,6 +50,7 @@ app.get('/activities', (req, res) => {
 })
 
 app.get('/activity/:id', (req, res) => {
+  console.log("Param: ", req.params.id);
   let activityReqUrlEndpoint = `activities/${req.params.id}`;
   url = `${baseUrl}/${apiV3}/${activityReqUrlEndpoint}`;
   sendRequest(url, "GET", sendBack, res);
