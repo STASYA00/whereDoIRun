@@ -1,0 +1,8 @@
+class Percentage{
+    constructor(){
+
+    }
+    make(){
+        
+    }
+}

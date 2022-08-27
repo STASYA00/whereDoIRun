@@ -1,7 +1,7 @@
 var map = L.map('map').setView([ 59.314, 18.084], 13.5, false);
 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
     maxZoom: 19,
-    opacity: 0.0,
+    opacity: .5,
     attribution: '© OpenStreetMap'
 }).addTo(map);
 
@@ -31,32 +31,35 @@ L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
 // };
 // api.getActivityById(id, opts, callback);
 
-var mydata = JSON.parse(data);
+/////////////////////////////////////////////////////////////////////////////////////
+// var mydata = JSON.parse(data);
 
-let color = "#fffdfa";
-let black_color = "#0e1111";
-for (let i=0; i<mydata[0]["features"].length; i++){
-    let feature = mydata[0]["features"][i]["geometry"];
-    if (feature["type"]=="Polygon"){
-        let coords = feature["coordinates"][0];
-        coords = coords.map(coord=>[coord[1], coord[0]]);
-        L.polygon(coords, {stroke: false, color: color, fillColor: color, fillOpacity: 1.0}).addTo(map);
-        //L.geoJSON(mydata).addTo(map);
-    }
-};
-var bearer_token = "5aa0ac5da0d390558c3d148f781e58f348609bde";
-var req = new XMLHttpRequest();
+// let color = "#fffdfa";
+// let black_color = "#0e1111";
+// for (let i=0; i<mydata[0]["features"].length; i++){
+//     let feature = mydata[0]["features"][i]["geometry"];
+//     if (feature["type"]=="Polygon"){
+//         let coords = feature["coordinates"][0];
+//         coords = coords.map(coord=>[coord[1], coord[0]]);
+//         L.polygon(coords, {stroke: false, color: color, fillColor: color, fillOpacity: 1.0}).addTo(map);
+//         //L.geoJSON(mydata).addTo(map);
+//     }
+// };
+/////////////////////////////////////////////////////////////////////////////////////
 
-const url='https://www.strava.com/api/v3/activities/7314798241';
-req.open("GET", url);
-req.setRequestHeader("Authorization", "Bearer " + bearer_token);
-req.send();
+// var bearer_token = "5aa0ac5da0d390558c3d148f781e58f348609bde";
+// var req = new XMLHttpRequest();
 
-req.onreadystatechange = (e) => {
-  console.log(req.responseText)
-}
-console.log(req.response);
-console.log(req.status);
+// const url='https://www.strava.com/api/v3/activities/7314798241';
+// req.open("GET", url);
+// req.setRequestHeader("Authorization", "Bearer " + bearer_token);
+// req.send();
+
+// req.onreadystatechange = (e) => {
+//   console.log(req.responseText)
+// }
+// console.log(req.response);
+// console.log(req.status);
 // let r = run;
 // var polyline = L.Polyline.fromEncoded(r);
 // console.log(polyline);
@@ -69,3 +72,28 @@ console.log(req.status);
 //         lineJoin: 'round'
 //     }
 // ).addTo(map);
+
+/*
+class ZoneDrawer{
+    #canvas
+    constructor(){
+        const d3 = require("d3");
+        this.#canvas = d3.select("svg").append("svg");
+        width = +window.innerWidth,
+        height = +window.innerHeight;
+    }
+    drawArea(coords){
+        coords = coords.flat(2).join(",");
+        // "0,0, 0,400, 400,400, 400,0"
+        svg.append("polygon")
+            .attr("fill", "#FFFFFF")
+            .style("fill-opacity", .2)
+            .style("stroke-width", 5)
+            .style("stroke", "#FFF")
+            .attr("points", coords);
+    }
+}
+
+let l = new ZoneDrawer();
+l.drawArea([[0,0], [0,400], [400,400], [400,0]]);
+//width=window.innerWidth height = window.innerHeight*/

@@ -13,6 +13,7 @@ let userId = "initial_value";
 let token_type = "initial_value";
 
 const activitiesReqUrlEndpoint = "athlete/activities";
+const authAthleteReqUrlEndpoint = "athlete";
 let athleteReqUrlEndpoint = `/athletes/${userId}/stats`;
 
 //const hostname = '127.0.0.1';
@@ -45,13 +46,25 @@ app.get('/exchange_token', (req, res) => {
 })
 
 app.get('/activities', (req, res) => {
-  url = `${baseUrl}/${apiV3}/${activitiesReqUrlEndpoint}`;
+  url = `${baseUrl}/${apiV3}/${activitiesReqUrlEndpoint}?per_page=80`;
+  sendRequest(url, "GET", sendBack, res);
+})
+
+app.get('/athlete', (req, res) => {
+  url = `${baseUrl}/${apiV3}/${authAthleteReqUrlEndpoint}`;
   sendRequest(url, "GET", sendBack, res);
 })
 
 app.get('/activity/:id', (req, res) => {
   console.log("Param: ", req.params.id);
   let activityReqUrlEndpoint = `activities/${req.params.id}`;
+  url = `${baseUrl}/${apiV3}/${activityReqUrlEndpoint}`;
+  sendRequest(url, "GET", sendBack, res);
+})
+
+app.get('/segments/:id', (req, res) => {
+  console.log("Param: ", req.params.id);
+  let activityReqUrlEndpoint = `segments/${req.params.id}`;
   url = `${baseUrl}/${apiV3}/${activityReqUrlEndpoint}`;
   sendRequest(url, "GET", sendBack, res);
 })
