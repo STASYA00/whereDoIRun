@@ -10,8 +10,11 @@ class zoneDetector{
 
     async #make(activity){
         let ourcoords = activity.getStartCoords();
-        let r = new OverpassRequest([2, ourcoords]);
+        //let r = new OverpassRequest([4, ourcoords]);
+        let r = new CountryRequest(ourcoords);
+        
         let result = await r.call();  // list of cities
+        console.log("countries", result);
         
         result = result["elements"].filter(r=>this.#withinZone(r, activity));
         let distances = result.map(r=>this.#getProportionalDistances(r, activity));

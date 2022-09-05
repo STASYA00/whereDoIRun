@@ -145,7 +145,7 @@ function testDiagram(){
 
 async function testOverview(){
     let overview = await sendRequest("activities", "GET").then(r=>new ActivityOverview(r));
-    
+    // TypeError
     let coords = overview.getEndCoords();
     
     console.log("ACTIVITIES:", coords);
@@ -153,7 +153,7 @@ async function testOverview(){
     let cities = await overview.getAreas();
     console.log(cities);
     cities.forEach(c=>console.log(c.name));
-    let c = new canvasOrganizer();
+    let c = new canvasOrganizer(overview);
     c.firstRow(cities);
     //testCache();
 }
@@ -177,3 +177,8 @@ function testCache(){
     
 }
 
+function testLocalStorage(){
+    localStorage.getItem("strava", "123");
+    console.log(localStorage.getItem("strava"));
+
+}

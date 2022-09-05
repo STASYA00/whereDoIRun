@@ -85,8 +85,33 @@ class ActivityOverview{
     }
 
     getEndCoords(){
-        
         return this.#data.map(d=>d["end_latlng"]).filter(d=>d.length!=0);
+    }
+
+    async getCountries(){
+        if (this.#activities.length==0){
+            this.getActivities();
+        }
+        let countries = new Array();
+        let newcountries = new Array();
+        countries.push(this.#activities[0]);
+        
+        this.#activities.forEach(r=>{
+            let sum = countries.map(c=>vecDiff(c.getStartCoords(), r.getStartCoords())>this.#margin);
+            if(!sum.includes(false)){
+                countries.push(r);
+            }
+    });
+    await Promise.all(countries.slice(0,3).map(async (city) => {
+        try {
+            let c = await this.#detector.make(city);
+            let curNames = newcountries.map(c=>c.name[0]);
+            if (!curNames.includes(c.name[0])){
+                newcountries.push(c);
+            }
+        } catch (error) {}
+      }));
+      return newcountries;
     }
 
     async getAreas(){
@@ -104,7 +129,7 @@ class ActivityOverview{
                 cities.push(r);
             }
     });
-    await Promise.all(cities.slice(0, 3).map(async (city) => {
+    await Promise.all(cities.slice(0,3).map(async (city) => {
         try {
             let c = await this.#detector.make(city);
             let curNames = newcities.map(c=>c.name[0]);
@@ -113,20 +138,6 @@ class ActivityOverview{
             }
         } catch (error) {}
       }));
-
-    // for(let i=0; i<cities.length; i++){ //cities.length
-    //     try {
-    //         let c = await this.#detector.make(cities[i]);
-    //         let curNames = newcities.map(c=>c.name[0]);
-    //         if (!curNames.includes(c.name[0])){
-    //             newcities.push(c);
-    //         }
-            
-    //     } catch (error) {
-    //         continue;
-    //     }
-        
-    // }
         return newcities;
     }
 }

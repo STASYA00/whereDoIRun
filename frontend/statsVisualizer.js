@@ -68,6 +68,35 @@ class statsVisualizer{
     //     .style("stroke-width", "2px")
     //     .style("opacity", 0.7)
     // }
+    static circles(res){
+        this.#init();
+        let margin = 20;
+        let unit = this.width - (margin * res.length-1);
+        res = res.sort(function(a, b){return b-a}).map(r=>r*unit);
+        let s = 0;
+        // let centers = res.map(circle=>{
+        //     r = s + circle * 0.5;
+        //     s = s + circle + margin;
+        //     return r
+        // });
+        
+        // sort from min to max
+        // center positions - prevRad + curRad + margin
+        var node = this.#svg.append("g")
+            .selectAll("circle")
+            .data(res)
+            .enter()
+            .append("circle")
+            .attr("class", "node")
+            .attr("r", function(d){ return d})
+            .attr("cx", function(d){let r = s+d*0.5; s = s+d+margin; return r;})
+            .attr("cy", this.height / 2)
+            .style("fill", this.#colors[0])
+            .style("fill-opacity", 0.8)
+            .attr("stroke", this.#colors[1])
+            .style("stroke-width", 4)
+    }
+
     static circular(res){
         // var res = statsCalculator.streetPercentage(streets);
         // res = [res, 1-res];

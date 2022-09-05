@@ -3,6 +3,14 @@
     <title>
         Where Do I Run?
     </title>
+    <style>
+        body {
+          background-image: url('../assets/bgr/bgr1.jpg');
+          background-repeat: no-repeat;
+          background-attachment: fixed;
+          background-size: 100%;
+        }
+        </style>
 
     <!-- FONTS -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -16,10 +24,12 @@
     integrity="sha512-hoalWLoI8r4UszCkZ5kL8vayOGVae1oxXe/2A4AO6J9+580uKHDO3JdHb7NzwwzK5xr/Fs0W40kiNHxM9vyTtQ=="
     crossorigin=""/>
 
+    <!-- <script type="text/javascript" src="https://code.jquery.com/jquery-1.7.1.min.js"></script> -->
     <script src="https://unpkg.com/leaflet@1.8.0/dist/leaflet.js" integrity="sha512-BB3hKbKWOc9Ez/TAwyWxNXeoV9c1v6FIeYiBieIWkpLjauysF18NzgR1MBNBXf8/KABdlkX68nAhlwcDFLGPCQ==" crossorigin=""></script>
     <script src="https://d3js.org/d3.v4.js"></script>
     <script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script>
     <script src="https://d3js.org/d3-geo-projection.v2.min.js"></script>
+    
 </head>
 
 <body style="background-color: #0e1111;">
@@ -30,22 +40,25 @@
     <!-- COMMENTED FOR TESTING -- UNCOMMENT TO USE STRAVA API -->
     <script src="auth.js"></script>
     <script src="geometryOps.js"></script>
-    <script src="osm.js"></script>
+    
     <script src="params.js"></script>
+    <script src="request.js"></script>
     <script src="sendRequest.js"></script>
     <script src="statsVisualizer.js"></script>
     <script src="street.js"></script>
     <script src="tests.js"></script>
+    <script src="uiCanvas.js"></script>
+    <script src="uiPage.js"></script>
     <script src="user.js"></script>
     <script src="utils.js"></script>
     <script src="zone.js"></script>
     <script src="zoneDetector.js"></script>
     <script src="zoneDrawer.js"></script>
-    <h1 style="color: #fffdfa; font-family: 'Josefin Sans', sans-serif; font-size: 68;">
+    <!-- <h1 style="color: #fffdfa; font-family: 'Josefin Sans', sans-serif; font-size: 68;">
         Where Do I Run?
-    </h1>
+    </h1> -->
     <!-- stravaMain() -->
-    <button onclick="main()">
+    <!-- <button onclick="main()">
         Create Heatmap
     </button>
     <button onclick="auth()">
@@ -53,15 +66,19 @@
     </button>
     <button onclick="testOverview()">
         TEST
-    </button>
-    <!-- <div id="map" style="width: 1000px; height: 600px"></div> --> -->
+    </button> -->
+    
     <script type="text/javascript" src="../assets/data.geojson"></script>
     <script type="text/javascript" src="../assets/södermalm.geojson"></script>
     <script type="text/javascript" src="../assets/run_summary.json"></script>
     <script type="text/javascript" src="../node_modules/polyline-encoded/Polyline.encoded.js"></script>
-    <!-- <script src="map1.js"></script> -->
-    <svg id="map" width="2000" height="2000"></svg>
-    
+    <svg id="map" width="100%" height="100%"></svg>
+    <!-- <div id="rect"></div> -->
     <script src="main.js"></script>
     
+
+    
+    <!-- Photo by <a href="https://unsplash.com/@hunterbryant?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Hunter Bryant</a> on <a href="https://unsplash.com/s/photos/running?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a> -->
+  
 </body>
+

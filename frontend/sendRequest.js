@@ -8,7 +8,6 @@ async function sendRequest(endpoint, method, callback){
                             }).then(response => response.json()).catch((error) => {
                                 console.error('Error:', error);
                             });
-    
     if (callback != undefined) {callback(result);} 
     return result;
 }

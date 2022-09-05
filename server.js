@@ -25,6 +25,7 @@ const bodyParser = require('body-parser');
 const http = require('http');
 const cors = require("cors");
 const { send } = require('process');
+const { v4: uuidv4 } = require('uuid');
 
 const app = express();
 process.env["NODE_TLS_REJECT_UNAUTHORIZED"] = 0;
@@ -38,7 +39,7 @@ app.get('/', (req, res) => {
 
 app.get('/exchange_token', (req, res) => {
   res.send(req.query["code"]);
-  accessToken = req.query["code"];
+  let accessToken = req.query["code"];
   let authUrl = `${baseUrl}/${oauthUrl2}client_id=${clientId}&client_secret=${clientSecret}&code=${accessToken}&grant_type=authorization_code`
   let method = "POST";
   sendRequest(authUrl, method, getMainTokens);
@@ -62,6 +63,16 @@ app.get('/activity/:id', (req, res) => {
   sendRequest(url, "GET", sendBack, res);
 })
 
+app.get('/has_token', (req, res) => {
+  let result = (bearerToken=="initial_value") ? "0" : "1";
+  res.send(result);
+})
+
+app.get('/uuid', (req, res) => {
+  
+  res.send({"ID": uuidv4()});
+})
+
 app.get('/segments/:id', (req, res) => {
   console.log("Param: ", req.params.id);
   let activityReqUrlEndpoint = `segments/${req.params.id}`;
@@ -81,7 +92,6 @@ function getMainTokens(data, res){
 
 function sendBack(data, res){
   res.send(data);
-  //console.log(data);
 }
 
 function sendRequest(url, method, callback, res){

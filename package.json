@@ -9,6 +9,8 @@
     "nodejs": "^0.0.0",
     "nodemon": "^2.0.19",
     "polyline-encoded": "^0.0.9",
-    "process": "^0.11.10"
+    "process": "^0.11.10",
+    
+    "uuid": "^8.3.2"
   }
 }

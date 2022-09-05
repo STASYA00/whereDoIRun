@@ -1,5 +1,9 @@
 class Zone{
 
+    /*
+    Zone coordinates are in [lat, lon] format
+    */
+
     #bbox
     #boundary;
     #buildings;
@@ -26,7 +30,6 @@ class Zone{
             return this.#bbox;
         }
         await this.#selectRelevantArea();
-        
         return this.#bbox;
     }
     async getBoundary(){
@@ -38,16 +41,24 @@ class Zone{
         return this.#boundary;
     }
     async getBuildings(){
-        let r = new OverpassRequest([0, await this.getBoundary()]);
+        
+        this.#boundary = await this.getBoundary();
+        let r = new OverpassRequest([0, this.#boundary.map(c => [c[1], c[0]])]);
         this.#buildings = await r.call();
         this.#buildings = this.#buildings["elements"].filter(r=>r!=undefined)
                                                      .map(r=>r["geometry"]).filter(r=>r!=undefined);
 
         // last filter is for multipolygon; TODO
         this.#buildings = this.#buildings.map(r=>r.map(c=>[c["lon"], c["lat"]]));
-        // console.log(this.#buildings);
+        console.log("buildings", this.#buildings);
         return this.#buildings;
     }
+
+    async getRelativeWidth(){
+        let bb = await this.getBbox();
+        return (bb[2] - bb[0]) / (bb[3] - bb[1]);
+    }
+
     getScore(){
         return this.#score;
     }
@@ -55,7 +66,8 @@ class Zone{
         if (this.#streets.length>0){
             return this.#streets;
         }
-        let r = new OverpassRequest([1, await this.getBoundary()]);
+        this.#boundary = await this.getBoundary();
+        let r = new OverpassRequest([1, await this.#boundary.map(c => [c[1], c[0]])]);
         
         let _streets = await r.call();
         _streets = _streets["elements"]
@@ -77,6 +89,24 @@ class Zone{
     hasBuildings(){
         return this.#buildings.length > 0;
     }
+    async make(){
+        await this.getBbox();
+        return 0;
+    }
+    score(activity){
+        let coords = activity.getCoords();
+        let res = coords.map(c=>intersectionCalc.pointInPolygon(c, this.#boundary)).reduce((prev, next)=>prev+next);
+        this.#addScore(res>0);
+    }
+    scoreAll(activities){
+        activities.forEach(activity => {
+            this.score(activity);
+        });
+    }
+
+    #addScore(value=1){
+        this.#score += value;
+    }
 
     async #selectRelevantArea(){
         let features = await new NominatimRequest(this.name).call();        
@@ -88,10 +118,13 @@ class Zone{
                 features = features.filter(c=>intersectionCalc.pointInPolygon(this.#refCoords, c["geometry"]["coordinates"][0]));
             }
             this.#bbox = features[0]["bbox"];
-            this.#boundary = features[0]["geometry"]["coordinates"][0].map(coords => [coords[1], coords[0]]);
+            //this.#bbox = [this.#bbox[1],this.#bbox[0],this.#bbox[3],this.#bbox[2] ];
+            
+            this.#boundary = features[0]["geometry"]["coordinates"][0];
         }
-        
+        return 0;
     }
+    
 }
 
 class Area extends Zone{
@@ -100,8 +133,14 @@ class Area extends Zone{
     }
 
     async getZones(){
-        let r = new OverpassRequest([3, await this.getBoundary()]);
+        let boundary = await this.getBoundary();
+        //console.log("boundary", boundary);
+        let r = new OverpassRequest([3, boundary.map(c => [c[1], c[0]])]);
         let result = await r.call();  // list of zones
-        return result["elements"].map(el =>new Zone(el["tags"]["name"]));
+        result = result["elements"].map(el =>new Zone(el["tags"]["name"]));
+        if (result.length==0){
+            return [this];
+        }
+        return result;
     }
 }
