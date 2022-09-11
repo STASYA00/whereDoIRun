@@ -163,7 +163,7 @@ class Button extends graphicElement{
         this.content = content;
     }
     getFill(){
-        return "#FAFAFA";
+        return "#E0E0E0" ; //"#FAFAFA";
     }
     getTextFill(){
         return "#000000";
@@ -326,39 +326,55 @@ class DecElement extends graphicElement{
 
 class ProcentBar extends DecElement{
     static height = 4;
+    static frame = 2;
     static width = 320;
+    static offset = 3;
     constructor(params, content){
         super(params);
         this.content = content;
         this.height = ProcentBar.height;
-        this.width = ProcentBar.width * this.content * 0.01;
+        this.width = (ProcentBar.width - (ProcentBar.frame + ProcentBar.offset) * 2)
+                             * this.content * 0.01;
         
     }
     getFill(){
         return "#FC4C02";
     }
 
+    getFullBarCoords(x, y){
+        
+        return [[x - ProcentBar.frame, y - ProcentBar.frame], 
+                [x - ProcentBar.frame, y + this.height + ProcentBar.frame],
+                [x + ProcentBar.width + ProcentBar.frame , y + this.height + ProcentBar.frame],
+                [x + ProcentBar.width + ProcentBar.frame , y], 
+                [x - ProcentBar.frame, y- ProcentBar.frame]];
+    }
+
     make(mainWindow, x, y){
-        if (x==undefined){
-            x = 0;
-        }
-        if (y==undefined){
-            y = 0;
-        }
+        x = (x==undefined) ? 0 : x + ProcentBar.offset + ProcentBar.frame;
+        y = (y==undefined) ? 0 : y - ProcentBar.offset - ProcentBar.frame;
+        
         
         let coords = this.getCoords(x, y);
-        coords = this.formatCoords(coords);
+        let coords1 = this.getFullBarCoords(x, y);
 
+        coords = this.formatCoords(coords);
+        coords1 = this.formatCoords(coords1);
+
+        mainWindow.canvas.append("polygon")
+                .attr("fill", "#FFF")
+                .attr("stroke", "none")
+                .attr("stroke-width", 0)
+                .attr("points", coords1)
+                .attr("id", this.id)
+                .datum(this.datum());
         mainWindow.canvas.append("polygon")
                 .attr("fill", this.getFill())
                 .attr("stroke", "none")
                 .attr("stroke-width", 0)
                 .attr("points", coords)
                 .attr("id", this.id)
-                .datum(this.datum())
-                .on("click", function(d){
-                    d.el.onClick(mainWindow);
-                });
+                .datum(this.datum());
     }
 }
 

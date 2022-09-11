@@ -52,6 +52,7 @@ class CountryPage extends Page{
         this.buttonOffset = 12;
         this.leftMargin = 120;
         this.buttonTop = 100;
+        this.barOffset = 3;
     }
 
     callfront(params){
@@ -79,8 +80,9 @@ class CountryPage extends Page{
                             );
             new ProcentBar(this.id, this.getProcent(element))
                             .make(this.window,
-                                this.window.left + (this.window.canvas.width - this.window.left * 2 - Button.width) * 0.5,
-                                this.window.topMargin + this.buttonTop + ind * (this.buttonOffset + Button.height)+ Button.height,
+                                this.window.left + (this.window.canvas.width - this.window.left * 2 - Button.width) * 0.5 + this.barOffset,
+                                this.window.topMargin + this.buttonTop + 
+                                ind * (this.buttonOffset + Button.height)+ Button.height - this.barOffset - ProcentBar.height,
                                 );
         })
     });
