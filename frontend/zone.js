@@ -192,7 +192,7 @@ class Area extends Zone{
         return this.getBoundary().then(b => new requests.CITY(b.map(c => [c[1], c[0]])).call()
                                     .then(result => {
                                         console.log("getzones", result);
-                                        result = result["elements"].map(el =>new Zone(el["tags"]["name"]));
+                                        result = result["elements"].map(el => new Zone(el["tags"]["name"]));
                                         if (result.length==0){
                                             return [this];
                                         }

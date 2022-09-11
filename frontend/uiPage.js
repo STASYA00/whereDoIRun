@@ -77,6 +77,11 @@ class CountryPage extends Page{
                             this.window.topMargin + this.buttonTop + ind * (this.buttonOffset + Button.height),
                             this.nextPage(), element
                             );
+            new ProcentBar(this.id, this.getProcent(element))
+                            .make(this.window,
+                                this.window.left + (this.window.canvas.width - this.window.left * 2 - Button.width) * 0.5,
+                                this.window.topMargin + this.buttonTop + ind * (this.buttonOffset + Button.height)+ Button.height,
+                                );
         })
     });
     }
@@ -100,10 +105,8 @@ class CityPage extends RegionPage{
         super(w, params);
     }
     callfront(element){
-        console.log("getting zones");
         return element.getZones().then(r => {
-            console.log("got zones", r);
-            return r.map(zone => zone.scoreAll(this.window.overview.getActivities()))
+            return Promise.all(r.map(async(zone) => zone.scoreAll(this.window.overview.getActivities())))
         });
     }
 

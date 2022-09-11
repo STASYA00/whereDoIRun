@@ -325,16 +325,40 @@ class DecElement extends graphicElement{
 }
 
 class ProcentBar extends DecElement{
-    static height = 2;
+    static height = 4;
     static width = 320;
     constructor(params, content){
         super(params);
-        this.height = ProcentBar.height;
-        this.width = ProcentBar.width;
         this.content = content;
+        this.height = ProcentBar.height;
+        this.width = ProcentBar.width * this.content * 0.01;
+        
     }
     getFill(){
         return "#FC4C02";
+    }
+
+    make(mainWindow, x, y){
+        if (x==undefined){
+            x = 0;
+        }
+        if (y==undefined){
+            y = 0;
+        }
+        
+        let coords = this.getCoords(x, y);
+        coords = this.formatCoords(coords);
+
+        mainWindow.canvas.append("polygon")
+                .attr("fill", this.getFill())
+                .attr("stroke", "none")
+                .attr("stroke-width", 0)
+                .attr("points", coords)
+                .attr("id", this.id)
+                .datum(this.datum())
+                .on("click", function(d){
+                    d.el.onClick(mainWindow);
+                });
     }
 }
 
