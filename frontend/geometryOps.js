@@ -97,12 +97,12 @@ static pointInPolygon(point, coords){
         else if ((pointProj[0] > line[0][0]) && (pointProj[0] > line[1][0])){
             result = PROJ_AREAS.PLUS;
         }
-
-        // console.log("RESULT", result);
-        // console.log("Point proj", pointProj );
-        // console.log(line, point);
         return result;
 
+    }
+
+    static calcArea(x1, y1, x2, y2){
+        return Math.abs(x2 - x1) * Math.abs(y2 - y1);
     }
 
     static #projectPointOnLine(line, point){

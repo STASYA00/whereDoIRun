@@ -1,10 +1,10 @@
 class Page{
     #introMargin;
-    #buttonTop;
-    constructor(mainWindow){
+    buttonTop;
+    constructor(mainWindow, params){
         this.window = mainWindow;
         this.id = undefined;
-        this.setID().then(r=>this.make());
+        this.setID().then(r=>this.make(params));
     }
 
     clear(){
@@ -17,7 +17,7 @@ class Page{
             .remove();
     }
 
-    make(){}
+    make(params){}
 
     async setID(){
         return await generateUUID().then(r => {this.id = r; console.log("ID:", this.id);});
@@ -26,45 +26,148 @@ class Page{
 
 class AuthPage extends Page{
     #introMargin;
-    #buttonTop;
+    buttonTop;
     
-    constructor(params){
-        super(params);
+    constructor(w, params){
+        super(w, params);
         this.#introMargin = 60;
-        this.#buttonTop = 220;
+        this.buttonTop = 220;
     }
 
-    make(){
+    make(params){
         
         let el1 = new introText(this.id);
         let el2  = new connectButton(this.id);
         el1.make(this.window, this.window.left + (this.window.canvas.width - this.window.left * 2) * 0.5, 
                             this.window.topMargin + this.#introMargin);
-        el2.make(this.window, Math.ceil(this.window.canvas.width * 0.5), this.#buttonTop);
+        el2.make(this.window, Math.ceil(this.window.canvas.width * 0.5), this.buttonTop);
 
         //this.children = [el1, el2];
     }
 }
 
 class CountryPage extends Page{
-    #introMargin;
-    #buttonTop;
-    constructor(params){
-        super(params);
-        this.#introMargin = 60;
-        this.#buttonTop = 220;
+    constructor(w, params){
+        super(w, params);
+        this.buttonOffset = 12;
+        this.leftMargin = 120;
+        this.buttonTop = 100;
     }
-    make(){
-        
-        let el1 = new CountryButton(this.id);
-        el1.make(this.window, this.window.left + (this.window.canvas.width - this.window.left * 2) * 0.5, 
-                            this.window.topMargin + this.#introMargin);
 
-        //this.children = [el1, el2];
+    callfront(params){
+        return this.window.overview.getCountries();
+    }
+
+    nextPage(){
+        return pageCatalog.REGION;
+    }
+
+    getProcent(element){
+        return Math.round(element.getScore() * 100 / this.window.overview.getActivities().length);
+    }
+    
+    make(params){ 
+        this.callfront(params).then(r=>{
+            console.log(r);
+            r.forEach((element, ind, r) => {
+            console.log(element);  // Area instance
+            new Button(this.id, `${element.name[0]}\t-\t${this.getProcent(element)}%`)
+                    .make(this.window, 
+                            this.window.left + (this.window.canvas.width - this.window.left * 2) * 0.5, 
+                            this.window.topMargin + this.buttonTop + ind * (this.buttonOffset + Button.height),
+                            this.nextPage(), element
+                            );
+        })
+    });
     }
 }
 
+class RegionPage extends CountryPage{
+    constructor(w, params){
+        super(w, params);
+    }
+    callfront(element){
+        return this.window.overview.getAreas(element);
+    }
+
+    nextPage(){
+        return pageCatalog.CITY;
+    }
+}
+
+class CityPage extends RegionPage{
+    constructor(w, params){
+        super(w, params);
+    }
+    callfront(element){
+        console.log("getting zones");
+        return element.getZones().then(r => {
+            console.log("got zones", r);
+            return r.map(zone => zone.scoreAll(this.window.overview.getActivities()))
+        });
+    }
+
+    nextPage(){
+        return pageCatalog.ZONE;
+    }
+}
+
+class ZonePage extends RegionPage{
+    constructor(w, params){
+        super(w, params);
+    }
+    callfront(element){
+        console.log("element", element);
+        return new Promise((res) => res([]));
+        //return element.getZones();
+    }
+
+    nextPage(){
+        return pageCatalog.MAP;
+    }
+}
+
+class MapPage extends RegionPage{
+    constructor(w, params){
+        super(w, params);
+    }
+    callfront(element){
+        return element.getZones();
+    }
+
+    nextPage(){
+        return pageCatalog.MAP;
+    }
+
+    make(params){
+        console.log("map page", params);
+    }
+}
+
+class LoadingPage extends Page{
+    buttonTop;
+    buttonOffset;
+    leftMargin;
+    constructor(params){
+        super(params);
+        this.leftMargin = 160;
+        this.buttonTop = 180;
+    }
+    make(){
+        
+        new LoadingElement(this.id).make(this.window, 
+                                        this.window.left + (this.window.canvas.width - this.window.left * 2) * 0.5, 
+                                        this.window.topMargin + (this.window.bottom - this.window.topMargin - LoadingElement.height) * 0.5);
+        }
+    }
+
+
 const pageCatalog = {
     AUTH : AuthPage,
-    COUNTRY : CountryPage
+    COUNTRY : CountryPage,
+    LOAD: LoadingPage,
+    REGION: RegionPage,
+    CITY: CityPage,
+    ZONE: ZonePage,
+    MAP: MapPage
 }

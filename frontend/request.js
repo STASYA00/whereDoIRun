@@ -44,12 +44,12 @@ class Request {
         let result = await fetch(url, {method: this.method,
                                        headers: {'Content-Type': 'application/json'},
                                     });
+                                                           
         if (result.status == 200){
             result = result.json();
         }
         else if (result.status == 429){
-            await sleep(1000);
-            return await this.#request();
+            return sleep(1000).then(r=>this.#request());
         }
         else if (result.status == 504){
             return await this.#request();
@@ -78,6 +78,9 @@ class NominatimRequest extends Request {
     constructor(params){
         super (params);
         this.url = nominatimUrl;
+    }
+    async call(){
+        return await super.call();
     }
     getQuery(){
         let queryParams = this.params.filter(p => p != undefined).join("+");
@@ -121,46 +124,11 @@ class OverpassRequest extends Request {
     }
 
     getQuery(){
-        // switch (geometryType){
-        //     case (0):
-        //         areaBoundary = areaBoundary.flat(2)
-        //                         .reduce((v1, v2)=>`${v1.toString()}%20${v2.toString()}`);
-        //         tags = ["building"];
-        //         geometries = "wr";
-        //         areaFilter = `poly:%22${areaBoundary}%22`;
-        //         break;
-        //     case (1):
-        //         areaBoundary = areaBoundary.flat(2)
-        //                         .reduce((v1, v2)=>`${v1.toString()}%20${v2.toString()}`);
-        //         tags = ["highway"];
-        //         geometries = "way";
-        //         areaFilter = `poly:%22${areaBoundary}%22`;
-        //         break;
-        //     case(2):
-        //         areaBoundary = areaBoundary.flat(2)
-        //                         .reduce((v1, v2)=>`${v1.toString()},${v2.toString()}`);
-        //         tags = ["boundary=administrative", "type=boundary", "admin_level=7"];
-        //         geometries = "wr";
-        //         areaFilter = `around:10000,${areaBoundary}`;
-        //         output = "center%20bb";
-        //         break;
-        //     case(3):
-        //         areaBoundary = areaBoundary.flat(2).slice(0, 580)
-        //                         .reduce((v1, v2)=>`${v1.toString()},${v2.toString()}`);
-        //         tags = ["boundary=administrative", "type=boundary", "admin_level=9"];
-        //         geometries = "relation";
-        //         areaFilter = `around:20000,${areaBoundary}`;
-        //         //areaFilter = "poly:%2259.3917673%2017.7606917%2059.3887845%2017.762308%2059.3835394%2017.7750968%2059.3703356%2017.7884864%2059.3185291%2018.1203442%2059.3446948%2018.0264649%2059.3972755%2017.8197888%22"
-        //         output = "center";
-        //         break;
-            
-        // }
 
         let tagResult = "[" + this.tags.reduce((prev, next) => prev + "][" + next) + "]";
         
         return `data=[out:json];${this.geometries}${tagResult}(${this.getFilter(this.params)});out%20${this.output};`;
-        // return `data=[out:json];${geometries}${tagResult}(poly:%22${areaBoundary}%22);out%20geom;`;
-    }
+        }
 }
 
 class CountryRequest extends OverpassRequest{
@@ -168,6 +136,14 @@ class CountryRequest extends OverpassRequest{
         super(params);
         this.distance = 10000;
         this.output = "center%20bb";
+    }
+}
+
+class PreciseCountryRequest extends OverpassRequest{
+    constructor(params){
+        super(params);
+        this.distance = 10000;
+        this.output = "center%20geom";
     }
 }
 
@@ -213,16 +189,21 @@ class BuildingRequest extends OverpassRequest{
     }
 }
 
-var FILTERS = {
-    AREA: `(poly:%22${value}%22)`,
-    BB: `(poly:%22${value}%22)`,
-    COORDS: `(around:${value})`,
-}
+// var FILTERS = {
+//     AREA: `(poly:%22${value}%22)`,
+//     BB: `(poly:%22${value}%22)`,
+//     COORDS: `(around:${value})`,
+// }
 
-var requests = {
-    NOMINATIM: 0, 
-    OVERPASS: 1,
-    OSM: 2
+const requests = {
+    NOMINATIM: NominatimRequest, 
+    OVERPASS: OverpassRequest,
+    LOCAL: LocalRequest,
+    COUNTRY: CountryRequest,
+    REGION : RegionRequest,
+    CITY: CityRequest,
+    ROAD: RoadRequest,
+    BUILDING: BuildingRequest 
 }
 
 

@@ -182,3 +182,4 @@ function testLocalStorage(){
     console.log(localStorage.getItem("strava"));
 
 }
+

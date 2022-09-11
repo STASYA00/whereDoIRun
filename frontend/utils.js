@@ -13,10 +13,9 @@ function vecDiff(v1, v2){
     return vectorLength(v1[0] - v2[0], v1[1]-v2[1]);
 }
 
-async function generateUUID(){
+function generateUUID(){
     let req = new LocalRequest("uuid");
-    let result = await req.call().then(r=>r["ID"]);
-    return result;
+    return req.call().then(r=>r["ID"]);
 }
 
 const sleep = ms => new Promise(res => setTimeout(res, ms));

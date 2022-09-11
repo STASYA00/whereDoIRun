@@ -54,12 +54,16 @@ class ActivityOverview{
     #factory;
     #margin;
     #detector;
+    #countryMargin;
     constructor(data){
         this.#data = data;
         this.#factory = new Factory(Activity);
         this.#margin = 0.1;
+        this.#countryMargin = 1;
         this.#activities = new Array();
         this.#detector = new zoneDetector();
+        this.countries = new Array();
+        this.areas = new Array();
     }
 
     test(){
@@ -88,39 +92,49 @@ class ActivityOverview{
         return this.#data.map(d=>d["end_latlng"]).filter(d=>d.length!=0);
     }
 
-    async getCountries(){
+    getCountries(){
+        if (this.countries.length > 0){
+            let c = this.countries;
+            return new Promise ((resolve) => resolve(c));
+        }
         if (this.#activities.length==0){
             this.getActivities();
         }
+        
         let countries = new Array();
-        let newcountries = new Array();
         countries.push(this.#activities[0]);
         
         this.#activities.forEach(r=>{
-            let sum = countries.map(c=>vecDiff(c.getStartCoords(), r.getStartCoords())>this.#margin);
+            let sum = countries.map(c=>vecDiff(c.getStartCoords(), 
+                                               r.getStartCoords()) > this.#countryMargin);
             if(!sum.includes(false)){
                 countries.push(r);
             }
     });
-    await Promise.all(countries.slice(0,3).map(async (city) => {
+    return Promise.all(countries.slice(0, 2).map(async (city) => {
         try {
-            let c = await this.#detector.make(city);
-            let curNames = newcountries.map(c=>c.name[0]);
+            let c = await this.#detector.make(city, requests.COUNTRY);
+            let a = await c.getBoundary().then(r=>{
+                return c.scoreAll(this.#activities)})
+                                         .then(r=>console.log("score:", c.getScore()));
+            let curNames = this.countries.map(c=>c.name[0]);
             if (!curNames.includes(c.name[0])){
-                newcountries.push(c);
+                this.countries.push(c);
             }
         } catch (error) {}
       }));
-      return newcountries;
     }
 
-    async getAreas(){
+    getAreas(country){
+        if (this.areas.length > 0){
+            let c = this.areas;
+            return new Promise ((resolve) => resolve(c));
+        }
         if (this.#activities.length==0){
             this.getActivities();
         }
         
         let cities = new Array();
-        let newcities = new Array();
         cities.push(this.#activities[0]);
         
         this.#activities.forEach(r=>{
@@ -129,16 +143,26 @@ class ActivityOverview{
                 cities.push(r);
             }
     });
-    await Promise.all(cities.slice(0,3).map(async (city) => {
-        try {
-            let c = await this.#detector.make(city);
-            let curNames = newcities.map(c=>c.name[0]);
-            if (!curNames.includes(c.name[0])){
-                newcities.push(c);
-            }
-        } catch (error) {}
-      }));
-        return newcities;
+
+    return country.getBoundary().then(b => {
+        cities = cities.filter(c => intersectionCalc.pointInPolygon([c.getStartCoords()[1], c.getStartCoords()[0]], b));
+        console.log("cities", cities);
+        return cities;
+    }).then(async (cities) =>{
+        await Promise.all(cities.map(async (city) => {
+            try {
+                let c = await this.#detector.make(city, requests.REGION);
+                let a = await c.getBoundary().then(r=>{
+                    return c.scoreAll(this.#activities)})
+                                             .then(r=>console.log("score:", c.getScore()));
+                let curNames = this.areas.map(c=>c.name[0]);
+                if (!curNames.includes(c.name[0])){
+                    this.areas.push(c);
+                }
+            } catch (error) {}
+          }));
+        return this.areas;        
+    });
     }
 }
 

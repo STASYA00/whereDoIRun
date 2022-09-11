@@ -4,30 +4,41 @@ class zoneDetector{
         
     }
 
-    async make(activity) {
-        return await this.#make(activity);
+    make(activity, req) {
+        // returns Promise -> new Area
+        return this.#make(activity, req);
     }
 
-    async #make(activity){
+    #make(activity, req){
         let ourcoords = activity.getStartCoords();
-        //let r = new OverpassRequest([4, ourcoords]);
-        let r = new CountryRequest(ourcoords);
+        let r = new req(ourcoords);
+        return r.call().then(result => {
+            
+            result = result["elements"].filter(r=>this.#withinZone(r, activity));
+            let distances = result.map(r=>this.#getProportionalDistances(r, activity));
+            let mindist = distances.indexOf(Math.min(...distances));
+            result = result[mindist];
+            return new Area(result["tags"]["name"], intersectionCalc.centerFromBounds(result["bounds"]));
+        }
+        );
         
-        let result = await r.call();  // list of cities
-        console.log("countries", result);
+        // let result = await r.call();  // list of cities
         
-        result = result["elements"].filter(r=>this.#withinZone(r, activity));
-        let distances = result.map(r=>this.#getProportionalDistances(r, activity));
+        // result = result["elements"].filter(r=>this.#withinZone(r, activity));
+        // let distances = result.map(r=>this.#getProportionalDistances(r, activity));
         
-        let mindist = distances.indexOf(Math.min(...distances));
-        //let mindist = 0;
-        result = result[mindist];
-        return new Area(result["tags"]["name"], intersectionCalc.centerFromBounds(result["bounds"]));
+        // let mindist = distances.indexOf(Math.min(...distances));
+        // //let mindist = 0;
+        // result = result[mindist];
+        // console.log("total area", intersectionCalc.calcArea(x1, y1, x2, y2))
+        // console.log(result["tags"]["name"], result["bounds"], result);
+        // return new Area(result["tags"]["name"], intersectionCalc.centerFromBounds(result["bounds"]));
     }
 
     #getDistances(zone, activity){
         let b = zone["bounds"];
-        let center = intersectionCalc.centerFromBounds([b["minlon"], b["minlat"], b["maxlon"], b["maxlat"]]);
+        let center = intersectionCalc.centerFromBounds([b["minlon"], b["minlat"], 
+                                                        b["maxlon"], b["maxlat"]]);
         return this.#distance(center, activity.getStartCoords()) + this.#distance(center, activity.getEndCoords());
     }
 
@@ -40,12 +51,12 @@ class zoneDetector{
 
     #distance(zoneCoords, activityCoords){
         if (Object.keys(zoneCoords).includes("lat")){
-            return vectorLength((zoneCoords["lat"] - activityCoords[0]), (zoneCoords["lon"] - activityCoords[1]))
+            return vectorLength((zoneCoords["lat"] - activityCoords[0]), 
+                                (zoneCoords["lon"] - activityCoords[1]))
         }
         else {
             return vectorLength((zoneCoords[0] - activityCoords[0]), (zoneCoords[1] - activityCoords[1]))
         }
-        
     }
 
     #withinZone(zone, activity){

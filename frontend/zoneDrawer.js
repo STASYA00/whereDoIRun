@@ -38,27 +38,40 @@ class canvasOrganizer{
         return 0.5
     }
 
-    async #getDrawer(zone, xMin, width, yMin, height){
-        let widthProportion = this.#setGeoFactor() * await zone.getRelativeWidth();
-        let dims = this.#setBoxProportion(width, widthProportion, height);
-        let drawarea = [xMin, yMin, xMin + dims[0], yMin + dims[1]];
+    #getDrawer(zone, xMin, width, yMin, height){
+
+        return zone.getRelativeWidth().then(relWidth => relWidth * this.#setGeoFactor())
+                                      .then(widthProportion => this.#setBoxProportion(width, widthProportion, height))
+                                      .then(dims => [xMin, yMin, xMin + dims[0], yMin + dims[1]])
+                                      .then(drawarea => zone.getBoundary().then(r=>
+                                        {
+                                            let drawer = new ZoneDrawer(this, drawarea, zone);
+                                            drawer.setScale().then(res => {return drawer; });
+                                        }));
+        // let widthProportion = this.#setGeoFactor() * await zone.getRelativeWidth();
+        // let dims = this.#setBoxProportion(width, widthProportion, height);
+        // let drawarea = [xMin, yMin, xMin + dims[0], yMin + dims[1]];
         
-        let res = await zone.getBoundary();
-
-        let drawer = new ZoneDrawer(this, drawarea, zone);
-        await drawer.setScale();
-
-        return drawer;
+        // return zone.getBoundary().then(r=>{
+        //         let drawer = new ZoneDrawer(this, drawarea, zone);
+        //         drawer.setScale().then(res => {return drawer; })
+        //     });
     }
 
     async firstRow(areas){
-        
+         
         let widths = new Array();
-        for (let a in areas){
-            widths.push(this.#setGeoFactor() * await areas[a].getRelativeWidth());
-        }
-        
+        await Promise.all(areas.map(async (area) => {
+            area.getRelativeWidth().then(relWidth => widths.push(this.#setGeoFactor() * relWidth));
+        }));
+
+        //return areas[a].getRelativeWidth().then(r => )
+        // for (let a in areas){
+        //     widths.push(this.#setGeoFactor() * await areas[a].getRelativeWidth());
+        // }
+        console.log("widths: ", widths);
         let widthProportion = widths.reduce((prev, next)=>prev + next);
+        console.log(widthProportion);
 
         let totalMargin = this.#margin * (areas.length + 1);
         let drawnWidth = this.canvas.width - totalMargin;
@@ -69,15 +82,38 @@ class canvasOrganizer{
         this.#firstH = drawnHeight;
         this.#margin = (this.canvas.width - drawnWidth) / (widths.length + 1);
         
-        let drawX = this.#margin;  // where to start drawing
-        for (let a=0; a<areas.length; a++){
+        let drawXs = [this.#margin];  // where to start drawing
+        drawXs = drawXs + widths.map(w => w * drawnHeight + this.#margin);
+        drawXs = drawXs.map((r, ind, drawXs) => {
+            if (ind > 0){
+                return r + drawXs.slice(0, ind - 1)
+            }
+            else{
+                return r;
+            }
+        });
+        console.log("drawxs", drawXs);
+            //r + drawXs.slice(0, ind - 1))
+        let a = await Promise.all(areas.map(async (area) => {
             let drawarea = [drawX, 0, 
-                drawX + widths[a] * drawnHeight, drawnHeight];
-            let drawer = new AreaDrawer(this, drawarea, areas[a]);
-            await drawer.setScale();
-            drawer.drawArea(await areas[a].getBoundary());
-            drawX += widths[a] * drawnHeight + this.#margin;
-        }
+                drawXs[a] + widths[a] * drawnHeight, drawnHeight];
+            let drawer = new AreaDrawer(this, drawarea, area);
+            drawer.setScale().then(r=>{
+                area.getBoundary().then(b => {
+                    drawer.drawArea(b);
+                });
+            })
+        return true;
+        }));
+        console.log("all promises fullfilled");
+        // for (let a=0; a<areas.length; a++){
+        //     let drawarea = [drawX, 0, 
+        //         drawX + widths[a] * drawnHeight, drawnHeight];
+        //     let drawer = new AreaDrawer(this, drawarea, areas[a]);
+        //     await drawer.setScale();
+        //     drawer.drawArea(await areas[a].getBoundary());
+        //     drawX += widths[a] * drawnHeight + this.#margin;
+        // }
     }
 
     async secondRow(area){
@@ -224,12 +260,17 @@ class Drawer {
             .attr("fill", "#FFFFFF");
     }
 
-    async setScale(){
-        this.#bbox = await this.#zone.getBbox();
+    setScale(){
+        return this.#zone.getBbox().then(  // this.#bbox
+            r => {
+                this.#latScale = d3.scaleLinear().domain([r[0], r[2]])
+                                                .range([this.#drawarea[0], this.#drawarea[2]]); // x axis
+                this.#lonScale = d3.scaleLinear().domain([r[1], r[3]])
+                                                .range([this.#drawarea[3], this.#drawarea[1]]); // y axis
+            }
+        )
         
-        this.#latScale = d3.scaleLinear().domain([this.#bbox[0], this.#bbox[2]]).range([this.#drawarea[0], this.#drawarea[2]]); // x axis
-        this.#lonScale = d3.scaleLinear().domain([this.#bbox[1], this.#bbox[3]]).range([this.#drawarea[3], this.#drawarea[1]]); // y axis
-
+        
     }
 
     onClick(){}

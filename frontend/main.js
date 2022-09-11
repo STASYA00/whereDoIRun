@@ -1,4 +1,5 @@
 function main(){
+    
     let app = new mainCanvas();
     // let l = new LocalRequest();
     // l.call("has_token").then(r=> console.log("result", r))

@@ -1,243 +1,8 @@
-class buttonIcon{
-    static BASE= "../assets/attr/";
-
-    static BUTTONFOLDER = "1.1 connect with strava/"
-    static POWEREDFOLDER = "1.2 strava api logos/powered by Strava/"
-
-    static ORANGE = "orange";
-    static WHITE = "white";
-    static GRAY = "gray";
-
-    static getButton(color){
-        if (color==undefined || color==this.GRAY){
-            color = this.ORANGE;
-        }
-        return this.BASE + this.BUTTONFOLDER + `btn_strava_connectwith_${color}/btn_strava_connectwith_${color}@2x.png`;
-    }
-
-    static getPowered(color){
-        if (color==undefined){
-            color = htis.ORANGE;
-        }
-        return this.BASE + this.POWEREDFOLDER + `pwrdBy_strava_${color}/api_logo_pwrdBy_strava_horiz_${color}.png`;
-    }
-}
-
-class graphicElement{
-    
-    constructor(pageid){
-        this.width=100;
-        this.height=100;
-        this.imPath="";
-        this.imTag = "";
-        this.pageid = pageid;
-        this.id = undefined;
-        this.#setId();
-    }
-
-    #bgr(canvas){
-        /*
-        Function that uses an image as a fill for the graphical element.
-        The image path is defined by imPath variable.
-        Reference:
-        https://stackoverflow.com/questions/19033034/can-i-use-images-as-the-background-rectangles-for-d3-treemaps
-        */
-        canvas.append("defs")
-            .append("pattern")
-                .attr("id", this.imTag)
-                .attr('width', 1)
-                .attr('height', 1)
-            .append("image")
-                .attr("xlink:href", this.imPath)
-                .attr('width', this.width)
-                .attr('height', this.height);
-    }
-
-    datum(mainWindow){
-        return {"el": this,
-                "mainWindow": mainWindow,
-                "pageid": this.pageid
-            }
-    }
-
-    formatCoords(coords){
-        return coords.filter(c=>c!=undefined)
-                    .map(c=>[`${c[0].toString()},${c[1].toString()}`])
-                    .join(",");
-        }
-
-    #setId(){
-        if (this.id==undefined){
-            generateUUID().then(r=>this.id = r);
-        }
-    }
-
-
-    getCoords(x, y){
-        /*
-        Function that maps the element to its position on the canvas.
-        Default: (x, y) is considered left top angle of the element
-        */
-        return [[x, y], [x, y + this.height],[x + this.width, y + this.height],[x + this.width, y], [x, y]];
-    }
-
-    getFill(){
-        return `url(#${this.imTag})`;
-    }
-
-    onClick(){
-        /*
-        Function that defines what happens if the element is clicked.
-        */
-    }
-
-    make(mainWindow, x, y){
-        
-        if (x==undefined){
-            x = 0;
-        }
-        else{
-            x = x - this.width * 0.5;
-        }
-        if (y==undefined){
-            y = 0;
-        }
-        
-        let coords = this.getCoords(x, y);
-        coords = this.formatCoords(coords);
-        
-        this.#bgr(mainWindow.canvas);
-
-        mainWindow.canvas.append("polygon")
-            .attr("fill", this.getFill())
-            .attr("points", coords)
-            .attr("id", this.id)
-            .datum(this.datum())
-            .on("click", function(d){
-                d.el.onClick(mainWindow);
-             });
-    }
-}
-
-class connectButton extends graphicElement{
-    constructor(params){
-        super(params);
-        this.height = 48;
-        this.width = 193;
-        this.imPath = buttonIcon.getButton(buttonIcon.ORANGE);
-        this.imTag = "stravaConnect";
-    }
-    
-    onClick(mainWindow){
-        let m = 50;  // margin by which the window is larger than the canvas
-        auth(mainWindow.left - m, mainWindow.top - m, 
-            (mainWindow.left+ m) * 2, (mainWindow.top + m) * 2)
-                    .then(res => mainWindow.children.filter(r=>r.id==this.pageid)
-                                                    .forEach(element => {
-                                                        element.clear();
-                                                    }))
-                    .then(r=>sendRequest("activities", "GET")
-                                .then(r=>new ActivityOverview(r))
-                                .then(r=>r.getCountries()
-                                    .then(r=>console.log("countries", r))));
-        mainWindow.makePage(pageCatalog.COUNTRY);    
-    }
-        
-}
-
-class CountryButton extends graphicElement{
-    constructor(params){
-        super(params);
-        this.height = 40;
-        this.width = 320;
-    }
-    getFill(){
-        return "#FAFAFA";
-    }
-
-    make(mainWindow, x, y){
-        
-        if (x==undefined){
-            x = 0;
-        }
-        else{
-            x = x - this.width * 0.5;
-        }
-        if (y==undefined){
-            y = 0;
-        }
-        
-        let coords = this.getCoords(x, y);
-        coords = this.formatCoords(coords);
-
-        mainWindow.canvas.append("polygon")
-                .attr("fill", this.getFill())
-                .attr("stroke", "none")
-                .attr("stroke-width", 0)
-                .attr("points", coords)
-                .attr("id", this.id)
-                .datum(this.datum())
-                .on("click", function(d){
-                    d.el.onClick(mainWindow);
-                });
-        mainWindow.canvas.append("text")
-                .text("Country")
-                .attr("x", x + this.width * 0.5)
-                .attr("y", y + this.height * 0.5)
-                .attr("text-anchor", "middle")
-                .attr("fill", "#000000")
-                .datum(this.datum())
-             ;
-    }
-}
-
-class creditText extends graphicElement{
-    
-    constructor(params){
-        super(params);
-        this.width = 100;
-        this.height = 19;
-        this.imPath = buttonIcon.getPowered(buttonIcon.ORANGE);
-        this.imTag = "stravaPowered";
-    }
-    getCoords(x, y){
-        x = x + this.width * 0.5;
-        y = y - this.height * 0.5;
-        return [[x, y], [x, y + this.height], 
-                [x + this.width, y + this.height], 
-                [x + this.width, y], [x, y]];
-    }
-}
-
-class introText extends graphicElement{
-    
-    constructor(params){
-        super(params);
-        this.content = ["Tired of running same routes over and over again?", 
-                        "Discover how much you explored each city area!"];
-    }
-
-    make(mainWindow, x, y){
-        mainWindow.canvas.append("text")
-                .text(this.content[0])
-                .attr("x", x)
-                .attr("y", y)
-                .attr("text-anchor", "middle")
-                .attr("fill", "#000000")
-                .datum(this.datum())
-            .append("tspan")
-                .attr("x", x)
-                .attr("y", y + 20)
-                .attr("text-anchor", "middle")
-                .text(this.content[1])
-                .datum(this.datum());
-    }
-}
-
 class mainCanvas{
 
     
     #creditMargin;
+    #loadingpage;
 
     constructor(){
         this.topMargin = 100;
@@ -263,6 +28,8 @@ class mainCanvas{
                         .map(c=>[`${c[0].toString()},${c[1].toString()}`])
                         .join(",");
         this.#setID().then(r=>this.make());
+        this.curInd = 0;
+        this.#loadingpage = undefined; 
     }
 
     #dropShadow(){
@@ -308,10 +75,24 @@ class mainCanvas{
 
     #footer(){
         new creditText(this.id).make(this, this.left + this.#creditMargin, this.bottom - this.#creditMargin);
+        let backB_centerX = (this.canvas.width - Button.width + BackButton.width) * 0.5;
+        let nextB_centerX = (this.canvas.width + Button.width - NextButton.width) * 0.5;
+        new BackButton(this.id)
+                    .make(this, backB_centerX,
+                        this.bottom - this.#creditMargin - BackButton.height * 2);
+        new NextButton(this.id)
+                        .make(this, nextB_centerX,
+                            this.bottom - this.#creditMargin - NextButton.height * 2);
+        for (let i = 0; i<3; i++){
+            new DecElement(this.id, i).make(
+                this, backB_centerX + BackButton.width * 0.5 + (nextB_centerX - backB_centerX - BackButton.width) * 0.25 * (i+1),
+                    this.bottom - this.#creditMargin - NextButton.height * 1.5 - DecElement.height * 0.5
+            );
+        }
     }
 
-    async #setID(){
-        return await generateUUID().then(r => {this.id = r; console.log("ID canvas:", this.id);});
+    #setID(){
+        return generateUUID().then(r => {this.id = r; console.log("ID canvas:", this.id);});
     }
 
     base(){
@@ -331,36 +112,62 @@ class mainCanvas{
 
     clear(){
         this.children.forEach(child => child.clear());
+        //this.stoploading();
     }
 
     isAuthorized(){
-        let l = new LocalRequest("has_token");
+        let l = new requests.LOCAL("has_token");
         return l.call();
+    }
+
+    loading(){
+        this.#loadingpage.make();
+        console.log("loading");
+    }
+
+    stoploading(){
+        this.#loadingpage.clear();
+    }
+
+    #initLoading(){
+        this.#loadingpage = new pageCatalog.LOAD(this);
+        this.#loadingpage.clear();
+        
     }
 
     makeOverview(){
         if (this.overview!=undefined){
             return this.overview;
         }
-        return sendRequest("activities", "GET").then(r=>new ActivityOverview(r));
+        let l = new requests.LOCAL("activities");
+        return l.call().then(r=>new ActivityOverview(r));
+        
     }
 
-    makePage(page){
+    makePage(page, params){
         this.clear();
-        let p = new page(this);
+        let p = new page(this, params);
         this.children.push(p);
+        this.curInd += 1;
     }
 
     async make(){
-        
         this.base();
+        //this.#initLoading();
         this.isAuthorized().then(r =>{
             if (r == "0"){
                 this.makePage(pageCatalog.AUTH);
             }
             else{
-                this.makeOverview().then(r=>this.overview = r)
-                                   .then(r => this.makePage(pageCatalog.COUNTRY));
+                
+                //this.loading();
+                this.makeOverview().then(r=>{
+                                        this.overview = r; 
+                                        return this.overview.getCountries();
+                                    })
+                                   .then(r => {
+                                    this.makePage(pageCatalog.COUNTRY)
+                                });
                 
             }
         });            
