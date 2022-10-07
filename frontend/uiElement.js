@@ -146,19 +146,14 @@ class connectButton extends graphicElement{
                                                     }))
                     .then(r=> mainWindow.makeOverview()
                             .then( r => {
-                                console.log("overview,", r);
+                                
                                 mainWindow.overview = r;
                                 mainWindow.overview.getCountries();
                                 return r;
                             })
                             .then(r=>{
-                                console.log("Country page");
                                 mainWindow.makePage(pageCatalog.COUNTRY);
                             }));
-                    // .then(r=>sendRequest("activities", "GET")
-                    //             .then(r=>new ActivityOverview(r))
-                    //             .then(r=>r.getCountries()
-                    //                 .then(r=>console.log("countries", r))));
             
     }
         
@@ -225,7 +220,6 @@ class Button extends graphicElement{
             .style("fill", "#EEE")
             .attr("stroke", "#000")
             .attr("stroke-width", 1);
-        console.log("DATUM", datum);
         datum.mainWindow.makePage(datum.page, datum.area);
     }
 }
@@ -253,8 +247,6 @@ class BackButton extends Button{
             .style("fill", "#EEE")
             .attr("stroke", "#000")
             .attr("stroke-width", 1);
-        
-        console.log(this.content);
     }
 }
 
@@ -284,8 +276,6 @@ class NextButton extends Button{
             .style("fill", "#EEE")
             .attr("stroke", "#000")
             .attr("stroke-width", 1);
-        
-        console.log(this.content);
     }
 }
 

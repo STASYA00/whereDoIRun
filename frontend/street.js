@@ -73,7 +73,7 @@ class Street{
     }
 
     score(activity){
-        this.#addScore(intersectionCalc.makePolyline(this.#getBufferPolygon(), activity.getCoords()));
+        this.#addScore(geom.makePolyline(this.#getBufferPolygon(), activity.getCoords()));
     }
 }
 

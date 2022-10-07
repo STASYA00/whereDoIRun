@@ -8,7 +8,7 @@ class Zone{
     #boundary;
     #buildings;
     #factory;
-    #refCoords; // center of the bounding box of the area; not necessarily inside the area
+    refCoords; // center of the bounding box of the area; not necessarily inside the area
                 // useful in order to determine whether the nominatim request returns a relevant feature or not
     #score;
     #streets;
@@ -18,7 +18,7 @@ class Zone{
         if (!(name instanceof Array)){
             this.name = [this.name];
         }
-        this.#refCoords = refCoords;
+        this.refCoords = refCoords;
         this.#bbox = new Array();
         this.#boundary = new Array();
         
@@ -38,12 +38,9 @@ class Zone{
         // returns a Promise
         if (this.#boundary.length>0){
             let b = this.#boundary;
-            //console.log("BOUNDARY EXISTS");
             return new Promise((resolve) =>resolve(b));
         }
         return this.#selectRelevantArea().then(r => { 
-            //console.log("selected relevant area");
-            //console.log("BOUNDARY DOES NOT EXIST");
             return this.#boundary;
         });
     }
@@ -60,9 +57,9 @@ class Zone{
         }).then(r=>{return this.#buildings;});
     }
 
-    async getRelativeWidth(){
-        let bb = await this.getBbox();
-        return (bb[2] - bb[0]) / (bb[3] - bb[1]);
+    getRelativeWidth(){
+        let w_km = geom.degrees_to_km_h(this.refCoords[1]);
+        return this.getBbox().then(bb => (bb[2] - bb[0]) * w_km / ((bb[3] - bb[1]) * KM_IN_LAT));
     }
 
     getScore(){
@@ -81,7 +78,6 @@ class Zone{
                     .map(r=>r["geometry"]
                         .map((s1, ind, r)=>{
                                 if (ind < r.length-1){
-                                    // console.log([s1, r[ind+1], ind, r.length]);
                                     this.#streets.push(this.#factory.make([s1, r[ind+1]]));
                                 }
                             }
@@ -103,7 +99,7 @@ class Zone{
         let coords = activity.getCoords();
         
         this.getBoundary().then(b => {
-        let res = coords.map(c=>intersectionCalc.pointInPolygon(c, b)).reduce((prev, next)=>prev+next)
+        let res = coords.map(c=>geom.pointInPolygon(c, b)).reduce((prev, next)=>prev+next)
         this.#addScore(res>0);
             return true;
         });
@@ -122,7 +118,7 @@ class Zone{
     }
 
     #shortenBoundary(){
-        let max_points = 10;
+        let max_points = 200;
         if (this.#boundary.length > max_points){
             this.#boundary = this.#boundary.filter((v, i) => i%(Math.round(this.#boundary.length / max_points))==0);
         }
@@ -134,14 +130,13 @@ class Zone{
             return new Promise((resolve) => resolve(true));
         }
         let r = undefined;
-        console.log("SELECT RELEVANT AREA", this.name[0]);
+        
         if (mode == modes.RELEASE){
             r = new requests.NOMINATIM(this.name);
         }
         else {
             
             let zone_token = "stadsdelsområde";
-            console.log(this.name[0].slice(this.name[0].length-zone_token.length, this.name[0].length));
             if (this.name[0] == "Sverige"){
                 r = new requests.TEST_COUNTRIES();
             }
@@ -163,8 +158,7 @@ class Zone{
                                 .filter(f => f["properties"]["category"]=="boundary");
                         
                         if (features.length > 0){
-                            console.log("features", features, this.#refCoords);
-                            if (this.#refCoords!=undefined){
+                            if (this.refCoords!=undefined){
                                 // for multipolygon can be the index of the largest area instead of 0
                                 
                                 let features_ = features.filter(c=>{
@@ -172,10 +166,10 @@ class Zone{
                                         let indices = c["geometry"]["coordinates"].map(r => r[0].length);
                                         let ind = indices.indexOf(Math.max(...indices));
                                         //let ind = 0; // TODO: find the longest array
-                                        return intersectionCalc.pointInPolygon(this.#refCoords, c["geometry"]["coordinates"][ind][0]);
+                                        return geom.pointInPolygon(this.refCoords, c["geometry"]["coordinates"][ind][0]);
                                     }
                                     else {
-                                        return intersectionCalc.pointInPolygon(this.#refCoords, c["geometry"]["coordinates"][0]);
+                                        return geom.pointInPolygon(this.refCoords, c["geometry"]["coordinates"][0]);
                                     }
                                     
                                 }); 

@@ -20,7 +20,9 @@ class Page{
     make(params){}
 
     async setID(){
-        return await generateUUID().then(r => {this.id = r; console.log("ID:", this.id);});
+        return await generateUUID().then(r => {this.id = r; 
+            //console.log("ID:", this.id);
+        });
     }
 }
 
@@ -71,9 +73,8 @@ class CountryPage extends Page{
     make(params){ 
         
         this.callfront(params).then(r=>{
-            console.log(r);
             r.forEach((element, ind, r) => {
-            console.log(element);  // Area instance
+            // element is an Area instance
             new Button(this.id, `${element.name[0]}\t-\t${this.getProcent(element)}%`)
                     .make(this.window, 
                             this.window.left + (this.window.canvas.width - this.window.left * 2) * 0.5, 
@@ -113,21 +114,19 @@ class CityPage extends RegionPage{
         
         return element.getZones()
             .then(async(r) => {
-            let res = await Promise.all(r.map(async (zone) => {
+            let _ = await Promise.all(r.map(async (zone) => {
                 return zone.scoreAll(this.window.overview.getActivities())
                 .then(r =>{
                         console.log("zone scored", zone.getScore());
                         return zone;})
             }));
-            console.log(r);
             return r;
-        
         });
         };
     
 
     nextPage(){
-        return pageCatalog.ZONE;
+        return pageCatalog.MAP;
     }
 }
 
@@ -136,7 +135,6 @@ class ZonePage extends RegionPage{
         super(w, params);
     }
     callfront(element){
-        console.log("element", element);
         return new Promise((res) => res([]));
         //return element.getZones();
     }
@@ -147,19 +145,52 @@ class ZonePage extends RegionPage{
 }
 
 class MapPage extends RegionPage{
+    #margin;
     constructor(w, params){
         super(w, params);
+        this.#margin = 30;
     }
     callfront(element){
-        return element.getZones();
+        return new Promise((res) => res([]));
     }
 
     nextPage(){
         return pageCatalog.MAP;
     }
 
-    make(params){
-        console.log("map page", params);
+    make(zone){
+        
+        let w = this.window.canvas.width - 2 * this.window.left - 2 * this.#margin;
+        let h = this.window.canvas.height - this.window.top - this.window.bottom - 2 * this.#margin - 
+                                             this.window.creditMargin - BackButton.height * 2;
+        let x1 = this.window.left + this.#margin;
+        let y1 = this.window.top + this.#margin;
+
+        zone.getRelativeWidth().then(proportion => {
+            if (proportion > w * 1.0 / h){
+                // width is larger than the default; the width is kept, the height is adjusted
+                h = w * 1.0 / proportion;
+            }
+            else{
+                // height is larger than it is supposed to be; height is kept, adjusting the width
+                w = proportion * 1.0 * h;
+                x1 = this.window.left + 0.5 * (this.window.canvas.width - 2 * this.window.left - w);
+                
+            }
+            
+            return "";
+        }).then(r => {
+            
+            let drawer = new ZoneDrawer(this.window, [x1, y1, x1 + w, y1 + h], zone);
+            drawer.setScale();
+            zone.getBoundary().then(b => {
+                drawer.drawArea(b, "#0000FF", zone);
+                drawer.drawLines()
+            });
+
+        })
+        
+        
     }
 }
 

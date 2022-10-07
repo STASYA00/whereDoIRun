@@ -1,7 +1,5 @@
 class mainCanvas{
 
-    
-    #creditMargin;
     #loadingpage;
 
     constructor(){
@@ -10,7 +8,7 @@ class mainCanvas{
         this.id = undefined;
         this.overview = undefined;
         this.children = [];
-        this.#creditMargin = 20;
+        this.creditMargin = 20;
 
         this.canvas = d3.select("svg").append("svg");
         this.canvas.width = window.innerWidth,
@@ -75,19 +73,19 @@ class mainCanvas{
     }
 
     #footer(){
-        new creditText(this.id).make(this, this.left + this.#creditMargin, this.bottom - this.#creditMargin);
+        new creditText(this.id).make(this, this.left + this.creditMargin, this.bottom - this.creditMargin);
         let backB_centerX = (this.canvas.width - Button.width + BackButton.width) * 0.5;
         let nextB_centerX = (this.canvas.width + Button.width - NextButton.width) * 0.5;
         new BackButton(this.id)
                     .make(this, backB_centerX,
-                        this.bottom - this.#creditMargin - BackButton.height * 2);
+                        this.bottom - this.creditMargin - BackButton.height * 2);
         new NextButton(this.id)
                         .make(this, nextB_centerX,
-                            this.bottom - this.#creditMargin - NextButton.height * 2);
+                            this.bottom - this.creditMargin - NextButton.height * 2);
         for (let i = 0; i<3; i++){
             new DecElement(this.id, i).make(
                 this, backB_centerX + BackButton.width * 0.5 + (nextB_centerX - backB_centerX - BackButton.width) * 0.25 * (i+1),
-                    this.bottom - this.#creditMargin - NextButton.height * 1.5 - DecElement.height * 0.5
+                    this.bottom - this.creditMargin - NextButton.height * 1.5 - DecElement.height * 0.5
             );
         }
     }

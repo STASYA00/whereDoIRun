@@ -134,7 +134,7 @@ function testIntersectionControl(){
     let r = L.rectangle([[0,0],[100,100]]);
     
     let l = [[20,20],[50,50], [180,80]];
-    let c = new intersectionCalc();
+    let c = new geom();
     console.log(c.makePolyline(r, l));
     
 }

@@ -136,7 +136,6 @@ class ActivityOverview{
             }
         } catch (error) {}
       })).then(r => {
-        console.log("countries", this.countries);
         return this.countries; }));
     };
 
@@ -160,7 +159,7 @@ class ActivityOverview{
     });
 
     return country.getBoundary().then(b => {
-        cities = cities.filter(c => intersectionCalc.pointInPolygon([c.getStartCoords()[1], c.getStartCoords()[0]], b));
+        cities = cities.filter(c => geom.pointInPolygon([c.getStartCoords()[1], c.getStartCoords()[0]], b));
         return cities;
     }).then(async (cities) =>{
         await Promise.all(cities.map(async (city) => {

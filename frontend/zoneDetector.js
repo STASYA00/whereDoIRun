@@ -18,14 +18,14 @@ class zoneDetector{
             let distances = result.map(r=>this.#getProportionalDistances(r, activity));
             let mindist = distances.indexOf(Math.min(...distances));
             result = result[mindist];
-            return new Area(result["tags"]["name"], intersectionCalc.centerFromBounds(result["bounds"]));
+            return new Area(result["tags"]["name"], geom.centerFromBounds(result["bounds"]));
         }
         );
     }
 
     #getDistances(zone, activity){
         let b = zone["bounds"];
-        let center = intersectionCalc.centerFromBounds([b["minlon"], b["minlat"], 
+        let center = geom.centerFromBounds([b["minlon"], b["minlat"], 
                                                         b["maxlon"], b["maxlat"]]);
         return this.#distance(center, activity.getStartCoords()) + this.#distance(center, activity.getEndCoords());
     }
@@ -55,7 +55,7 @@ class zoneDetector{
         let c = activity.getCoords()[0];
 
         return d3.polygonContains(r, [c[0], c[1]]);
-        // return intersectionCalc.makePolyline(r, activity.getCoords());
+        // return geom.makePolyline(r, activity.getCoords());
     }
 
     

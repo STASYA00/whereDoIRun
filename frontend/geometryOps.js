@@ -1,4 +1,4 @@
-class intersectionCalc{
+class geom{
     // #controller
     constructor(){
         // this.#controller = new positionController();
@@ -122,6 +122,10 @@ static pointInPolygon(point, coords){
         let y = y1 - k * (x1 - x);
         return [x, y];
     }
+
+    static degrees_to_km_h(lat){
+        return KM_IN_LAT * Math.cos(Math.PI * lat / 180.0);
+    }
 }
 
 // class positionController{
@@ -146,3 +150,6 @@ const PROJ_AREAS = {
     MID: 1,
     PLUS: 2
 }
+
+const KM_IN_LAT = 111;
+
