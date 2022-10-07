@@ -14,6 +14,7 @@ class geom{
         }
 
     static makePolyline(rect, polyline){
+        let t1 = new Date().getTime();
         let sides = rect.getLatLngs()[0].map(el => [el["lat"], el["lng"]]);
         sides.push(sides[0]);
         let res = new Array();
@@ -26,6 +27,7 @@ class geom{
             res.push(_res);
             });
         });
+        let t2 = new Date().getTime();
         return res.reduce((prev, curr) => prev + curr) > 0;
         }
     

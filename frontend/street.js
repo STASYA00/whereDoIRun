@@ -36,6 +36,7 @@ class Street{
                     D = (x1+nx2, y1+ny2)
 
         */
+       
         if (offset==undefined){
             offset = this.#defaultOffset;
         }
@@ -61,7 +62,10 @@ class Street{
     }
 
     #getBufferPolygon(){
-        return L.polygon(this.getBuffer())
+        let poly = this.getBuffer();
+        let r = L.polygon(poly);
+        
+        return r;
     }
 
     getScore(){

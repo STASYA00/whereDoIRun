@@ -50,6 +50,7 @@ class Activity{
 
 class ActivityOverview{
     #activities;
+    #activity_limit;
     #data;
     #factory;
     #margin;
@@ -64,6 +65,7 @@ class ActivityOverview{
         this.#detector = new zoneDetector();
         this.countries = new Array();
         this.areas = new Array();
+        this.#activity_limit = undefined;
     }
 
     test(){
@@ -79,7 +81,10 @@ class ActivityOverview{
 
     getActivities(){
         if (this.#activities.length==0){
-            this.#activities = this.#data.slice(0, 15)
+            if (this.#activity_limit==undefined){
+                this.#activity_limit = this.#data.length;
+            }
+            this.#activities = this.#data.slice(0, this.#activity_limit)
                                     .filter(d=>d["map"]["summary_polyline"]!=null)
                                     .map(d=>this.#factory.make(d));
         }

@@ -25,6 +25,7 @@ class Zone{
         this.#factory = new Factory(Street);
         this.#score = 0;
         this.#streets = new Array();
+        this.#buildings = new Array();
         
     }
     getBbox(){
@@ -45,16 +46,29 @@ class Zone{
         });
     }
     getBuildings(){
+        if (this.#buildings.length>0){
+            return new Promise ((res) => res(this.#buildings));
+        }
         
         return this.getBoundary().then(b =>{
-            let r = new OverpassRequest([0, b.map(c => [c[1], c[0]])]);
-            r.call().then(buildings =>{
+            let l = undefined;
+            if (mode==modes.RELEASE){
+                l = requests.BUILDING;
+            }
+            else{
+                // TODO: change to test
+                l = requests.BUILDING;
+            }
+            return new l(b.map(c => [c[1], c[0]])).call().then(buildings => {
                 this.#buildings = buildings["elements"].filter(r=>r!=undefined)
                                                        .map(r=>r["geometry"])
                                                        .filter(r=>r!=undefined)
                                                        .map(r=>r.map(c=>[c["lon"], c["lat"]]));
-            }).then(r=>{return this.#buildings;});
-        }).then(r=>{return this.#buildings;});
+                return this.#buildings;
+            });
+            console.log(this.#buildings);
+            return this.#buildings;
+        });
     }
 
     getRelativeWidth(){
@@ -65,25 +79,32 @@ class Zone{
     getScore(){
         return this.#score;
     }
-    async getStreets(){
+    getStreets(){
         if (this.#streets.length>0){
-            return this.#streets;
+            return new Promise ((res) => res(this.#streets));
         }
-        this.#boundary = await this.getBoundary();
-        let r = new OverpassRequest([1, await this.#boundary.map(c => [c[1], c[0]])]);
-        
-        let _streets = await r.call();
-        _streets = _streets["elements"]
-                    .filter(r=>r!=undefined)
-                    .map(r=>r["geometry"]
-                        .map((s1, ind, r)=>{
-                                if (ind < r.length-1){
-                                    this.#streets.push(this.#factory.make([s1, r[ind+1]]));
-                                }
+        return this.getBoundary().then(r => {this.#boundary = r; return this.#boundary})
+                          .then(r => {
+                            let l = undefined;
+                            if (mode==modes.RELEASE){
+                                l = requests.ROAD;
                             }
-                        ));
-                        
-        return this.#streets;
+                            else{
+                                // TODO: change to test
+                                l = requests.TEST_SODER_STREETS;
+                            }
+                            return new l(r.map(c => [c[1], c[0]])).call().then(streets =>{  
+                                                              
+                                streets = streets["elements"].filter(r=>r!=undefined)
+                                                .map(r=>r["geometry"].map((s1, ind, r)=>{
+                                                    if (ind < r.length-1){
+                                                        this.#streets.push(this.#factory.make([s1, r[ind+1]]));
+                                                    }
+                                                }
+                                            ));
+                                            return this.#streets
+                            })
+                          })
     }
     hasStreets(){
         return this.#streets.length > 0;

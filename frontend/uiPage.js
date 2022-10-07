@@ -160,6 +160,8 @@ class MapPage extends RegionPage{
 
     make(zone){
         
+        let max_score = 0;
+        let min_score = 4;
         let w = this.window.canvas.width - 2 * this.window.left - 2 * this.#margin;
         let h = this.window.canvas.height - this.window.top - this.window.bottom - 2 * this.#margin - 
                                              this.window.creditMargin - BackButton.height * 2;
@@ -175,22 +177,62 @@ class MapPage extends RegionPage{
                 // height is larger than it is supposed to be; height is kept, adjusting the width
                 w = proportion * 1.0 * h;
                 x1 = this.window.left + 0.5 * (this.window.canvas.width - 2 * this.window.left - w);
-                
             }
-            
             return "";
         }).then(r => {
-            
             let drawer = new ZoneDrawer(this.window, [x1, y1, x1 + w, y1 + h], zone);
             drawer.setScale();
             zone.getBoundary().then(b => {
-                drawer.drawArea(b, "#0000FF", zone);
-                drawer.drawLines()
-            });
-
-        })
-        
-        
+                let dark_mode = "#212121";
+                let light_mode = "#EFEFEF";
+                drawer.drawArea(b, light_mode, zone);
+                zone.getStreets().then(streets => streets.filter(r=>r!=undefined))
+                .then(streets => {
+                    
+                    let activities = this.window.overview.getActivities();
+                    activities.forEach(activity => streets.forEach(street =>{
+                        street.score(activity); // TODO: TAKES LONG TIME
+                    }));
+                    max_score = Math.max(...streets.map(s=>s.getScore()));
+                    return streets;
+                })
+                .then(streets => 
+                    streets.forEach(street => {
+                        // emil mode
+                        let min_color = 84;
+                        let max_color = 227;
+                        
+                        let normalized_value = (max_score - street.getScore()) * 1.0 / max_score;
+                        let value = Math.round(min_color + normalized_value * (max_color - min_color));
+                        value = value.toString(16);
+                         // red mode
+                        min_color = 0;
+                        max_color = 255;
+                        //normalized_value = street.getScore() * 1.0 / max_score;
+                        value = Math.round(min_color + normalized_value * (max_color - min_color));
+                        value = value.toString(16);
+                        // 252 76 2
+                        // trend:
+                        // #a554e3 - purple (84)
+                        // #a5e3ed - turquoise (227)
+                        let light_mode = `#${value}${value}${value}`;
+                        let red_mode = `#${value}2323`;
+                        let red_light_mode = `#ff${value}${value}`;
+                        let black_light_mode = `#${value}${value}${value}`;
+                        let emil_mode = `#a5${value}ed`;
+                        drawer.drawLines(street.coords, black_light_mode)}
+                    ));
+                    let visualize_buildings = false;
+                    if (visualize_buildings == true){
+                        let building_color = "#313131";
+                    let building_light_color = "#AEAEAE";
+                    zone.getBuildings().then(res=>{
+                        return res.filter(r=>r!=undefined).map(r=>drawer.drawArea(r, building_light_color, zone))});
+                    return;
+                    }
+                    return;
+                })
+        }) 
     }
 }
 

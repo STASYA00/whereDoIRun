@@ -285,6 +285,26 @@ class TestSoderRequest extends LocalRequest {
     }
 }
 
+class TestSoderStreetsRequest extends LocalRequest {
+    constructor(params){
+        super (params);
+        this.url = `${webserverUrl}:${port}/test/soder/streets`;;
+    }
+    getQuery(){
+        return "";
+    }
+}
+
+class TestSoderBuildingsRequest extends LocalRequest {
+    constructor(params){
+        super (params);
+        this.url = `${webserverUrl}:${port}/test/soder/buildings`;;
+    }
+    getQuery(){
+        return "";
+    }
+}
+
 const requests = {
     NOMINATIM: NominatimRequest, 
     OVERPASS: OverpassRequest,
@@ -302,6 +322,9 @@ const requests = {
     TEST_ZONES: TestZonesRequest,
     TEST_ZONES_LTD: TestZonesLtdRequest,
     TEST_SODER_BOUNDS: TestSoderRequest,
+
+    TEST_SODER_STREETS: TestSoderStreetsRequest,
+    TEST_SODER_BUILDINGS: TestSoderBuildingsRequest,
 }
 
 

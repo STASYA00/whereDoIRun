@@ -207,3 +207,23 @@ app.get('/test/sodermalm_bounds', (req, res) => {
   res.send(r);
 })
 
+app.get('/test/soder/streets', (req, res) => {
+  /*
+  Test asset that returns a list of cities with their bounding boxes and properties from nominatim API
+  Simulates functionality of a request to get a list of cities within a specific country from overpass API
+  */
+  let rawdata = fs.readFileSync('./assets/soder_streets.json');
+  let r = JSON.parse(rawdata);
+  res.send(r);
+})
+
+app.get('/test/soder/buildings', (req, res) => {
+  /*
+  Test asset that returns a list of cities with their bounding boxes and properties from nominatim API
+  Simulates functionality of a request to get a list of cities within a specific country from overpass API
+  */
+  let rawdata = fs.readFileSync('./assets/soder_buildings.json');
+  let r = JSON.parse(rawdata);
+  res.send(r);
+})
+

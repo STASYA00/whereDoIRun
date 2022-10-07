@@ -215,7 +215,7 @@ class Drawer {
         this.#canvasOrg.canvas.append("polygon")
             .attr("fill", color)
             .style("fill-opacity", 1)
-            .style("stroke-width", 0.5)
+            .style("stroke-width", 0.01)
             .style("stroke", "#FFF")
             .attr("points", coords)
             .datum({
