@@ -139,7 +139,7 @@ class Zone{
             r = new requests.NOMINATIM(this.name);
         }
         else {
-            
+            console.log("12");
             let zone_token = "stadsdelsområde";
             console.log(this.name[0].slice(this.name[0].length-zone_token.length, this.name[0].length));
             if (this.name[0] == "Sverige"){
