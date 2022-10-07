@@ -1,5 +1,10 @@
+let modes = {TEST: 0, 
+    RELEASE: 1};
+const mode = modes.TEST;
+
 function main(){
     
+
     let app = new mainCanvas();
     // let l = new LocalRequest();
     // l.call("has_token").then(r=> console.log("result", r))

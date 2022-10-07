@@ -37,7 +37,6 @@ class intersectionCalc{
         // if 1 side intersects => intersects
         // 
         let res = this.#linesIntersect(line, line1);
-        // console.log("Result", res);
         if (res==false){
             res = this.#lineBetweenSides();
         }
@@ -109,7 +108,6 @@ static pointInPolygon(point, coords){
         /* line : two pairs of coordinates [[x1, y1], [x2,y2]]
            point: two coordinates (x,y)
            */
-        // console.log("project point", line, point);
         let [pointX, pointY] = point;
         let [[x1, y1], [x2, y2]] = line;
         if (x1 == x2){

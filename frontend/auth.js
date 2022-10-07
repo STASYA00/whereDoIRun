@@ -8,7 +8,7 @@ function auth(left=0, top=0, w=500, h=500){
     sendRequest("has_token", "GET", function(){}).then(r => console.log("result", r));
     let w1 = window.open(stravaUrl, "_blank", `location=yes,left=${left},top=${top},height=${h},width=${w},scrollbars=yes,status=yes`);
     console.log(w1);
-    return closeAuth(w1);
+    return new Promise((res) => res(closeAuth(w1)));
 }
 
 async function closeAuth(w){

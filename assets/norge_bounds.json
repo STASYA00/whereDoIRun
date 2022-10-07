@@ -1,0 +1,1575 @@
+{
+    "version": 0.6,
+    "generator": "Overpass API 0.7.58.5 b0c4acbb",
+    "osm3s": {
+        "timestamp_osm_base": "2022-09-17T14:17:40Z",
+        "copyright": "The data included in this document is from www.openstreetmap.org. The data is made available under ODbL."
+    },
+    "elements": [
+
+        {
+            "type": "relation",
+            "id": 2978650,
+            "bounds": {
+                "minlat": -54.6540000,
+                "minlon": -9.6846279,
+                "maxlat": 81.0280176,
+                "maxlon": 34.6889114
+            },
+            "members": [{
+                    "type": "way",
+                    "ref": 708774784,
+                    "role": "outer"
+                },
+                {
+                    "type": "way",
+                    "ref": 315776907,
+                    "role": "outer"
+                },
+                {
+                    "type": "way",
+                    "ref": 43869022,
+                    "role": "outer"
+                },
+                {
+                    "type": "way",
+                    "ref": 43867436,
+                    "role": "outer"
+                },
+                {
+                    "type": "way",
+                    "ref": 748923359,
+                    "role": "outer"
+                },
+                {
+                    "type": "way",
+                    "ref": 980608037,
+                    "role": "outer"
+                },
+                {
+                    "type": "way",
+                    "ref": 748923362,
+                    "role": "outer"
+                },
+                {
+                    "type": "way",
+                    "ref": 980608035,
+                    "role": "outer"
+                },
+                {
+                    "type": "way",
+                    "ref": 748923360,
+                    "role": "outer"
+                },
+                {
+                    "type": "way",
+                    "ref": 748923361,
+                    "role": "outer"
+                },
+                {
+                    "type": "way",
+                    "ref": 27565809,
+                    "role": "outer"
+                },
+                {
+                    "type": "way",
+                    "ref": 4948026,
+                    "role": "outer"
+                },
+                {
+                    "type": "way",
+                    "ref": 60148322,
+                    "role": "outer"
+                },
+                {
+                    "type": "way",
+                    "ref": 178939188,
+                    "role": "outer"
+                },
+                {
+                    "type": "way",
+                    "ref": 642330138,
+                    "role": "outer"
+                },
+                {
+                    "type": "way",
+                    "ref": 642330137,
+                    "role": "outer"
+                },
+                {
+                    "type": "way",
+                    "ref": 642330136,
+                    "role": "outer"
+                },
+                {
+                    "type": "way",
+                    "ref": 642330133,
+                    "role": "outer"
+                },
+                {
+                    "type": "way",
+                    "ref": 642330135,
+                    "role": "outer"
+                },
+                {
+                    "type": "way",
+                    "ref": 642330134,
+                    "role": "outer"
+                },
+                {
+                    "type": "way",
+                    "ref": 642330139,
+                    "role": "outer"
+                },
+                {
+                    "type": "way",
+                    "ref": 44490317,
+                    "role": "outer"
+                },
+                {
+                    "type": "way",
+                    "ref": 50032223,
+                    "role": "outer"
+                },
+                {
+                    "type": "way",
+                    "ref": 765228627,
+                    "role": "outer"
+                },
+                {
+                    "type": "way",
+                    "ref": 28567543,
+                    "role": "outer"
+                },
+                {
+                    "type": "way",
+                    "ref": 765228628,
+                    "role": "outer"
+                },
+                {
+                    "type": "way",
+                    "ref": 519329173,
+                    "role": "outer"
+                },
+                {
+                    "type": "way",
+                    "ref": 519329175,
+                    "role": "outer"
+                },
+                {
+                    "type": "way",
+                    "ref": 519329174,
+                    "role": "outer"
+                },
+                {
+                    "type": "way",
+                    "ref": 765228629,
+                    "role": "outer"
+                },
+                {
+                    "type": "way",
+                    "ref": 765228631,
+                    "role": "outer"
+                },
+                {
+                    "type": "way",
+                    "ref": 28841804,
+                    "role": "outer"
+                },
+                {
+                    "type": "way",
+                    "ref": 1091558428,
+                    "role": "outer"
+                },
+                {
+                    "type": "way",
+                    "ref": 765228655,
+                    "role": "outer"
+                },
+                {
+                    "type": "way",
+                    "ref": 49863813,
+                    "role": "outer"
+                },
+                {
+                    "type": "way",
+                    "ref": 49863812,
+                    "role": "outer"
+                },
+                {
+                    "type": "way",
+                    "ref": 49863811,
+                    "role": "outer"
+                },
+                {
+                    "type": "way",
+                    "ref": 49922124,
+                    "role": "outer"
+                },
+                {
+                    "type": "way",
+                    "ref": 50030573,
+                    "role": "outer"
+                },
+                {
+                    "type": "way",
+                    "ref": 50030571,
+                    "role": "outer"
+                },
+                {
+                    "type": "way",
+                    "ref": 50030549,
+                    "role": "outer"
+                },
+                {
+                    "type": "way",
+                    "ref": 50030553,
+                    "role": "outer"
+                },
+                {
+                    "type": "way",
+                    "ref": 50017906,
+                    "role": "outer"
+                },
+                {
+                    "type": "way",
+                    "ref": 50017913,
+                    "role": "outer"
+                },
+                {
+                    "type": "way",
+                    "ref": 50017912,
+                    "role": "outer"
+                },
+                {
+                    "type": "way",
+                    "ref": 50017911,
+                    "role": "outer"
+                },
+                {
+                    "type": "way",
+                    "ref": 50017909,
+                    "role": "outer"
+                },
+                {
+                    "type": "way",
+                    "ref": 50017910,
+                    "role": "outer"
+                },
+                {
+                    "type": "way",
+                    "ref": 49989259,
+                    "role": "outer"
+                },
+                {
+                    "type": "way",
+                    "ref": 49989260,
+                    "role": "outer"
+                },
+                {
+                    "type": "way",
+                    "ref": 49989261,
+                    "role": "outer"
+                },
+                {
+                    "type": "way",
+                    "ref": 49989254,
+                    "role": "outer"
+                },
+                {
+                    "type": "way",
+                    "ref": 49989086,
+                    "role": "outer"
+                },
+                {
+                    "type": "way",
+                    "ref": 49989093,
+                    "role": "outer"
+                },
+                {
+                    "type": "way",
+                    "ref": 49989091,
+                    "role": "outer"
+                },
+                {
+                    "type": "way",
+                    "ref": 49989255,
+                    "role": "outer"
+                },
+                {
+                    "type": "way",
+                    "ref": 49989253,
+                    "role": "outer"
+                },
+                {
+                    "type": "way",
+                    "ref": 50007626,
+                    "role": "outer"
+                },
+                {
+                    "type": "way",
+                    "ref": 50007630,
+                    "role": "outer"
+                },
+                {
+                    "type": "way",
+                    "ref": 50003840,
+                    "role": "outer"
+                },
+                {
+                    "type": "way",
+                    "ref": 49825226,
+                    "role": "outer"
+                },
+                {
+                    "type": "way",
+                    "ref": 49825237,
+                    "role": "outer"
+                },
+                {
+                    "type": "way",
+                    "ref": 49825233,
+                    "role": "outer"
+                },
+                {
+                    "type": "way",
+                    "ref": 49825238,
+                    "role": "outer"
+                },
+                {
+                    "type": "way",
+                    "ref": 49825221,
+                    "role": "outer"
+                },
+                {
+                    "type": "way",
+                    "ref": 49825249,
+                    "role": "outer"
+                },
+                {
+                    "type": "way",
+                    "ref": 49871899,
+                    "role": "outer"
+                },
+                {
+                    "type": "way",
+                    "ref": 49871896,
+                    "role": "outer"
+                },
+                {
+                    "type": "way",
+                    "ref": 49871832,
+                    "role": "outer"
+                },
+                {
+                    "type": "way",
+                    "ref": 50226498,
+                    "role": "outer"
+                },
+                {
+                    "type": "way",
+                    "ref": 50226502,
+                    "role": "outer"
+                },
+                {
+                    "type": "way",
+                    "ref": 50127446,
+                    "role": "outer"
+                },
+                {
+                    "type": "way",
+                    "ref": 50127453,
+                    "role": "outer"
+                },
+                {
+                    "type": "way",
+                    "ref": 50127452,
+                    "role": "outer"
+                },
+                {
+                    "type": "way",
+                    "ref": 50127447,
+                    "role": "outer"
+                },
+                {
+                    "type": "way",
+                    "ref": 50127519,
+                    "role": "outer"
+                },
+                {
+                    "type": "way",
+                    "ref": 50127513,
+                    "role": "outer"
+                },
+                {
+                    "type": "way",
+                    "ref": 50127510,
+                    "role": "outer"
+                },
+                {
+                    "type": "way",
+                    "ref": 50127521,
+                    "role": "outer"
+                },
+                {
+                    "type": "way",
+                    "ref": 50127520,
+                    "role": "outer"
+                },
+                {
+                    "type": "way",
+                    "ref": 50127463,
+                    "role": "outer"
+                },
+                {
+                    "type": "way",
+                    "ref": 50127546,
+                    "role": "outer"
+                },
+                {
+                    "type": "way",
+                    "ref": 49965195,
+                    "role": "outer"
+                },
+                {
+                    "type": "way",
+                    "ref": 49965194,
+                    "role": "outer"
+                },
+                {
+                    "type": "way",
+                    "ref": 50094901,
+                    "role": "outer"
+                },
+                {
+                    "type": "way",
+                    "ref": 50094903,
+                    "role": "outer"
+                },
+                {
+                    "type": "way",
+                    "ref": 50094902,
+                    "role": "outer"
+                },
+                {
+                    "type": "way",
+                    "ref": 49965193,
+                    "role": "outer"
+                },
+                {
+                    "type": "way",
+                    "ref": 50220277,
+                    "role": "outer"
+                },
+                {
+                    "type": "way",
+                    "ref": 50220278,
+                    "role": "outer"
+                },
+                {
+                    "type": "way",
+                    "ref": 50220279,
+                    "role": "outer"
+                },
+                {
+                    "type": "way",
+                    "ref": 50220280,
+                    "role": "outer"
+                },
+                {
+                    "type": "way",
+                    "ref": 50220276,
+                    "role": "outer"
+                },
+                {
+                    "type": "way",
+                    "ref": 50220282,
+                    "role": "outer"
+                },
+                {
+                    "type": "way",
+                    "ref": 50220281,
+                    "role": "outer"
+                },
+                {
+                    "type": "way",
+                    "ref": 50220275,
+                    "role": "outer"
+                },
+                {
+                    "type": "way",
+                    "ref": 50220284,
+                    "role": "outer"
+                },
+                {
+                    "type": "way",
+                    "ref": 50220285,
+                    "role": "outer"
+                },
+                {
+                    "type": "way",
+                    "ref": 50220286,
+                    "role": "outer"
+                },
+                {
+                    "type": "way",
+                    "ref": 50220287,
+                    "role": "outer"
+                },
+                {
+                    "type": "way",
+                    "ref": 50220288,
+                    "role": "outer"
+                },
+                {
+                    "type": "way",
+                    "ref": 50220290,
+                    "role": "outer"
+                },
+                {
+                    "type": "way",
+                    "ref": 50220289,
+                    "role": "outer"
+                },
+                {
+                    "type": "way",
+                    "ref": 50220292,
+                    "role": "outer"
+                },
+                {
+                    "type": "way",
+                    "ref": 50220291,
+                    "role": "outer"
+                },
+                {
+                    "type": "way",
+                    "ref": 50220283,
+                    "role": "outer"
+                },
+                {
+                    "type": "way",
+                    "ref": 50220293,
+                    "role": "outer"
+                },
+                {
+                    "type": "way",
+                    "ref": 50220294,
+                    "role": "outer"
+                },
+                {
+                    "type": "way",
+                    "ref": 50073370,
+                    "role": "outer"
+                },
+                {
+                    "type": "way",
+                    "ref": 50083222,
+                    "role": "outer"
+                },
+                {
+                    "type": "way",
+                    "ref": 50083225,
+                    "role": "outer"
+                },
+                {
+                    "type": "way",
+                    "ref": 50083220,
+                    "role": "outer"
+                },
+                {
+                    "type": "way",
+                    "ref": 50083255,
+                    "role": "outer"
+                },
+                {
+                    "type": "way",
+                    "ref": 50083254,
+                    "role": "outer"
+                },
+                {
+                    "type": "way",
+                    "ref": 50083256,
+                    "role": "outer"
+                },
+                {
+                    "type": "way",
+                    "ref": 50083236,
+                    "role": "outer"
+                },
+                {
+                    "type": "way",
+                    "ref": 50083266,
+                    "role": "outer"
+                },
+                {
+                    "type": "way",
+                    "ref": 50083267,
+                    "role": "outer"
+                },
+                {
+                    "type": "way",
+                    "ref": 56160570,
+                    "role": "outer"
+                },
+                {
+                    "type": "way",
+                    "ref": 311202082,
+                    "role": "outer"
+                },
+                {
+                    "type": "way",
+                    "ref": 54749533,
+                    "role": "outer"
+                },
+                {
+                    "type": "way",
+                    "ref": 28188776,
+                    "role": "outer"
+                },
+                {
+                    "type": "way",
+                    "ref": 44490319,
+                    "role": "outer"
+                },
+                {
+                    "type": "way",
+                    "ref": 1015118774,
+                    "role": "outer"
+                },
+                {
+                    "type": "way",
+                    "ref": 66962643,
+                    "role": "outer"
+                },
+                {
+                    "type": "way",
+                    "ref": 66962631,
+                    "role": "outer"
+                },
+                {
+                    "type": "way",
+                    "ref": 286811097,
+                    "role": "outer"
+                },
+                {
+                    "type": "way",
+                    "ref": 722351203,
+                    "role": "outer"
+                },
+                {
+                    "type": "way",
+                    "ref": 722351204,
+                    "role": "outer"
+                },
+                {
+                    "type": "way",
+                    "ref": 29356341,
+                    "role": "outer"
+                },
+                {
+                    "type": "way",
+                    "ref": 29356340,
+                    "role": "outer"
+                },
+                {
+                    "type": "way",
+                    "ref": 29356339,
+                    "role": "outer"
+                },
+                {
+                    "type": "way",
+                    "ref": 29356338,
+                    "role": "outer"
+                },
+                {
+                    "type": "way",
+                    "ref": 29356336,
+                    "role": "outer"
+                },
+                {
+                    "type": "way",
+                    "ref": 29505552,
+                    "role": "outer"
+                },
+                {
+                    "type": "way",
+                    "ref": 43042704,
+                    "role": "outer"
+                },
+                {
+                    "type": "way",
+                    "ref": 50083261,
+                    "role": "outer"
+                },
+                {
+                    "type": "way",
+                    "ref": 50083260,
+                    "role": "outer"
+                },
+                {
+                    "type": "way",
+                    "ref": 29505551,
+                    "role": "outer"
+                },
+                {
+                    "type": "way",
+                    "ref": 50083238,
+                    "role": "outer"
+                },
+                {
+                    "type": "way",
+                    "ref": 32058727,
+                    "role": "outer"
+                },
+                {
+                    "type": "way",
+                    "ref": 32058519,
+                    "role": "outer"
+                },
+                {
+                    "type": "way",
+                    "ref": 127417750,
+                    "role": "outer"
+                },
+                {
+                    "type": "way",
+                    "ref": 32060787,
+                    "role": "outer"
+                },
+                {
+                    "type": "way",
+                    "ref": 32060784,
+                    "role": "outer"
+                },
+                {
+                    "type": "way",
+                    "ref": 50096641,
+                    "role": "outer"
+                },
+                {
+                    "type": "way",
+                    "ref": 43036101,
+                    "role": "outer"
+                },
+                {
+                    "type": "way",
+                    "ref": 494171214,
+                    "role": "outer"
+                },
+                {
+                    "type": "way",
+                    "ref": 494228011,
+                    "role": "outer"
+                },
+                {
+                    "type": "way",
+                    "ref": 494228018,
+                    "role": "outer"
+                },
+                {
+                    "type": "way",
+                    "ref": 494214629,
+                    "role": "outer"
+                },
+                {
+                    "type": "way",
+                    "ref": 494214627,
+                    "role": "outer"
+                },
+                {
+                    "type": "way",
+                    "ref": 494214624,
+                    "role": "outer"
+                },
+                {
+                    "type": "way",
+                    "ref": 494171210,
+                    "role": "outer"
+                },
+                {
+                    "type": "way",
+                    "ref": 127445233,
+                    "role": "outer"
+                },
+                {
+                    "type": "way",
+                    "ref": 43036102,
+                    "role": "outer"
+                },
+                {
+                    "type": "way",
+                    "ref": 222477453,
+                    "role": "outer"
+                },
+                {
+                    "type": "way",
+                    "ref": 222485460,
+                    "role": "outer"
+                },
+                {
+                    "type": "way",
+                    "ref": 43542429,
+                    "role": "outer"
+                },
+                {
+                    "type": "way",
+                    "ref": 43542432,
+                    "role": "outer"
+                },
+                {
+                    "type": "way",
+                    "ref": 50220504,
+                    "role": "outer"
+                },
+                {
+                    "type": "way",
+                    "ref": 50220501,
+                    "role": "outer"
+                },
+                {
+                    "type": "way",
+                    "ref": 222479341,
+                    "role": "outer"
+                },
+                {
+                    "type": "way",
+                    "ref": 40695641,
+                    "role": "outer"
+                },
+                {
+                    "type": "way",
+                    "ref": 55740711,
+                    "role": "outer"
+                },
+                {
+                    "type": "way",
+                    "ref": 50220499,
+                    "role": "outer"
+                },
+                {
+                    "type": "way",
+                    "ref": 50220496,
+                    "role": "outer"
+                },
+                {
+                    "type": "way",
+                    "ref": 110019568,
+                    "role": "outer"
+                },
+                {
+                    "type": "way",
+                    "ref": 106934493,
+                    "role": "outer"
+                },
+                {
+                    "type": "way",
+                    "ref": 106934494,
+                    "role": "outer"
+                },
+                {
+                    "type": "way",
+                    "ref": 50220492,
+                    "role": "outer"
+                },
+                {
+                    "type": "way",
+                    "ref": 60541489,
+                    "role": "outer"
+                },
+                {
+                    "type": "way",
+                    "ref": 40690738,
+                    "role": "outer"
+                },
+                {
+                    "type": "way",
+                    "ref": 110199876,
+                    "role": "outer"
+                },
+                {
+                    "type": "way",
+                    "ref": 733803486,
+                    "role": "outer"
+                },
+                {
+                    "type": "way",
+                    "ref": 110199873,
+                    "role": "outer"
+                },
+                {
+                    "type": "way",
+                    "ref": 110199874,
+                    "role": "outer"
+                },
+                {
+                    "type": "way",
+                    "ref": 110199875,
+                    "role": "outer"
+                },
+                {
+                    "type": "way",
+                    "ref": 156976775,
+                    "role": "outer"
+                },
+                {
+                    "type": "way",
+                    "ref": 110226944,
+                    "role": "outer"
+                },
+                {
+                    "type": "way",
+                    "ref": 110226945,
+                    "role": "outer"
+                },
+                {
+                    "type": "way",
+                    "ref": 110226940,
+                    "role": "outer"
+                },
+                {
+                    "type": "way",
+                    "ref": 110250630,
+                    "role": "outer"
+                },
+                {
+                    "type": "way",
+                    "ref": 369930076,
+                    "role": "outer"
+                },
+                {
+                    "type": "way",
+                    "ref": 110226787,
+                    "role": "outer"
+                },
+                {
+                    "type": "way",
+                    "ref": 110226806,
+                    "role": "outer"
+                },
+                {
+                    "type": "way",
+                    "ref": 110226942,
+                    "role": "outer"
+                },
+                {
+                    "type": "way",
+                    "ref": 50284612,
+                    "role": "outer"
+                },
+                {
+                    "type": "way",
+                    "ref": 9502695,
+                    "role": "outer"
+                },
+                {
+                    "type": "way",
+                    "ref": 60476395,
+                    "role": "outer"
+                },
+                {
+                    "type": "way",
+                    "ref": 44449667,
+                    "role": "outer"
+                },
+                {
+                    "type": "way",
+                    "ref": 50282167,
+                    "role": "outer"
+                },
+                {
+                    "type": "way",
+                    "ref": 44447945,
+                    "role": "outer"
+                },
+                {
+                    "type": "way",
+                    "ref": 61232104,
+                    "role": "outer"
+                },
+                {
+                    "type": "way",
+                    "ref": 28533935,
+                    "role": "outer"
+                },
+                {
+                    "type": "way",
+                    "ref": 50158927,
+                    "role": "outer"
+                },
+                {
+                    "type": "way",
+                    "ref": 61232113,
+                    "role": "outer"
+                },
+                {
+                    "type": "way",
+                    "ref": 614208128,
+                    "role": "outer"
+                },
+                {
+                    "type": "way",
+                    "ref": 61232102,
+                    "role": "outer"
+                },
+                {
+                    "type": "way",
+                    "ref": 50160481,
+                    "role": "outer"
+                },
+                {
+                    "type": "way",
+                    "ref": 50163412,
+                    "role": "outer"
+                },
+                {
+                    "type": "way",
+                    "ref": 614053920,
+                    "role": "outer"
+                },
+                {
+                    "type": "way",
+                    "ref": 50164138,
+                    "role": "outer"
+                },
+                {
+                    "type": "way",
+                    "ref": 50083147,
+                    "role": "outer"
+                },
+                {
+                    "type": "way",
+                    "ref": 61232106,
+                    "role": "outer"
+                },
+                {
+                    "type": "way",
+                    "ref": 50081153,
+                    "role": "outer"
+                },
+                {
+                    "type": "way",
+                    "ref": 329613006,
+                    "role": "outer"
+                },
+                {
+                    "type": "way",
+                    "ref": 28512260,
+                    "role": "outer"
+                },
+                {
+                    "type": "way",
+                    "ref": 28678613,
+                    "role": "outer"
+                },
+                {
+                    "type": "way",
+                    "ref": 50709191,
+                    "role": "outer"
+                },
+                {
+                    "type": "way",
+                    "ref": 61232111,
+                    "role": "outer"
+                },
+                {
+                    "type": "way",
+                    "ref": 700814534,
+                    "role": "outer"
+                },
+                {
+                    "type": "way",
+                    "ref": 700814533,
+                    "role": "outer"
+                },
+                {
+                    "type": "way",
+                    "ref": 43566292,
+                    "role": "outer"
+                },
+                {
+                    "type": "way",
+                    "ref": 50584603,
+                    "role": "outer"
+                },
+                {
+                    "type": "way",
+                    "ref": 708774787,
+                    "role": "outer"
+                },
+                {
+                    "type": "way",
+                    "ref": 708774788,
+                    "role": "outer"
+                },
+                {
+                    "type": "way",
+                    "ref": 50584605,
+                    "role": "outer"
+                },
+                {
+                    "type": "way",
+                    "ref": 708774785,
+                    "role": "outer"
+                },
+                {
+                    "type": "way",
+                    "ref": 510306256,
+                    "role": "outer"
+                },
+                {
+                    "type": "way",
+                    "ref": 708774786,
+                    "role": "outer"
+                },
+                {
+                    "type": "way",
+                    "ref": 50709210,
+                    "role": "outer"
+                },
+                {
+                    "type": "way",
+                    "ref": 510306263,
+                    "role": "outer"
+                },
+                {
+                    "type": "way",
+                    "ref": 43566338,
+                    "role": "outer"
+                },
+                {
+                    "type": "way",
+                    "ref": 510306288,
+                    "role": "outer"
+                },
+                {
+                    "type": "way",
+                    "ref": 50709207,
+                    "role": "outer"
+                },
+                {
+                    "type": "way",
+                    "ref": 510306290,
+                    "role": "outer"
+                },
+                {
+                    "type": "way",
+                    "ref": 61232109,
+                    "role": "outer"
+                },
+                {
+                    "type": "way",
+                    "ref": 708774789,
+                    "role": "outer"
+                },
+                {
+                    "type": "way",
+                    "ref": 708774791,
+                    "role": "outer"
+                },
+                {
+                    "type": "way",
+                    "ref": 708774790,
+                    "role": "outer"
+                },
+                {
+                    "type": "way",
+                    "ref": 61232108,
+                    "role": "outer"
+                },
+                {
+                    "type": "way",
+                    "ref": 510306292,
+                    "role": "outer"
+                },
+                {
+                    "type": "way",
+                    "ref": 322111028,
+                    "role": "outer"
+                },
+                {
+                    "type": "way",
+                    "ref": 56185769,
+                    "role": "outer"
+                },
+                {
+                    "type": "way",
+                    "ref": 50035662,
+                    "role": "outer"
+                },
+                {
+                    "type": "way",
+                    "ref": 50032266,
+                    "role": "outer"
+                },
+                {
+                    "type": "way",
+                    "ref": 61232107,
+                    "role": "outer"
+                },
+                {
+                    "type": "way",
+                    "ref": 50032277,
+                    "role": "outer"
+                },
+                {
+                    "type": "way",
+                    "ref": 56185759,
+                    "role": "outer"
+                },
+                {
+                    "type": "way",
+                    "ref": 43868642,
+                    "role": "outer"
+                },
+                {
+                    "type": "way",
+                    "ref": 996936077,
+                    "role": "outer"
+                },
+                {
+                    "type": "way",
+                    "ref": 40984254,
+                    "role": "outer"
+                },
+                {
+                    "type": "way",
+                    "ref": 40984064,
+                    "role": "outer"
+                },
+                {
+                    "type": "way",
+                    "ref": 996936076,
+                    "role": "outer"
+                },
+                {
+                    "type": "way",
+                    "ref": 230390216,
+                    "role": "outer"
+                },
+                {
+                    "type": "way",
+                    "ref": 231394351,
+                    "role": "outer"
+                },
+                {
+                    "type": "way",
+                    "ref": 996936070,
+                    "role": "outer"
+                },
+                {
+                    "type": "way",
+                    "ref": 993393072,
+                    "role": "outer"
+                },
+                {
+                    "type": "way",
+                    "ref": 189509731,
+                    "role": "outer"
+                },
+                {
+                    "type": "way",
+                    "ref": 91165843,
+                    "role": "outer"
+                },
+                {
+                    "type": "way",
+                    "ref": 91159802,
+                    "role": "outer"
+                },
+                {
+                    "type": "way",
+                    "ref": 91166365,
+                    "role": "outer"
+                },
+                {
+                    "type": "way",
+                    "ref": 91165347,
+                    "role": "outer"
+                },
+                {
+                    "type": "way",
+                    "ref": 91164658,
+                    "role": "outer"
+                },
+                {
+                    "type": "node",
+                    "ref": 20981158,
+                    "role": "admin_centre"
+                },
+                {
+                    "type": "node",
+                    "ref": 424297198,
+                    "role": "label"
+                },
+                {
+                    "type": "relation",
+                    "ref": 1059668,
+                    "role": "subarea"
+                },
+                {
+                    "type": "relation",
+                    "ref": 3245620,
+                    "role": "subarea"
+                },
+                {
+                    "type": "relation",
+                    "ref": 2425963,
+                    "role": "subarea"
+                }
+            ],
+            "tags": {
+                "ISO3166-1": "NO",
+                "ISO3166-1:alpha2": "NO",
+                "ISO3166-1:alpha3": "NOR",
+                "ISO3166-1:numeric": "578",
+                "admin_level": "2",
+                "alt_name:eo": "Norvegujo",
+                "alt_name:sma": "Nøørje",
+                "boundary": "administrative",
+                "default_language": "no",
+                "flag": "http://upload.wikimedia.org/wikipedia/commons/d/d9/Flag_of_Norway.svg",
+                "int_name": "Norway",
+                "is_in:continent": "Europe",
+                "name": "Norge",
+                "name:ace": "Norwègia",
+                "name:af": "Noorweë",
+                "name:als": "Norwegen",
+                "name:am": "ኖርዌይ",
+                "name:an": "Noruega",
+                "name:ang": "Norþweg",
+                "name:ar": "النرويج",
+                "name:arc": "ܢܘܪܒܝܓ",
+                "name:arz": "النرويج",
+                "name:ast": "Noruega",
+                "name:ay": "Nurweka",
+                "name:az": "Norveç",
+                "name:ba": "Норвегия",
+                "name:bar": "Norwegn",
+                "name:bat-smg": "Nuorvegėjė",
+                "name:bcl": "Norwey",
+                "name:be": "Нарвегія",
+                "name:be-tarask": "Нарвэгія",
+                "name:bg": "Норвегия",
+                "name:bi": "Norway",
+                "name:bm": "Norwij",
+                "name:bn": "নরওয়ে",
+                "name:bo": "ནོར་ཝེ།",
+                "name:bpy": "নরৱে",
+                "name:br": "Norvegia",
+                "name:bs": "Norveška",
+                "name:bxr": "Норвеги",
+                "name:ca": "Noruega",
+                "name:cdo": "Nò̤-ŭi",
+                "name:ce": "Норвеги",
+                "name:ceb": "Noruwega",
+                "name:chy": "Norway",
+                "name:ckb": "نۆرویژ",
+                "name:co": "Nurvegia",
+                "name:crh": "Norvegiya",
+                "name:cs": "Norsko",
+                "name:csb": "Norweskô",
+                "name:cu": "Норєгъ",
+                "name:cv": "Норвеги",
+                "name:cy": "Norwy",
+                "name:da": "Norge",
+                "name:de": "Norwegen",
+                "name:diq": "Norwec",
+                "name:dsb": "Norwegska",
+                "name:dv": "ނޯވޭ",
+                "name:dz": "ནོ་ཝེ་",
+                "name:ee": "Norway",
+                "name:el": "Νορβηγία",
+                "name:en": "Norway",
+                "name:eo": "Norvegio",
+                "name:es": "Noruega",
+                "name:et": "Norra",
+                "name:eu": "Norvegia",
+                "name:ext": "Noruega",
+                "name:fa": "نروژ",
+                "name:fi": "Norja",
+                "name:fiu-vro": "Norra",
+                "name:fo": "Noregur",
+                "name:fr": "Norvège",
+                "name:frp": "Norvèg·e",
+                "name:frr": "Norweegen",
+                "name:fy": "Noarwegen",
+                "name:ga": "An Iorua",
+                "name:gag": "Norvegiya",
+                "name:gan": "挪威",
+                "name:gd": "Nirribhidh",
+                "name:gl": "Noruega",
+                "name:gn": "Noruega",
+                "name:gu": "નોર્વે",
+                "name:gv": "Norlynn",
+                "name:hak": "Nò-vî",
+                "name:haw": "Nolewai",
+                "name:he": "נורבגיה",
+                "name:hi": "नॉर्वे",
+                "name:hif": "Norway",
+                "name:hr": "Norveška",
+                "name:hsb": "Norwegska",
+                "name:ht": "Nòvèj",
+                "name:hu": "Norvégia",
+                "name:hy": "Նորվեգիա",
+                "name:ia": "Norvegia",
+                "name:id": "Norwegia",
+                "name:ie": "Norvegia",
+                "name:ilo": "Norwéga",
+                "name:io": "Norvegia",
+                "name:is": "Noregur",
+                "name:it": "Norvegia",
+                "name:iu": "ᓄᕐᒋ",
+                "name:iu-Latn": "nurgi",
+                "name:ja": "ノルウェー",
+                "name:jbo": "noreg",
+                "name:jv": "Norwégia",
+                "name:ka": "ნორვეგია",
+                "name:kaa": "Norvegiya",
+                "name:kbd": "Норвегэ",
+                "name:kg": "Norge",
+                "name:kk": "Норвегия",
+                "name:kl": "Norge",
+                "name:kn": "ನಾರ್ವೇ",
+                "name:ko": "노르웨이",
+                "name:koi": "Норвег",
+                "name:krc": "Норвегия",
+                "name:ku": "Norwêc",
+                "name:kv": "Норвегия",
+                "name:kw": "Norgagh",
+                "name:ky": "Норвегия",
+                "name:la": "Norvegia",
+                "name:lad": "Norvejia",
+                "name:lb": "Norwegen",
+                "name:lez": "Норвегия",
+                "name:li": "Noorwege",
+                "name:lij": "Norveggia",
+                "name:lmo": "Nurvegia",
+                "name:ln": "Norvej",
+                "name:lt": "Norvegija",
+                "name:ltg": "Norvegeja",
+                "name:lv": "Norvēģija",
+                "name:mdf": "Норвегие",
+                "name:mg": "Norvezy",
+                "name:mhr": "Норвегий",
+                "name:mi": "Nōwei",
+                "name:mk": "Норвешка",
+                "name:ml": "നോർവെ",
+                "name:mn": "Норвеги",
+                "name:mr": "नॉर्वे",
+                "name:ms": "Norway",
+                "name:mt": "Norveġja",
+                "name:my": "နော်ဝေနိုင်ငံ",
+                "name:myv": "Норвегия Мастор",
+                "name:na": "Norwei",
+                "name:nah": "Noruegia",
+                "name:nan": "Lo̍k-ui-kok",
+                "name:nb": "Norge",
+                "name:nds": "Norwegen",
+                "name:nds-nl": "Noorwegen",
+                "name:ne": "नर्वे",
+                "name:nl": "Noorwegen",
+                "name:nn": "Noreg",
+                "name:no": "Norge",
+                "name:nov": "Norvegia",
+                "name:nrm": "Norouague",
+                "name:oc": "Norvègia",
+                "name:om": "Norway",
+                "name:or": "ନରୱେ",
+                "name:os": "Норвеги",
+                "name:pa": "ਨਾਰਵੇ",
+                "name:pam": "Norwega",
+                "name:pap": "Noruega",
+                "name:pcd": "Norvège",
+                "name:pih": "Norwaii",
+                "name:pl": "Norwegia",
+                "name:pms": "Norvegia",
+                "name:pnb": "ناروے",
+                "name:pnt": "Νορβηγία",
+                "name:ps": "ناروې",
+                "name:pt": "Noruega",
+                "name:qu": "Nurwiga",
+                "name:rm": "Norvegia",
+                "name:rmy": "Norvejiya",
+                "name:rn": "Noruega",
+                "name:ro": "Norvegia",
+                "name:roa-rup": "Norveghia",
+                "name:roa-tara": "Norveggie",
+                "name:ru": "Норвегия",
+                "name:rw": "Noruveje",
+                "name:sa": "नार्वे",
+                "name:sah": "Норвегия",
+                "name:sc": "Norvegia",
+                "name:scn": "Norveggia",
+                "name:sco": "Norawa",
+                "name:se": "Norga",
+                "name:sh": "Norveška",
+                "name:sje": "Vuodna",
+                "name:sk": "Nórsko",
+                "name:sl": "Norveška",
+                "name:sma": "Nöörje",
+                "name:smj": "Vuodna",
+                "name:smn": "Taažâ",
+                "name:sms": "Taarr",
+                "name:so": "Norway",
+                "name:sq": "Norvegjia",
+                "name:sr": "Норвешка",
+                "name:ss": "INoweyi",
+                "name:stq": "Norwegen",
+                "name:su": "Norwégia",
+                "name:sv": "Norge",
+                "name:sw": "Norwei",
+                "name:szl": "Norwegijŏ",
+                "name:ta": "நோர்வே",
+                "name:te": "నార్వే",
+                "name:tet": "Noruega",
+                "name:tg": "Норвегия",
+                "name:th": "ประเทศนอร์เวย์",
+                "name:tk": "Norwegiýa",
+                "name:tl": "Noruwega",
+                "name:tpi": "Nowe",
+                "name:tr": "Norveç",
+                "name:ts": "Norge",
+                "name:tt": "Норвегия",
+                "name:tzl": "Norvexhà",
+                "name:udm": "Норвегия",
+                "name:ug": "نورۋېگىيە",
+                "name:uk": "Норвегія",
+                "name:ur": "ناروے",
+                "name:uz": "Norvegiya",
+                "name:vec": "Norveja",
+                "name:vep": "Norvegii",
+                "name:vi": "Na Uy",
+                "name:vls": "Nôorweegn",
+                "name:vo": "Norgän",
+                "name:wa": "Norvedje",
+                "name:war": "Noruega",
+                "name:wo": "Noorwees",
+                "name:wuu": "挪威",
+                "name:xal": "Ноорскгин Нутг",
+                "name:xmf": "ნორვეგია",
+                "name:yi": "נארוועגיע",
+                "name:yo": "Nọ́rwèy",
+                "name:yue": "挪威",
+                "name:za": "Nozveih",
+                "name:zea": "Noorwegen",
+                "name:zh": "挪威",
+                "name:zu": "INoki",
+                "note": "This relation represents the full country, including its dependencies; different timezones are observed",
+                "official_name": "Kongeriket Norge",
+                "official_name:be": "Каралеўства Нарвегія",
+                "official_name:cs": "Norské království",
+                "official_name:de": "Königreich Norwegen",
+                "official_name:en": "Kingdom of Norway",
+                "official_name:eo": "Reĝlando Norvegio",
+                "official_name:fr": "Royaume de Norvège",
+                "population": "5425270",
+                "population:date": "2022-01-01",
+                "source:population": "wikipedia",
+                "type": "boundary",
+                "wikidata": "Q20",
+                "wikipedia": "no:Norge"
+            }
+        }
+
+    ]
+}

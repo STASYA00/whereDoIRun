@@ -11,7 +11,7 @@ class zoneDetector{
 
     #make(activity, req){
         let ourcoords = activity.getStartCoords();
-        let r = new req(ourcoords);
+        let r = new req(ourcoords); // Overpass request
         return r.call().then(result => {
             
             result = result["elements"].filter(r=>this.#withinZone(r, activity));
@@ -21,18 +21,6 @@ class zoneDetector{
             return new Area(result["tags"]["name"], intersectionCalc.centerFromBounds(result["bounds"]));
         }
         );
-        
-        // let result = await r.call();  // list of cities
-        
-        // result = result["elements"].filter(r=>this.#withinZone(r, activity));
-        // let distances = result.map(r=>this.#getProportionalDistances(r, activity));
-        
-        // let mindist = distances.indexOf(Math.min(...distances));
-        // //let mindist = 0;
-        // result = result[mindist];
-        // console.log("total area", intersectionCalc.calcArea(x1, y1, x2, y2))
-        // console.log(result["tags"]["name"], result["bounds"], result);
-        // return new Area(result["tags"]["name"], intersectionCalc.centerFromBounds(result["bounds"]));
     }
 
     #getDistances(zone, activity){

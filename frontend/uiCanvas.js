@@ -5,6 +5,7 @@ class mainCanvas{
     #loadingpage;
 
     constructor(){
+        
         this.topMargin = 100;
         this.id = undefined;
         this.overview = undefined;
@@ -137,9 +138,16 @@ class mainCanvas{
 
     makeOverview(){
         if (this.overview!=undefined){
-            return this.overview;
+            return new Promise ((res)=>res(this.overview));
         }
-        let l = new requests.LOCAL("activities");
+        let l = undefined;
+        if (mode==modes.RELEASE){
+            l = new requests.LOCAL("activities");
+        }
+        else{
+            l = new requests.LOCAL("test/activities");
+        }
+            
         return l.call().then(r=>new ActivityOverview(r));
         
     }
@@ -155,6 +163,7 @@ class mainCanvas{
         this.base();
         //this.#initLoading();
         this.isAuthorized().then(r =>{
+            console.log("is auth", r);
             if (r == "0"){
                 this.makePage(pageCatalog.AUTH);
             }

@@ -1,0 +1,1998 @@
+{
+  "version": 0.6,
+  "generator": "Overpass API 0.7.58.5 b0c4acbb",
+  "osm3s": {
+    "timestamp_osm_base": "2022-10-07T08:14:40Z",
+    "copyright": "The data included in this document is from www.openstreetmap.org. The data is made available under ODbL."
+  },
+  "elements": [
+
+{
+  "type": "relation",
+  "id": 5689303,
+  "center": {
+    "lat": 59.3405374,
+    "lon": 17.9310074
+  },
+  "members": [
+    {
+      "type": "way",
+      "ref": 382474246,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 382740685,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 382470329,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 382489229,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 382489228,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 382496157,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 382497448,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 382534246,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 49135178,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 382502755,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 382502754,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 382543864,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 382708685,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 382470311,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 382708681,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 191903020,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 382470330,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 382532229,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 382470325,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 382531919,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 708137594,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 382470334,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 382481371,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 382470332,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 382474240,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 382481370,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 382484200,
+      "role": "outer"
+    },
+    {
+      "type": "relation",
+      "ref": 9178881,
+      "role": "subarea"
+    },
+    {
+      "type": "relation",
+      "ref": 9420924,
+      "role": "subarea"
+    },
+    {
+      "type": "relation",
+      "ref": 12550372,
+      "role": "subarea"
+    },
+    {
+      "type": "relation",
+      "ref": 12550373,
+      "role": "subarea"
+    },
+    {
+      "type": "relation",
+      "ref": 12550374,
+      "role": "subarea"
+    },
+    {
+      "type": "relation",
+      "ref": 12550375,
+      "role": "subarea"
+    },
+    {
+      "type": "relation",
+      "ref": 12550376,
+      "role": "subarea"
+    },
+    {
+      "type": "relation",
+      "ref": 12550377,
+      "role": "subarea"
+    },
+    {
+      "type": "relation",
+      "ref": 12550378,
+      "role": "subarea"
+    }
+  ],
+  "tags": {
+    "admin_level": "9",
+    "boundary": "administrative",
+    "name": "Bromma stadsdelsområde",
+    "short_name": "Bromma",
+    "type": "boundary",
+    "wikidata": "Q10436033",
+    "wikipedia": "sv:Bromma stadsdelsområde"
+  }
+},
+{
+  "type": "relation",
+  "id": 5689375,
+  "center": {
+    "lat": 59.3279110,
+    "lon": 18.0164528
+  },
+  "members": [
+    {
+      "type": "way",
+      "ref": 382769101,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 382474233,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 382768359,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 382768356,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 382474245,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 382474243,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 382576454,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 382474752,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 382474248,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 382474246,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 382484200,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 382481370,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 382474240,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 382470332,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 382474236,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 708137595,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 382474230,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 382474242,
+      "role": "outer"
+    },
+    {
+      "type": "relation",
+      "ref": 5689371,
+      "role": "subarea"
+    },
+    {
+      "type": "relation",
+      "ref": 5689372,
+      "role": "subarea"
+    },
+    {
+      "type": "relation",
+      "ref": 5689379,
+      "role": "subarea"
+    },
+    {
+      "type": "relation",
+      "ref": 5689373,
+      "role": "subarea"
+    },
+    {
+      "type": "relation",
+      "ref": 5689374,
+      "role": "subarea"
+    },
+    {
+      "type": "relation",
+      "ref": 5689380,
+      "role": "subarea"
+    },
+    {
+      "type": "relation",
+      "ref": 5689486,
+      "role": "subarea"
+    }
+  ],
+  "tags": {
+    "admin_level": "9",
+    "boundary": "administrative",
+    "name": "Kungsholmens stadsdelsområde",
+    "short_name": "Kungsholmen",
+    "type": "boundary",
+    "wikidata": "Q862618",
+    "wikipedia": "sv:Kungsholmens stadsdelsområde"
+  }
+},
+{
+  "type": "relation",
+  "id": 5690815,
+  "center": {
+    "lat": 59.3707416,
+    "lon": 17.8303705
+  },
+  "members": [
+    {
+      "type": "way",
+      "ref": 382543863,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 382723432,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 24556082,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 382543868,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 24556175,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 382543870,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 1024284075,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 1024284074,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 43275066,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 382543869,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 382543866,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 382723431,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 382714930,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 382543865,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 766556970,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 766556965,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 766556968,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 382470322,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 766556963,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 766556960,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 382714933,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 766556959,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 382717314,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 382502755,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 382502754,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 382543864,
+      "role": "outer"
+    }
+  ],
+  "tags": {
+    "admin_level": "9",
+    "boundary": "administrative",
+    "name": "Hässelby-Vällingby stadsdelsområde",
+    "short_name": "Hässelby-Vällingby",
+    "type": "boundary",
+    "wikidata": "Q861336",
+    "wikipedia": "sv:Hässelby-Vällingby stadsdelsområde"
+  }
+},
+{
+  "type": "relation",
+  "id": 5690852,
+  "center": {
+    "lat": 59.3865362,
+    "lon": 17.8984002
+  },
+  "members": [
+    {
+      "type": "way",
+      "ref": 35548135,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 382544893,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 49137099,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 382470330,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 191903020,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 382708681,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 382470311,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 382708685,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 382543863,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 382723432,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 24556082,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 382543868,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 24556175,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 382543870,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 1024284075,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 1024284074,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 43275066,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 382543869,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 382543866,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 382723431,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 49135180,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 766631159,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 382544895,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 191094750,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 191094752,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 191094751,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 382544896,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 382544894,
+      "role": "outer"
+    }
+  ],
+  "tags": {
+    "admin_level": "9",
+    "boundary": "administrative",
+    "name": "Spånga-Tensta stadsdelsområde",
+    "short_name": "Spånga-Tensta",
+    "type": "boundary",
+    "wikidata": "Q861644",
+    "wikipedia": "sv:Spånga-Tensta stadsdelsområde"
+  }
+},
+{
+  "type": "relation",
+  "id": 5691336,
+  "center": {
+    "lat": 59.3142820,
+    "lon": 18.0628281
+  },
+  "members": [
+    {
+      "type": "way",
+      "ref": 382474243,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 382576454,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 382768358,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 382740687,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 382768357,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 382581255,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 382773310,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 383205096,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 382576455,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 382773311,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 766772502,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 49137043,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 382770489,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 382769098,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 382768361,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 382769095,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 307580707,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 382768360,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 382768359,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 382768356,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 382474245,
+      "role": "outer"
+    },
+    {
+      "type": "relation",
+      "ref": 5695401,
+      "role": "subarea"
+    },
+    {
+      "type": "relation",
+      "ref": 5695398,
+      "role": "subarea"
+    },
+    {
+      "type": "relation",
+      "ref": 5695402,
+      "role": "subarea"
+    },
+    {
+      "type": "relation",
+      "ref": 5695400,
+      "role": "subarea"
+    },
+    {
+      "type": "relation",
+      "ref": 5695399,
+      "role": "subarea"
+    },
+    {
+      "type": "way",
+      "ref": 1081875454,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 1081875453,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 1081875452,
+      "role": "outer"
+    }
+  ],
+  "tags": {
+    "admin_level": "9",
+    "boundary": "administrative",
+    "name": "Södermalms stadsdelsområde",
+    "type": "boundary",
+    "wikidata": "Q860681",
+    "wikipedia": "sv:Södermalms stadsdelsområde"
+  }
+},
+{
+  "type": "relation",
+  "id": 5691404,
+  "center": {
+    "lat": 59.2909913,
+    "lon": 17.9888906
+  },
+  "members": [
+    {
+      "type": "way",
+      "ref": 446575700,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 382581247,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 382766371,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 382470329,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 382740685,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 382474248,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 382474752,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 382768358,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 382740687,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 382768357,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 382581255,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 1081875454,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 1081875455,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 382765757,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 383210969,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 382585715,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 382581231,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 446575714,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 382581233,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 446575696,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 417568112,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 417568113,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 382585721,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 382587458,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 766785127,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 382585720,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 766785128,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 382585724,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 382585717,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 637534362,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 383211939,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 382585718,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 637534369,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 383210175,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 383210165,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 637534373,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 382585714,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 637534375,
+      "role": "outer"
+    },
+    {
+      "type": "relation",
+      "ref": 6694181,
+      "role": "subarea"
+    },
+    {
+      "type": "relation",
+      "ref": 6656707,
+      "role": "subarea"
+    },
+    {
+      "type": "relation",
+      "ref": 6704476,
+      "role": "subarea"
+    },
+    {
+      "type": "relation",
+      "ref": 6824813,
+      "role": "subarea"
+    },
+    {
+      "type": "relation",
+      "ref": 6206566,
+      "role": "subarea"
+    }
+  ],
+  "tags": {
+    "admin_level": "9",
+    "boundary": "administrative",
+    "name": "Hägersten-Älvsjö stadsdelsområde",
+    "short_name": "Hägersten-Älvsjö",
+    "type": "boundary",
+    "wikidata": "Q95674781",
+    "wikipedia": "sv:Hägersten-Älvsjö stadsdelsområde"
+  }
+},
+{
+  "type": "relation",
+  "id": 5695372,
+  "center": {
+    "lat": 59.2855518,
+    "lon": 17.9056784
+  },
+  "members": [
+    {
+      "type": "way",
+      "ref": 446575700,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 446575696,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 382581233,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 446575714,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 382767578,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 708806621,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 382767579,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 382581243,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 382767574,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 382767577,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 307580712,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 766556964,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 382767581,
+      "role": "outer"
+    }
+  ],
+  "tags": {
+    "admin_level": "9",
+    "boundary": "administrative",
+    "name": "Skärholmens stadsdelsområde",
+    "short_name": "Skärholmen",
+    "type": "boundary",
+    "wikidata": "Q858040",
+    "wikipedia": "sv:Skärholmens stadsdelsområde"
+  }
+},
+{
+  "type": "relation",
+  "id": 5695412,
+  "center": {
+    "lat": 59.3379662,
+    "lon": 18.0593340
+  },
+  "members": [
+    {
+      "type": "way",
+      "ref": 382769100,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 382769093,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 382772063,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 382769099,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 49137092,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 382769101,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 382474233,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 382768360,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 307580707,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 382769095,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 382768361,
+      "role": "outer"
+    },
+    {
+      "type": "relation",
+      "ref": 5695409,
+      "role": "subarea"
+    },
+    {
+      "type": "relation",
+      "ref": 5695411,
+      "role": "subarea"
+    },
+    {
+      "type": "relation",
+      "ref": 5695410,
+      "role": "subarea"
+    }
+  ],
+  "tags": {
+    "admin_level": "9",
+    "boundary": "administrative",
+    "name": "Norrmalms stadsdelsområde",
+    "short_name": "Norrmalm",
+    "type": "boundary",
+    "wikidata": "Q862144",
+    "wikipedia": "sv:Norrmalms stadsdelsområde"
+  }
+},
+{
+  "type": "relation",
+  "id": 5695415,
+  "center": {
+    "lat": 59.3466680,
+    "lon": 18.1001290
+  },
+  "members": [
+    {
+      "type": "way",
+      "ref": 419718869,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 419718863,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 49137065,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 382772065,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 382772064,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 49137091,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 382769092,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 382769099,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 382772063,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 382769093,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 382769100,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 382769098,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 307577117,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 419718865,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 377688133,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 377688129,
+      "role": "outer"
+    },
+    {
+      "type": "relation",
+      "ref": 5695419,
+      "role": "subarea"
+    },
+    {
+      "type": "relation",
+      "ref": 5695423,
+      "role": "subarea"
+    },
+    {
+      "type": "relation",
+      "ref": 9193110,
+      "role": "subarea"
+    },
+    {
+      "type": "relation",
+      "ref": 9193109,
+      "role": "subarea"
+    },
+    {
+      "type": "relation",
+      "ref": 9193111,
+      "role": "subarea"
+    }
+  ],
+  "tags": {
+    "admin_level": "9",
+    "boundary": "administrative",
+    "name": "Östermalms stadsdelsområde",
+    "short_name": "Östermalm",
+    "type": "boundary",
+    "wikidata": "Q12904658",
+    "wikipedia": "sv:Östermalms stadsdelsområde"
+  }
+},
+{
+  "type": "relation",
+  "id": 5695432,
+  "center": {
+    "lat": 59.2657248,
+    "lon": 18.1429591
+  },
+  "members": [
+    {
+      "type": "way",
+      "ref": 382773307,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 382809664,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 382773304,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 382774130,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 382773313,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 382774133,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 382802898,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 383210176,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 383212222,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 1081881250,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 382773308,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 382774984,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 49180457,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 766772495,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 378032503,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 378032506,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 382774987,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 378032493,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 766772505,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 382774981,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 766772506,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 382774989,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 766772497,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 378032490,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 382773309,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 382774128,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 378032492,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 766772496,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 766772499,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 766772498,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 766772501,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 766772500,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 766772503,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 766772504,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 382576456,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 766772502,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 382773311,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 382576455,
+      "role": "outer"
+    }
+  ],
+  "tags": {
+    "admin_level": "9",
+    "boundary": "administrative",
+    "name": "Skarpnäcks stadsdelsområde",
+    "short_name": "Skarpnäck",
+    "type": "boundary",
+    "wikidata": "Q779963",
+    "wikipedia": "sv:Skarpnäcks stadsdelsområde"
+  }
+},
+{
+  "type": "relation",
+  "id": 5695996,
+  "center": {
+    "lat": 59.2759806,
+    "lon": 18.0534875
+  },
+  "members": [
+    {
+      "type": "way",
+      "ref": 382765757,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 1081875455,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 382773310,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 383205096,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 382773307,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 382809664,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 382773304,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 382774130,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 382773313,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 382774133,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 382802898,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 383210177,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 382802899,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 383210168,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 382809662,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 23133180,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 383210181,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 383210172,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 383210179,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 383386486,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 766785126,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 383386484,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 382806280,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 766785125,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 383212156,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 382585724,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 382585717,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 637534362,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 383211939,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 382585718,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 637534369,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 383210175,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 383210165,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 637534373,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 382585714,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 637534375,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 382585715,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 383210969,
+      "role": "outer"
+    },
+    {
+      "type": "relation",
+      "ref": 6647129,
+      "role": "subarea"
+    },
+    {
+      "type": "relation",
+      "ref": 8467169,
+      "role": "subarea"
+    },
+    {
+      "type": "relation",
+      "ref": 8467168,
+      "role": "subarea"
+    },
+    {
+      "type": "way",
+      "ref": 1081875453,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 1081875452,
+      "role": "outer"
+    }
+  ],
+  "tags": {
+    "admin_level": "9",
+    "boundary": "administrative",
+    "name": "Enskede-Årsta-Vantörs stadsdelsområde",
+    "short_name": "Enskede-Årsta-Vantör",
+    "type": "boundary",
+    "wikidata": "Q606458",
+    "wikipedia": "sv:Enskede-Årsta-Vantörs stadsdelsområde"
+  }
+},
+{
+  "type": "relation",
+  "id": 5701014,
+  "center": {
+    "lat": 59.2531561,
+    "lon": 18.0902242
+  },
+  "members": [
+    {
+      "type": "way",
+      "ref": 383386484,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 766785126,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 383386486,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 383210179,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 383210172,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 383210181,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 23133180,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 382809662,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 383210168,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 382802899,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 383210177,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 383210176,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 383212222,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 1081881250,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 24340681,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 383387365,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 383387368,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 383212585,
+      "role": "outer"
+    }
+  ],
+  "tags": {
+    "admin_level": "9",
+    "boundary": "administrative",
+    "name": "Farsta stadsdelsområde",
+    "short_name": "Farsta",
+    "type": "boundary",
+    "wikidata": "Q861854",
+    "wikipedia": "sv:Farsta stadsdelsområde"
+  }
+},
+{
+  "type": "relation",
+  "id": 5730716,
+  "center": {
+    "lat": 59.4109795,
+    "lon": 17.9322245
+  },
+  "members": [
+    {
+      "type": "way",
+      "ref": 35548135,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 382544893,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 382544892,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 49135270,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 766631155,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 103224735,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 766631158,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 766631160,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 382544895,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 191094750,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 191094752,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 191094751,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 382544896,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 382544894,
+      "role": "outer"
+    }
+  ],
+  "tags": {
+    "admin_level": "9",
+    "boundary": "administrative",
+    "name": "Rinkeby-Kista stadsdelsområde",
+    "short_name": "Rinkeby-Kista",
+    "type": "boundary",
+    "wikidata": "Q861329",
+    "wikipedia": "sv:Rinkeby-Kista stadsdelsområde"
+  }
+}
+
+  ]
+}

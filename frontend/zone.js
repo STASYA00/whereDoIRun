@@ -27,21 +27,23 @@ class Zone{
         this.#streets = new Array();
         
     }
-    async getBbox(){
+    getBbox(){
         if (this.#bbox.length>0){   
             let b = this.#bbox;                                
             return new Promise((resolve) =>resolve(b));
         }
         return this.#selectRelevantArea().then(r => {return this.#bbox;});
     }
-    async getBoundary(){
+    getBoundary(){
         // returns a Promise
         if (this.#boundary.length>0){
             let b = this.#boundary;
+            //console.log("BOUNDARY EXISTS");
             return new Promise((resolve) =>resolve(b));
         }
         return this.#selectRelevantArea().then(r => { 
             //console.log("selected relevant area");
+            //console.log("BOUNDARY DOES NOT EXIST");
             return this.#boundary;
         });
     }
@@ -109,9 +111,10 @@ class Zone{
     
     scoreAll(activities){
         
-        this.getBoundary().then(b => activities.forEach(activity => {
-            this.score(activity);
-        }));
+        return this.getBoundary().then(b => {return activities.map(activity => this.score(activity))});
+        // activities.forEach(activity => {
+        //     this.score(activity);
+        // }));
     }
     
     #addScore(value=1){
@@ -119,27 +122,48 @@ class Zone{
     }
 
     #shortenBoundary(){
-        if (this.#boundary.length>200){
-            this.#boundary = this.#boundary.filter((v, i) => i%4==0);
+        let max_points = 10;
+        if (this.#boundary.length > max_points){
+            this.#boundary = this.#boundary.filter((v, i) => i%(Math.round(this.#boundary.length / max_points))==0);
         }
     }
 
-    async #selectRelevantArea(){
+    #selectRelevantArea(){
         // returns a Promise
         if (this.#bbox.length>0){
             return new Promise((resolve) => resolve(true));
         }
+        let r = undefined;
+        console.log("SELECT RELEVANT AREA", this.name[0]);
+        if (mode == modes.RELEASE){
+            r = new requests.NOMINATIM(this.name);
+        }
+        else {
+            
+            let zone_token = "stadsdelsområde";
+            console.log(this.name[0].slice(this.name[0].length-zone_token.length, this.name[0].length));
+            if (this.name[0] == "Sverige"){
+                r = new requests.TEST_COUNTRIES();
+            }
+            else if (this.name[0].slice(this.name[0].length-zone_token.length, this.name[0].length) == zone_token){
+                r = new requests.TEST_SODER_BOUNDS();
+            }
+            else{
+                r = new requests.TEST_STHLM_BOUNDS();
+            }
+            
+        }
         
-        return new requests.NOMINATIM(this.name).call() // => features
+        return r.call()
                     .then(features => {
-
+                        
                         // TODO: add option for "MultiPolygon" : separate bounding boxes and go over all polygons
                         
                         features = features["features"].filter(f => ["MultiPolygon", "Polygon"].includes(f["geometry"]["type"]))
                                 .filter(f => f["properties"]["category"]=="boundary");
                         
                         if (features.length > 0){
-                            //console.log("features 2", features);
+                            console.log("features", features, this.#refCoords);
                             if (this.#refCoords!=undefined){
                                 // for multipolygon can be the index of the largest area instead of 0
                                 
@@ -172,9 +196,8 @@ class Zone{
                                                   Math.max(...this.#boundary.map(x=>x[0])), Math.max(...this.#boundary.map(x=>x[1]))];
                                     
                                 }
-                            }
-                            this.#shortenBoundary();
-                            
+                        }
+                        this.#shortenBoundary();
                         return true;
                     }       
         });
@@ -186,17 +209,26 @@ class Area extends Zone{
         super (name, refCoords);
     }
 
-    async getZones(){
+    getZones(){
         // returns Promise
         
-        return this.getBoundary().then(b => new requests.CITY(b.map(c => [c[1], c[0]])).call()
-                                    .then(result => {
-                                        console.log("getzones", result);
-                                        result = result["elements"].map(el => new Zone(el["tags"]["name"]));
-                                        if (result.length==0){
-                                            return [this];
-                                        }
-                                        return result;
-                                    }));
+        return this.getBoundary().then(b => {
+            let r = undefined;
+            if (mode == modes.RELEASE){
+                r = requests.CITY;
+            }
+            else{
+                r = requests.TEST_ZONES_LTD;
+            }
+            return new r(b.map(c => [c[1], c[0]])).call()
+            .then(result => result["elements"].map(el => new Zone(el["tags"]["name"], [el["center"]["lon"], el["center"]["lat"]])))
+            .then(result => {
+                if (result.length==0){
+                    return [this];
+                }
+                return result;
+            })
+            ;
+        });
     }
 }

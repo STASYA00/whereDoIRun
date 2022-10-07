@@ -64,10 +64,12 @@ class CountryPage extends Page{
     }
 
     getProcent(element){
+        
         return Math.round(element.getScore() * 100 / this.window.overview.getActivities().length);
     }
     
     make(params){ 
+        
         this.callfront(params).then(r=>{
             console.log(r);
             r.forEach((element, ind, r) => {
@@ -94,6 +96,7 @@ class RegionPage extends CountryPage{
         super(w, params);
     }
     callfront(element){
+        
         return this.window.overview.getAreas(element);
     }
 
@@ -107,10 +110,21 @@ class CityPage extends RegionPage{
         super(w, params);
     }
     callfront(element){
-        return element.getZones().then(r => {
-            return Promise.all(r.map(async(zone) => zone.scoreAll(this.window.overview.getActivities())))
+        
+        return element.getZones()
+            .then(async(r) => {
+            let res = await Promise.all(r.map(async (zone) => {
+                return zone.scoreAll(this.window.overview.getActivities())
+                .then(r =>{
+                        console.log("zone scored", zone.getScore());
+                        return zone;})
+            }));
+            console.log(r);
+            return r;
+        
         });
-    }
+        };
+    
 
     nextPage(){
         return pageCatalog.ZONE;

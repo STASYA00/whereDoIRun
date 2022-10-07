@@ -1,0 +1,1805 @@
+{
+  "version": 0.6,
+  "generator": "Overpass API 0.7.58.5 b0c4acbb",
+  "osm3s": {
+    "timestamp_osm_base": "2022-09-17T15:18:38Z",
+    "copyright": "The data included in this document is from www.openstreetmap.org. The data is made available under ODbL."
+  },
+  "elements": [
+
+{
+  "type": "relation",
+  "id": 398021,
+  "bounds": {
+    "minlat": 59.2272559,
+    "minlon": 17.7606917,
+    "maxlat": 59.4402838,
+    "maxlon": 18.2000673
+  },
+  "members": [
+    {
+      "type": "node",
+      "ref": 25929985,
+      "role": "admin_centre"
+    },
+    {
+      "type": "way",
+      "ref": 766556970,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 766556965,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 766556968,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 382470322,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 766556963,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 766556960,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 382714933,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 766556959,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 382717314,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 49135178,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 382534246,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 382497448,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 382496157,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 382489228,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 382489229,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 382766371,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 382581247,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 382767581,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 766556964,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 307580712,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 382767577,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 382767574,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 382581243,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 382767579,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 708806621,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 382767578,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 382581231,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 417568112,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 417568113,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 382585721,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 382587458,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 766785127,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 382585720,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 766785128,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 383212156,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 766785125,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 382806280,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 383212585,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 383387368,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 383387365,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 24340681,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 382773308,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 382774984,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 49180457,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 766772495,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 378032503,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 378032506,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 382774987,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 378032493,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 766772505,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 382774981,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 766772506,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 382774989,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 766772497,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 378032490,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 382773309,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 382774128,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 378032492,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 766772496,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 766772499,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 766772498,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 766772501,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 766772500,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 766772503,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 766772504,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 382576456,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 49137043,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 382770489,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 307577117,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 419718865,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 377688133,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 377688129,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 419718869,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 419718863,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 49137065,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 382772065,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 382772064,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 49137091,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 382769092,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 49137092,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 382474242,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 382474230,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 708137595,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 382474236,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 382481371,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 382470334,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 708137594,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 382531919,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 382470325,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 382532229,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 49137099,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 382544892,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 49135270,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 766631155,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 103224735,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 766631158,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 766631160,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 766631159,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 49135180,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 382714930,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 382543865,
+      "role": "outer"
+    }
+  ],
+  "tags": {
+    "KNKOD": "0180",
+    "admin_level": "7",
+    "boundary": "administrative",
+    "name": "Stockholms kommun",
+    "name:eo": "Stokholmo",
+    "name:es": "Estocolmo",
+    "name:fi": "Tukholman kunta",
+    "name:gl": "Estocolmo",
+    "name:ru": "Стокгольм",
+    "name:sv": "Stockholms kommun",
+    "official_name": "Stockholms kommun",
+    "ref": "0180",
+    "ref:scb": "0180",
+    "short_name": "Stockholm",
+    "type": "boundary",
+    "wikidata": "Q506250",
+    "wikipedia": "sv:Stockholms kommun"
+  }
+},
+{
+  "type": "relation",
+  "id": 398034,
+  "bounds": {
+    "minlat": 59.3654238,
+    "minlon": 17.9913086,
+    "maxlat": 59.4413324,
+    "maxlon": 18.1224932
+  },
+  "members": [
+    {
+      "type": "way",
+      "ref": 49137093,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 49137103,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 766756620,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 766756621,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 49137102,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 617444039,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 617444042,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 617444041,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 49137089,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 49137091,
+      "role": "outer"
+    }
+  ],
+  "tags": {
+    "KNKOD": "0162",
+    "admin_level": "7",
+    "boundary": "administrative",
+    "name": "Danderyds kommun",
+    "name:fi": "Danderydin kunta",
+    "name:sv": "Danderyds kommun",
+    "official_name": "Danderyds kommun",
+    "ref": "0162",
+    "ref:scb": "0162",
+    "short_name": "Danderyd",
+    "type": "boundary",
+    "wikidata": "Q113679",
+    "wikipedia": "sv:Danderyds kommun"
+  }
+},
+{
+  "type": "relation",
+  "id": 398035,
+  "bounds": {
+    "minlat": 59.3243048,
+    "minlon": 18.0879908,
+    "maxlat": 59.4056248,
+    "maxlon": 18.3033876
+  },
+  "members": [
+    {
+      "type": "way",
+      "ref": 49137089,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 382772064,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 382772065,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 49137065,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 419718863,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 419718869,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 428858199,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 46933954,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 377688157,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 377688141,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 307577118,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 377332012,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 377332013,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 377325037,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 49137045,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 766756610,
+      "role": "outer"
+    }
+  ],
+  "tags": {
+    "KNKOD": "0186",
+    "admin_level": "7",
+    "boundary": "administrative",
+    "name": "Lidingö kommun",
+    "name:fi": "Lidingön kunta",
+    "name:sv": "Lidingö kommun",
+    "official_name": "Lidingö kommun",
+    "ref": "0186",
+    "ref:scb": "0186",
+    "short_name": "Lidingö",
+    "type": "boundary",
+    "wikidata": "Q3120654",
+    "wikipedia": "sv:Lidingö kommun"
+  }
+},
+{
+  "type": "relation",
+  "id": 398038,
+  "bounds": {
+    "minlat": 59.2314768,
+    "minlon": 18.1053536,
+    "maxlat": 59.3693001,
+    "maxlon": 18.3889051
+  },
+  "members": [
+    {
+      "type": "way",
+      "ref": 49137046,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 47036343,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 377325037,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 377332013,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 377332012,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 307577118,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 377688141,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 377688157,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 46933954,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 428858199,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 377688129,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 377688133,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 419718865,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 307577117,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 382770489,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 49137043,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 382576456,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 766772504,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 766772503,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 766772500,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 766772501,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 766772498,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 766772499,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 766772496,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 378032492,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 382774128,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 382773309,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 378032490,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 766772497,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 382774989,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 766772506,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 382774981,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 766772505,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 378032493,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 382774987,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 378032506,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 378032503,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 49181204,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 395487300,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 49137031,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 307575150,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 370249364,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 370249363,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 434954346,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 370249366,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 370249365,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 434954345,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 377325045,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 617408473,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 377325046,
+      "role": "outer"
+    }
+  ],
+  "tags": {
+    "KNKOD": "0182",
+    "admin_level": "7",
+    "boundary": "administrative",
+    "name": "Nacka kommun",
+    "name:fi": "Nackan kunta",
+    "name:sv": "Nacka kommun",
+    "official_name": "Nacka kommun",
+    "ref": "0182",
+    "ref:scb": "0182",
+    "short_name": "Nacka",
+    "type": "boundary",
+    "wikidata": "Q946647"
+  }
+},
+{
+  "type": "relation",
+  "id": 398039,
+  "bounds": {
+    "minlat": 59.3550306,
+    "minlon": 17.9276523,
+    "maxlat": 59.4014928,
+    "maxlon": 17.9849518
+  },
+  "members": [
+    {
+      "type": "way",
+      "ref": 49137099,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 382532229,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 382470325,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 382531919,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 49137098,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 966822490,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 966822492,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 966822491,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 966822493,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 766756616,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 766756615,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 766756614,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 49135271,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 382544892,
+      "role": "outer"
+    }
+  ],
+  "tags": {
+    "KNKOD": "0183",
+    "admin_level": "7",
+    "boundary": "administrative",
+    "name": "Sundbybergs kommun",
+    "name:fi": "Sundbybergin kunta",
+    "name:sv": "Sundbybergs kommun",
+    "official_name": "Sundbybergs kommun",
+    "ref": "0183",
+    "ref:scb": "0183",
+    "short_name": "Sundbyberg",
+    "type": "boundary",
+    "wikidata": "Q972564",
+    "wikipedia": "sv:Sundbybergs kommun"
+  }
+},
+{
+  "type": "relation",
+  "id": 398040,
+  "bounds": {
+    "minlat": 59.3393450,
+    "minlon": 17.9620869,
+    "maxlat": 59.3999668,
+    "maxlon": 18.0587330
+  },
+  "members": [
+    {
+      "type": "node",
+      "ref": 54519667,
+      "role": "label"
+    },
+    {
+      "type": "way",
+      "ref": 966822493,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 966822491,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 966822492,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 966822490,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 49137098,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 708137594,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 382470334,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 382481371,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 382474236,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 708137595,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 382474230,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 382474242,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 49137092,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 382769092,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 49137093,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 766756611,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 766756612,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 49137094,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 766756613,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 766756615,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 766756616,
+      "role": "outer"
+    }
+  ],
+  "tags": {
+    "KNKOD": "0184",
+    "admin_level": "7",
+    "boundary": "administrative",
+    "name": "Solna kommun",
+    "name:fi": "Solnan kunta",
+    "name:sv": "Solna kommun",
+    "official_name": "Solna kommun",
+    "ref": "0184",
+    "ref:scb": "0184",
+    "short_name": "Solna",
+    "type": "boundary",
+    "wikidata": "Q109010",
+    "wikipedia": "sv:Solna kommun"
+  }
+},
+{
+  "type": "relation",
+  "id": 398567,
+  "bounds": {
+    "minlat": 59.1412579,
+    "minlon": 17.8558087,
+    "maxlat": 59.2877599,
+    "maxlon": 18.1829938
+  },
+  "members": [
+    {
+      "type": "way",
+      "ref": 41389405,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 382767574,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 382581243,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 382767579,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 708806621,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 382767578,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 382581231,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 417568112,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 417568113,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 382585721,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 382587458,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 766785127,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 382585720,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 766785128,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 383212156,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 766785125,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 382806280,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 383212585,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 383387368,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 383387365,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 24340681,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 382773308,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 382774984,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 766772491,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 766772492,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 41389658,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 49180456,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 766524333,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 766524332,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 396566139,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 289690865,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 289690876,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 289690885,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 289690855,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 289690857,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 289690872,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 289690860,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 289690859,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 289690877,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 766785129,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 766785130,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 49207634,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 396760741,
+      "role": "outer"
+    }
+  ],
+  "tags": {
+    "KNKOD": "0126",
+    "admin_level": "7",
+    "boundary": "administrative",
+    "name": "Huddinge kommun",
+    "name:sv": "Huddinge kommun",
+    "official_name": "Huddinge kommun",
+    "ref": "0126",
+    "ref:scb": "0126",
+    "short_name": "Huddinge",
+    "type": "boundary",
+    "wikidata": "Q492575",
+    "wikipedia": "sv:Huddinge kommun"
+  }
+},
+{
+  "type": "relation",
+  "id": 398575,
+  "bounds": {
+    "minlat": 59.1584258,
+    "minlon": 18.1744552,
+    "maxlat": 59.2633614,
+    "maxlon": 18.4685131
+  },
+  "members": [
+    {
+      "type": "way",
+      "ref": 766772491,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 766772492,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 41389658,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 49181207,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 8115167,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 770933828,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 766524338,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 226746251,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 197828892,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 766524341,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 766524339,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 766524336,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 395489249,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 307575147,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 49181205,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 395487300,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 49181204,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 766772495,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 49180457,
+      "role": "outer"
+    }
+  ],
+  "tags": {
+    "KNKOD": "0138",
+    "admin_level": "7",
+    "boundary": "administrative",
+    "name": "Tyresö kommun",
+    "name:sv": "Tyresö kommun",
+    "official_name": "Tyresö kommun",
+    "ref": "0138",
+    "ref:scb": "0138",
+    "short_name": "Tyresö",
+    "type": "boundary",
+    "wikidata": "Q113730",
+    "wikipedia": "sv:Tyresö kommun"
+  }
+},
+{
+  "type": "relation",
+  "id": 398920,
+  "bounds": {
+    "minlat": 59.2592916,
+    "minlon": 17.4110712,
+    "maxlat": 59.4515678,
+    "maxlon": 17.9548266
+  },
+  "members": [
+    {
+      "type": "way",
+      "ref": 43368980,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 41389405,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 382767577,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 307580712,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 766556964,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 382767581,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 382581247,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 382766371,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 382489229,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 382489228,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 382496157,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 382497448,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 382534246,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 49135178,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 382717314,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 766556959,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 382714933,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 766556960,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 766556963,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 382470322,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 766556967,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 49135183,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 766556981,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 766556982,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 43580840,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 396770512,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 396770496,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 396770506,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 28693436,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 46932004,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 49207632,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 307580709,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 307580710,
+      "role": "outer"
+    },
+    {
+      "type": "way",
+      "ref": 49207630,
+      "role": "outer"
+    }
+  ],
+  "tags": {
+    "KNKOD": "0125",
+    "admin_level": "7",
+    "boundary": "administrative",
+    "name": "Ekerö kommun",
+    "name:sv": "Ekerö kommun",
+    "official_name": "Ekerö kommun",
+    "ref": "0125",
+    "ref:scb": "0125",
+    "short_name": "Ekerö",
+    "type": "boundary",
+    "wikidata": "Q492614",
+    "wikipedia": "sv:Ekerö kommun"
+  }
+}
+
+  ]
+}

@@ -1,5 +1,6 @@
-const fetch = (...args) =>
-    import('node-fetch').then(({ default: fetch }) => fetch(...args));
+// const fetch = (...args) =>
+//   import('node-fetch').then(({ default: fetch }) => fetch(...args));
+const fetch = (...args) => import('node-fetch').then(({default: fetch}) => fetch(...args));
 
 const baseUrl = "http://www.strava.com";
 const apiV3 = "api/v3";
@@ -8,7 +9,7 @@ const oauthUrl2 = "oauth/token?";
 const clientId = "89141";
 const clientSecret = "76193f3141500530befa8a0e15482667f3d94bb2";
 let accessToken = "initial_value";
-let bearerToken = "initial_value";
+let bearerToken = "2b56d93ef9dea4445a6d087ea90e6a689f4b2fec"; //"initial_value";
 let userId = "initial_value";
 let token_type = "initial_value";
 
@@ -16,11 +17,13 @@ const activitiesReqUrlEndpoint = "athlete/activities";
 const authAthleteReqUrlEndpoint = "athlete";
 let athleteReqUrlEndpoint = `/athletes/${userId}/stats`;
 
-//const hostname = '127.0.0.1';
+//const webserverUrl = '127.0.0.1';
 const webserverUrl = "http://localhost";
 const port = 3000;
 
 const express = require('express');
+
+const fs = require('fs');
 const bodyParser = require('body-parser');
 const http = require('http');
 const cors = require("cors");
@@ -41,6 +44,7 @@ app.get('/exchange_token', (req, res) => {
   res.send(req.query["code"]);
   let accessToken = req.query["code"];
   let authUrl = `${baseUrl}/${oauthUrl2}client_id=${clientId}&client_secret=${clientSecret}&code=${accessToken}&grant_type=authorization_code`
+  console.log(authUrl);
   let method = "POST";
   sendRequest(authUrl, method, getMainTokens);
   
@@ -95,7 +99,6 @@ function sendBack(data, res){
 }
 
 function sendRequest(url, method, callback, res){
-  // console.log("calling " + url);
   fetch(url, {
       method: method, // or 'PUT'
       headers: {
@@ -114,5 +117,93 @@ function sendRequest(url, method, callback, res){
       });
 }
 
+app.get('/test/activities', (req, res) => {
+  /*
+  Test asset that returns a list of runner's activities from Strava API
+  Simulates functionality of a request to get all the user activities
+  */
+  let rawdata = fs.readFileSync('./assets/activities.json');
+  let r = JSON.parse(rawdata);
+  res.send(r["activities"]);
+})
 
+app.get('/test/countries', (req, res) => {
+  /*
+  Test asset that returns a list of countries relevant to the runner's activity from overpass API
+  Simulates functionality of a request to get the countries where a person has run
+  */
+  let rawdata = fs.readFileSync('./assets/countries.json');
+  let r = JSON.parse(rawdata);
+  res.send(r);
+})
+
+app.get('/test/sverige_coords', (req, res) => {
+  /*
+  Test asset that returns Sverige's boundary from nominatim API
+  Simulates functionality of a request to get geometrical boundary of a country
+  */
+  let rawdata = fs.readFileSync('./assets/sverige_bounds.json');
+  let r = JSON.parse(rawdata);
+  res.send(r);
+})
+
+app.get('/test/norge_coords', (req, res) => {
+  /*
+  Test asset that returns Norway's boundary from nominatim API
+  Simulates functionality of a request to get geometrical boundary of a country
+  */
+  let rawdata = fs.readFileSync('./assets/norge_bounds.json');
+  let r = JSON.parse(rawdata);
+  res.send(r);
+})
+
+app.get('/test/cities', (req, res) => {
+  /*
+  Test asset that returns a list of cities with their bounding boxes and properties from overpass API
+  Simulates functionality of a request to get a list of cities within a specific country from overpass API
+  */
+  let rawdata = fs.readFileSync('./assets/sverige_cities.json');
+  let r = JSON.parse(rawdata);
+  res.send(r);
+})
+
+app.get('/test/zones/sthlm/whole', (req, res) => {
+  /*
+  Test asset that returns a list of cities with their bounding boxes and properties from overpass API
+  Simulates functionality of a request to get a list of cities within a specific country from overpass API
+  */
+  let rawdata = fs.readFileSync('./assets/sthlm_zones.json');
+  let r = JSON.parse(rawdata);
+  res.send(r);
+})
+
+app.get('/test/zones/sthlm/ltd', (req, res) => {
+  /*
+  Test asset that returns a list of cities with their bounding boxes and properties from overpass API
+  Simulates functionality of a request to get a list of cities within a specific country from overpass API
+  */
+  let rawdata = fs.readFileSync('./assets/sthlm_zones_ltd.json');
+  let r = JSON.parse(rawdata);
+  res.send(r);
+})
+
+app.get('/test/sthlm_bounds', (req, res) => {
+  /*
+  Test asset that returns a list of cities with their bounding boxes and properties from nominatim API
+  Simulates functionality of a request to get a list of cities within a specific country from overpass API
+  */
+  let rawdata = fs.readFileSync('./assets/sthlm_bounds.json');
+  let r = JSON.parse(rawdata);
+  res.send(r);
+})
+
+app.get('/test/sodermalm_bounds', (req, res) => {
+  /*
+  Test asset that returns a list of cities with their bounding boxes and properties from nominatim API
+  Simulates functionality of a request to get a list of cities within a specific country from overpass API
+  */
+  let rawdata = fs.readFileSync('./assets/sodermalm_bounds.json');
+  let r = JSON.parse(rawdata);
+  res.send(r);
+})
 

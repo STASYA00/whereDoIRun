@@ -22,9 +22,9 @@ class Request {
         this.url = osmBaseUrl;
     }
 
-    async call(){
-        let req = await this.#request();
-        return req;
+    call(){
+        //let req = await this.#request();
+        return this.#request();
     }
 
     getUrl(){
@@ -38,30 +38,57 @@ class Request {
         return this.params;
     }
 
-    async #request(callback){
+    #request(callback){
         const url = this.getUrl();
         console.log("URL: " + url);
-        let result = await fetch(url, {method: this.method,
-                                       headers: {'Content-Type': 'application/json'},
-                                    });
-                                                           
-        if (result.status == 200){
-            result = result.json();
-        }
-        else if (result.status == 429){
-            return sleep(1000).then(r=>this.#request());
-        }
-        else if (result.status == 504){
-            return await this.#request();
-        }
-        else {
-            console.log("CODE: ", result.status);
-        }
-        if (callback != undefined) {
-            callback(result);
-        }
-        return result;
+        return fetch(url, {method: this.method,
+                    headers: {'Content-Type': 'application/json'},
+                        }).then(result =>{
+                            if (result.status == 200){
+                                if (callback != undefined) {
+                                    result.json().then(r => callback(r));
+                                }
+                                return result.json();
+                            }
+                            else if (result.status == 429){
+                                return sleep(1000).then(r=>this.#request());
+                            }
+                            else if (result.status == 504){
+                                return this.#request();
+                            }
+                            else {
+                                console.log("CODE: ", result.status);
+                            }
+                            
+                            return result;
+                        });
     }
+
+    // async #request(callback){
+    //     const url = this.getUrl();
+    //     console.log("URL: " + url);
+    //     let result = await fetch(url, {method: this.method,
+    //                                    headers: {'Content-Type': 'application/json'},
+    //                                 });
+    //     console.log("result from API: ", result);                 
+    //     if (result.status == 200){
+    //         result = result.json();
+    //         console.log("result json", result);
+    //     }
+    //     else if (result.status == 429){
+    //         return sleep(1000).then(r=>this.#request());
+    //     }
+    //     else if (result.status == 504){
+    //         return await this.#request();
+    //     }
+    //     else {
+    //         console.log("CODE: ", result.status);
+    //     }
+    //     if (callback != undefined) {
+    //         callback(result);
+    //     }
+    //     return result;
+    // }
 }
 
 class LocalRequest extends Request {
@@ -98,8 +125,8 @@ class OverpassRequest extends Request {
         this.geometries = "wr";
         this.output = "geom";
     }
-    async call(){
-        return await super.call();
+    call(){
+        return super.call();
     }
     getBoundary(boundary){
         return boundary.flat(2)
@@ -161,7 +188,7 @@ class CityRequest extends OverpassRequest{
     constructor(params){
         super(params);
         this.level = 9;
-        this.distance = 10000;
+        this.distance = 2000;
         this.geometries = "relation"
         this.output = "center";
         this.tags = this.getTags();
@@ -189,11 +216,74 @@ class BuildingRequest extends OverpassRequest{
     }
 }
 
-// var FILTERS = {
-//     AREA: `(poly:%22${value}%22)`,
-//     BB: `(poly:%22${value}%22)`,
-//     COORDS: `(around:${value})`,
-// }
+class TestCountryBoundsRequest extends LocalRequest {
+    constructor(params){
+        super (params);
+        this.url = `${webserverUrl}:${port}/test/sverige_coords`;;
+    }
+    getQuery(){
+        return "";
+    }
+}
+
+class TestCountriesRequest extends LocalRequest {
+    constructor(params){
+        super (params);
+        this.url = `${webserverUrl}:${port}/test/countries`;;
+    }
+    getQuery(){
+        return "";
+    }
+}
+
+class TestSthlmRequest extends LocalRequest {
+    constructor(params){
+        super (params);
+        this.url = `${webserverUrl}:${port}/test/sthlm_bounds`;;
+    }
+    getQuery(){
+        return "";
+    }
+}
+
+class TestCitiesRequest extends LocalRequest {
+    constructor(params){
+        super (params);
+        this.url = `${webserverUrl}:${port}/test/cities`;;
+    }
+    getQuery(){
+        return "";
+    }
+}
+
+class TestZonesRequest extends LocalRequest {
+    constructor(params){
+        super (params);
+        this.url = `${webserverUrl}:${port}/test/zones/sthlm/whole`;;
+    }
+    getQuery(){
+        return "";
+    }
+}
+
+class TestZonesLtdRequest extends LocalRequest {
+    constructor(params){
+        super (params);
+        this.url = `${webserverUrl}:${port}/test/zones/sthlm/ltd`;;
+    }
+    getQuery(){
+        return "";
+    }
+}
+class TestSoderRequest extends LocalRequest {
+    constructor(params){
+        super (params);
+        this.url = `${webserverUrl}:${port}/test/sodermalm_bounds`;;
+    }
+    getQuery(){
+        return "";
+    }
+}
 
 const requests = {
     NOMINATIM: NominatimRequest, 
@@ -203,7 +293,15 @@ const requests = {
     REGION : RegionRequest,
     CITY: CityRequest,
     ROAD: RoadRequest,
-    BUILDING: BuildingRequest 
+    BUILDING: BuildingRequest,
+
+    TEST_COUNTRY_BOUNDS: TestCountryBoundsRequest,
+    TEST_COUNTRIES: TestCountriesRequest,
+    TEST_STHLM_BOUNDS: TestSthlmRequest,
+    TEST_CITIES: TestCitiesRequest,
+    TEST_ZONES: TestZonesRequest,
+    TEST_ZONES_LTD: TestZonesLtdRequest,
+    TEST_SODER_BOUNDS: TestSoderRequest,
 }
 
 

@@ -144,11 +144,22 @@ class connectButton extends graphicElement{
                                                     .forEach(element => {
                                                         element.clear();
                                                     }))
-                    .then(r=>sendRequest("activities", "GET")
-                                .then(r=>new ActivityOverview(r))
-                                .then(r=>r.getCountries()
-                                    .then(r=>console.log("countries", r))));
-        mainWindow.makePage(pageCatalog.COUNTRY);    
+                    .then(r=> mainWindow.makeOverview()
+                            .then( r => {
+                                console.log("overview,", r);
+                                mainWindow.overview = r;
+                                mainWindow.overview.getCountries();
+                                return r;
+                            })
+                            .then(r=>{
+                                console.log("Country page");
+                                mainWindow.makePage(pageCatalog.COUNTRY);
+                            }));
+                    // .then(r=>sendRequest("activities", "GET")
+                    //             .then(r=>new ActivityOverview(r))
+                    //             .then(r=>r.getCountries()
+                    //                 .then(r=>console.log("countries", r))));
+            
     }
         
 }
@@ -163,7 +174,7 @@ class Button extends graphicElement{
         this.content = content;
     }
     getFill(){
-        return "#E0E0E0" ; //"#FAFAFA";
+        return "#F1F1F1" ; //"#FAFAFA";
     }
     getTextFill(){
         return "#000000";
@@ -214,7 +225,7 @@ class Button extends graphicElement{
             .style("fill", "#EEE")
             .attr("stroke", "#000")
             .attr("stroke-width", 1);
-        console.log(datum);
+        console.log("DATUM", datum);
         datum.mainWindow.makePage(datum.page, datum.area);
     }
 }
@@ -345,8 +356,8 @@ class ProcentBar extends DecElement{
         
         return [[x - ProcentBar.frame, y - ProcentBar.frame], 
                 [x - ProcentBar.frame, y + this.height + ProcentBar.frame],
-                [x + ProcentBar.width + ProcentBar.frame , y + this.height + ProcentBar.frame],
-                [x + ProcentBar.width + ProcentBar.frame , y], 
+                [x + ProcentBar.width + ProcentBar.frame - ProcentBar.offset * 2 , y + this.height + ProcentBar.frame],
+                [x + ProcentBar.width + ProcentBar.frame - ProcentBar.offset * 2, y], 
                 [x - ProcentBar.frame, y- ProcentBar.frame]];
     }
 
