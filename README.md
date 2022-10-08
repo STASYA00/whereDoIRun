@@ -183,7 +183,7 @@ Project Link: [https://github.com/STASYA00/whereDoIRun](https://github.com/STASY
 * [Geographical data](openstreetmap.org) - available under Open Database License, “© OpenStreetMap contributors”
 * [Geocoding](https://nominatim.openstreetmap.org/) - “© OpenStreetMap contributors”
 * [Leaflet - geometry operations](https://leafletjs.com/) - © 2010–2022 Volodymyr Agafonkin
-* [Strava - running data](https://strava.com/)
+* [Strava - running data](https://strava.com/) - Powered by Strava
 * [README template](https://github.com/othneildrew/Best-README-Template)
 
 
