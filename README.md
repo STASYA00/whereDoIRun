@@ -185,6 +185,8 @@ Project Link: [https://github.com/STASYA00/whereDoIRun](https://github.com/STASY
 * [Leaflet - geometry operations](https://leafletjs.com/) - © 2010–2022 Volodymyr Agafonkin
 * [Strava - running data](https://strava.com/) - Powered by Strava
 * [README template](https://github.com/othneildrew/Best-README-Template)
+* [Background photo](https://unsplash.com/photos/PsQgatSmoa8) - photo by Hunter Bryant on [Unsplash](https://unsplash.com/)
+  
 
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>

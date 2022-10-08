@@ -9,7 +9,7 @@ const oauthUrl2 = "oauth/token?";
 const clientId = "89141";
 const clientSecret = "76193f3141500530befa8a0e15482667f3d94bb2";
 let accessToken = "initial_value";
-let bearerToken = "2b56d93ef9dea4445a6d087ea90e6a689f4b2fec"; //"initial_value";
+let bearerToken = "initial_value"; //"2b56d93ef9dea4445a6d087ea90e6a689f4b2fec"; //"initial_value";
 let userId = "initial_value";
 let token_type = "initial_value";
 
