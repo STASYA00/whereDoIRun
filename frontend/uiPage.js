@@ -184,7 +184,7 @@ class MapPage extends RegionPage{
             drawer.setScale();
             zone.getBoundary().then(b => {
                 let dark_mode = "#212121";
-                let light_mode = "#EFEFEF";
+                let light_mode = "#EFEFEF"; //EFEFEF
                 drawer.drawArea(b, light_mode, zone);
                 zone.getStreets().then(streets => streets.filter(r=>r!=undefined))
                 .then(streets => {
@@ -206,9 +206,9 @@ class MapPage extends RegionPage{
                         let value = Math.round(min_color + normalized_value * (max_color - min_color));
                         value = value.toString(16);
                          // red mode
-                        min_color = 0;
-                        max_color = 255;
-                        //normalized_value = street.getScore() * 1.0 / max_score;
+                        min_color = 20;
+                        max_color = 200;
+                        normalized_value = street.getScore() * 1.0 / max_score;
                         value = Math.round(min_color + normalized_value * (max_color - min_color));
                         value = value.toString(16);
                         // 252 76 2
@@ -220,12 +220,14 @@ class MapPage extends RegionPage{
                         let red_light_mode = `#ff${value}${value}`;
                         let black_light_mode = `#${value}${value}${value}`;
                         let emil_mode = `#a5${value}ed`;
-                        drawer.drawLines(street.coords, black_light_mode)}
+                        let black_mode = `#${value}0000`;
+                        drawer.drawLines(street.coords, black_mode)
+                    }
                     ));
                     let visualize_buildings = false;
                     if (visualize_buildings == true){
                         let building_color = "#313131";
-                    let building_light_color = "#AEAEAE";
+                    let building_light_color = "#000000"; // EAEAEA
                     zone.getBuildings().then(res=>{
                         return res.filter(r=>r!=undefined).map(r=>drawer.drawArea(r, building_light_color, zone))});
                     return;
