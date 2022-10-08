@@ -110,8 +110,9 @@ To get a local copy up and running follow these simple example steps.
 * Explore the statistics!
 
 <p align="center">
-<img src="assets/illustrations/frontpage.png" width="300"/>
-<img src="assets/illustrations/changepage.png" width="300"/>
+<img src="assets/illustrations/UI_auth.png" width="300"/>
+<img src="assets/illustrations/UI_cityzone_page.png" width="300"/>
+<img src="assets/illustrations/UI_map_page.png" width="300"/>
 </p>
 
 
@@ -210,7 +211,10 @@ Project Link: [https://github.com/STASYA00/whereDoIRun](https://github.com/STASY
 [license-url]: https://github.com/STASYA00/whereDoIRun/blob/master/LICENSE.txt
 [linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
 [linkedin-url]: https://www.linkedin.com/in/stanislava-fedorova/
-[product-screenshot]: assets/illustrations/UI.png
+[product-screenshot]: assets/illustrations/UI.gif
+[product-authpage]: assets/illustrations/UI_auth.gif
+[product-zonepage]: assets/illustrations/UI_cityzone_page.png
+[product-mappage]: assets/illustrations/UI_map_page.gif
 
 
 ## Development notes
