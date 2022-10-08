@@ -1,6 +1,6 @@
 let modes = {TEST: 0, 
     RELEASE: 1};
-const mode = modes.TEST;
+let mode = modes.TEST;
 
 function main(){
     

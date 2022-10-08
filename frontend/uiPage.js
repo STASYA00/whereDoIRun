@@ -40,9 +40,11 @@ class AuthPage extends Page{
         
         let el1 = new introText(this.id);
         let el2  = new connectButton(this.id);
+        let el3  = new testButton(this.id);
         el1.make(this.window, this.window.left + (this.window.canvas.width - this.window.left * 2) * 0.5, 
                             this.window.topMargin + this.#introMargin);
         el2.make(this.window, Math.ceil(this.window.canvas.width * 0.5), this.buttonTop);
+        el3.make(this.window, Math.ceil(this.window.canvas.width * 0.5), this.buttonTop + 70);
 
         //this.children = [el1, el2];
     }

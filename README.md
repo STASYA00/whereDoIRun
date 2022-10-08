@@ -64,7 +64,7 @@
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
-[![WhereDoIRun][product-screenshot]](https://example.com)
+[![WhereDoIRun][product-screenshot]](https://github.com/STASYA00/whereDoIRun)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -140,6 +140,7 @@ Limitations:
 - an option to connect to the other running apps
 - rewrite as typescript
 - reactjs
+- add fonts
 
 See the [open issues](https://github.com/STASYA00/whereDoIRun/issues) for a full list of proposed features (and known issues).
 

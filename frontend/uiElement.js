@@ -138,6 +138,7 @@ class connectButton extends graphicElement{
     
     onClick(mainWindow){
         let m = 50;  // margin by which the window is larger than the canvas
+        mode = modes.RELEASE;
         auth(mainWindow.left - m, mainWindow.top - m, 
             (mainWindow.left+ m) * 2, (mainWindow.top + m) * 2)
                     .then(res => mainWindow.children.filter(r=>r.id==this.pageid)
@@ -221,6 +222,31 @@ class Button extends graphicElement{
             .attr("stroke", "#000")
             .attr("stroke-width", 1);
         datum.mainWindow.makePage(datum.page, datum.area);
+    }
+}
+
+class testButton extends Button{
+    constructor(params){
+        super(params);
+        this.height = 48;
+        this.width = 193;
+        this.content = "Try with test data!";
+    }
+    
+    onClick(w){
+        console.log(w.mainWindow);
+        mode = modes.TEST;  // margin by which the window is larger than the canvas
+        w.mainWindow.children.filter(r=>r.id==this.pageid)
+                            .forEach(element => { element.clear(); });
+        w.mainWindow.makeOverview()
+        .then( r => {
+                    w.mainWindow.overview = r;
+                    w.mainWindow.overview.getCountries();
+                    return r;
+                })
+                .then(r=>{
+                    w.mainWindow.makePage(pageCatalog.COUNTRY);
+                });
     }
 }
 
