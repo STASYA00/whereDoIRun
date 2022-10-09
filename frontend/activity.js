@@ -47,7 +47,83 @@ class Activity{
         this.#coords = this.#coords.filter(c=>c!=undefined).map(c=>[c[key2], c[key1]]);
     }
 }
+/*
+class Overview{
+    #cachemanager;
+    constructor(data){
+        this.#cachemanager = new CacheManager();
+        this.activityOverview = new ActivityOverview(data);
+        this.countryOverview = new CountryOverview();
+    }
+}
 
+class CountryOverview{
+    #cachemanager;
+    #countryMargin;
+    #detector;
+    constructor(){
+        this.#activities = new Array();
+        this.#cachemanager = new CacheManager();
+        this.#countryMargin = 1;
+        this.#detector = new zoneDetector();
+    }
+
+    get(activities){
+        if (this.countries.length > 0){
+            // if the countries were already calculated, return them
+            let c = this.countries;
+            return new Promise ((resolve) => resolve(c));
+        }        
+        this.countries = this.#getCached();
+
+        // find activities that happen in unique countries
+        let per_country_activities = new Array();
+        per_country_activities.push(activities[0]);
+
+        activities.forEach(activity => {
+            let sum = per_country_activities.map(c=>vecDiff(c.getStartCoords(), 
+                                               activity.getStartCoords()) > this.#countryMargin);
+            if(!sum.includes(false)){
+                per_country_activities.push(activity);
+            }
+        });
+
+        // compare the unique activities with the cached data
+        // TODO
+
+        // create countries for the unmatched activities
+    
+    return new Promise ((resolve) => resolve("1"))
+    .then(async(r) => await Promise.all(per_country_activities.slice(0, 1).map(async (city) => {
+        try {
+            let r = undefined;
+            if (mode==modes.RELEASE){
+                r = requests.COUNTRY;
+            }
+            else{
+                r = requests.TEST_COUNTRY_BOUNDS;
+            }
+            let c = await this.#detector.make(city, r);
+            
+            let a = await c.getBoundary().then(r=>{
+                return c.scoreAll(this.#activities)});
+                                         //.then(r=>console.log("score:", c.getScore()));
+                                         
+            let curNames = this.countries.map(c=>c.name[0]);
+            if (!curNames.includes(c.name[0])){
+                this.countries.push(c);
+            }
+        } catch (error) {}
+      })).then(r => {
+        return this.countries; }));
+    };
+
+    #getCached(){
+        return this.#cachemanager.get(cacheEntries.COUNTRIES);
+    }
+
+}
+*/
 class ActivityOverview{
     #activities;
     #activity_limit;
@@ -145,15 +221,20 @@ class ActivityOverview{
     }
 
     getCountries(){
+        /*
+        Function that returns countries relevant to the athlete's activity
+        */
         if (this.countries.length > 0){
+            // if the countries were already calculated, return them
             let c = this.countries;
             return new Promise ((resolve) => resolve(c));
         }
-        
         if (this.#activities.length==0){
+            // produce activites in case they were not produced earlier
             this.getActivities();
         }
         
+
         let countries = new Array();
         countries.push(this.#activities[0]);
         this.#activities.forEach(r=>{

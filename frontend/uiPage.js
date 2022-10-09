@@ -122,7 +122,9 @@ class CityPage extends RegionPage{
                         console.log("zone scored", zone.getScore());
                         return zone;})
             }));
-            return r;
+            // reverse sorting - from higher to lower score
+            // zones that scored 0 are not shown
+            return r.filter(zone => zone.getScore()>0).sort((zone1, zone2) => zone2.getScore() - zone1.getScore());
         });
         };
     
@@ -138,7 +140,6 @@ class ZonePage extends RegionPage{
     }
     callfront(element){
         return new Promise((res) => res([]));
-        //return element.getZones();
     }
 
     nextPage(){
@@ -165,9 +166,11 @@ class MapPage extends RegionPage{
         let max_score = 0;
         let min_score = 4;
         let percent = 0;
+        console.log("x canvas", this.window.canvas.width, this.window.left, this.#margin);
         let w = this.window.canvas.width - 2 * this.window.left - 2 * this.#margin;
-        let h = this.window.bottom - this.window.top - 2 * this.#margin - 
-                                             this.window.creditMargin - BackButton.height * 4;
+        console.log("y canvas", this.window.canvas.height, this.window.bottom, this.window.top, this.#margin, this.window.creditMargin);
+        let h = this.window.bottom - this.window.top - this.#margin - 
+                                             this.window.creditMargin - BackButton.height;
         let x1 = this.window.left + this.#margin;
         let y1 = this.window.topMargin + this.#margin;
 
@@ -175,14 +178,15 @@ class MapPage extends RegionPage{
             if (proportion > w * 1.0 / h){
                 // width is larger than the default; the width is kept, the height is adjusted
                 console.log("width is adjusted", proportion, w, h);
-                w = h * 1.0 / proportion;
-                x1 = this.window.left + 0.5 * (this.window.canvas.width - 2 * this.window.left - w);
+                h = w * 1.0 / proportion;
                 console.log(w, h, y1);
             }
             else{
                 // height is larger than it is supposed to be; height is kept, adjusting the width
-                console.log("height is adjusted");
-                h = w * 1.0 / proportion;
+                console.log("height is adjusted", h, w, proportion);
+                w = h * 1.0 / proportion;
+                x1 = this.window.left + 0.5 * (this.window.canvas.width - 2 * this.window.left - w);
+                
                 
                 console.log(w, h, y1);
             }
@@ -194,6 +198,7 @@ class MapPage extends RegionPage{
                 let dark_mode = "#212121";
                 let light_mode = "#EFEFEF"; //EFEFEF
                 drawer.drawArea(b, light_mode, zone);
+                /*
                 zone.getStreets().then(streets => streets.filter(r=>r!=undefined))
                 .then(streets => {
                     
@@ -236,6 +241,7 @@ class MapPage extends RegionPage{
                         return;
                     }
                     ));
+                    */
                     let visualize_buildings = false;
                     if (visualize_buildings == true){
                         let building_color = "#313131";
