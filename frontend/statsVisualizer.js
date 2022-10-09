@@ -180,8 +180,9 @@ class statsCalculator{
 
     static streetPercentage(streets){
         var runStreetsLength = streets.filter(s=>s.getScore()>1).map(s=>s.length()).reduce((prev, next) => prev + next);
+        console.log("Run streets length", runStreetsLength);
         var allStreetsLength = streets.map(s=>s.length()).reduce((prev, next) => prev + next);
-    
+        console.log("total streets length", allStreetsLength);
         return runStreetsLength / allStreetsLength;
     }
 }

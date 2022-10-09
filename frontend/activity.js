@@ -1,10 +1,10 @@
 class Activity{
     #coords;
-    #data;
+    data;
     #type;
     constructor(data){ //activityId, activityType, encodedCoords){
         this.id = data["id"];
-        this.#data = data;
+        this.data = data;
         this.#type = data["type"];
         this.#coords = new Array();
         if (data["map"]["summary_polyline"]!=null){
@@ -20,11 +20,11 @@ class Activity{
     }
 
     getEndCoords(){
-        return this.#data["end_latlng"];
+        return this.data["end_latlng"];
     }
 
     getStartCoords(){
-        return this.#data["start_latlng"];
+        return this.data["start_latlng"];
     }
 
     getType(){
@@ -56,8 +56,10 @@ class ActivityOverview{
     #margin;
     #detector;
     #countryMargin;
+    #cachemanager;
+
     constructor(data){
-        this.#data = data;
+        this.#data = data.filter(d=>d["map"]["summary_polyline"]!=null);
         this.#factory = new Factory(Activity);
         this.#margin = 0.1;
         this.#countryMargin = 1;
@@ -65,7 +67,9 @@ class ActivityOverview{
         this.#detector = new zoneDetector();
         this.countries = new Array();
         this.areas = new Array();
+        this.new_ids = new Array();
         this.#activity_limit = undefined;
+        this.#cachemanager = new CacheManager();
     }
 
     test(){
@@ -80,15 +84,56 @@ class ActivityOverview{
     }
 
     getActivities(){
+        /*
+        Function that returns a collection of Activities from the data contained in this class.
+        If the activities were cached, they are taken directly from cache, otherwise they are
+        produced from scratch from the data.
+        Cached data is compared to the list of activities' ids, so that only the relevant activities
+        are used. Plus, the new / updated activities are added.
+
+        not a Promise.
+        */
+
+        // if the activities were not produced earlier, produce them now:
         if (this.#activities.length==0){
-            if (this.#activity_limit==undefined){
-                this.#activity_limit = this.#data.length;
+            // this.#cachemanager.clear(cacheEntries.ACTIVITIES);
+            // console.log("cleared activities", this.#cachemanager.get(cacheEntries.ACTIVITIES));
+            // getting cached data
+            this.#activities = this.#getCached(cacheEntries.ACTIVITIES);
+            if (this.#activities!=null){
+                // get a list of ids to compare with the data
+                let cache_ids = this.#activities.map(activity => activity.id);
+                this.new_ids = this.#data.map(activity => activity["id"]);
+
+                // using only activities that were not deleted by the user
+                cache_ids = cache_ids.filter(id => this.new_ids.includes(id));
+                this.#activities = this.#activities.filter(a => cache_ids.includes(a.id) );
+                // adding ids of new activities
+                this.new_ids = this.new_ids.filter(id => !cache_ids.includes(id));
             }
-            this.#activities = this.#data.slice(0, this.#activity_limit)
-                                    .filter(d=>d["map"]["summary_polyline"]!=null)
-                                    .map(d=>this.#factory.make(d));
+
+            else {
+                // all activities are new and should be recalculated and produced
+                this.new_ids = this.#data.map(activity => activity["id"]);
+            }
+            if (this.#activities==null || this.#activities=="null"){
+                this.#activities = new Array();
+            }
+            
+            // produce missing activities and append them to the cached ones
+            this.#activities = this.#activities.map(d=>this.#factory.make(d.data))
+                                               .concat(this.#data.filter(a => this.new_ids.includes(a["id"]))
+                                               .map(d=>this.#factory.make(d)));
         }
+        
+        // cache all the activities to reuse them next time
+        
+        this.#cachemanager.add(cacheEntries.ACTIVITIES, this.#activities.slice(0, 45));
         return this.#activities;
+    }
+
+    #getCached(key){
+        return this.#cachemanager.get(key);
     }
 
     getStartCoords(){

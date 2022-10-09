@@ -164,21 +164,27 @@ class MapPage extends RegionPage{
         
         let max_score = 0;
         let min_score = 4;
+        let percent = 0;
         let w = this.window.canvas.width - 2 * this.window.left - 2 * this.#margin;
-        let h = this.window.canvas.height - this.window.top - this.window.bottom - 2 * this.#margin - 
-                                             this.window.creditMargin - BackButton.height * 2;
+        let h = this.window.bottom - this.window.top - 2 * this.#margin - 
+                                             this.window.creditMargin - BackButton.height * 4;
         let x1 = this.window.left + this.#margin;
-        let y1 = this.window.top + this.#margin;
+        let y1 = this.window.topMargin + this.#margin;
 
         zone.getRelativeWidth().then(proportion => {
             if (proportion > w * 1.0 / h){
                 // width is larger than the default; the width is kept, the height is adjusted
-                h = w * 1.0 / proportion;
+                console.log("width is adjusted", proportion, w, h);
+                w = h * 1.0 / proportion;
+                x1 = this.window.left + 0.5 * (this.window.canvas.width - 2 * this.window.left - w);
+                console.log(w, h, y1);
             }
             else{
                 // height is larger than it is supposed to be; height is kept, adjusting the width
-                w = proportion * 1.0 * h;
-                x1 = this.window.left + 0.5 * (this.window.canvas.width - 2 * this.window.left - w);
+                console.log("height is adjusted");
+                h = w * 1.0 / proportion;
+                
+                console.log(w, h, y1);
             }
             return "";
         }).then(r => {
@@ -196,6 +202,9 @@ class MapPage extends RegionPage{
                         street.score(activity); // TODO: TAKES LONG TIME
                     }));
                     max_score = Math.max(...streets.map(s=>s.getScore()));
+                    percent = statsCalculator.streetPercentage(streets);
+                    let el = new statsText([Math.round(percent * 100) * 0.01]);
+                    el.make(this.window, this.window.left + 550, this.window.topMargin + 50);
                     return streets;
                 })
                 .then(streets => 
@@ -223,7 +232,8 @@ class MapPage extends RegionPage{
                         let black_light_mode = `#${value}${value}${value}`;
                         let emil_mode = `#a5${value}ed`;
                         let black_mode = `#${value}0000`;
-                        drawer.drawLines(street.coords, black_mode)
+                        drawer.drawLines(street.coords, black_mode);
+                        return;
                     }
                     ));
                     let visualize_buildings = false;
@@ -235,8 +245,13 @@ class MapPage extends RegionPage{
                     return;
                     }
                     return;
-                })
-        }) 
+                });
+        }).then(
+            r => {
+                
+            }
+        );
+        
     }
 }
 

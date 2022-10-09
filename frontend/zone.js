@@ -57,6 +57,7 @@ class Zone{
             }
             else{
                 // TODO: change to test
+                // l = requests.TEST_SODER_BUILDINGS;
                 l = requests.BUILDING;
             }
             return new l(b.map(c => [c[1], c[0]])).call().then(buildings => {
@@ -90,8 +91,8 @@ class Zone{
                                 l = requests.ROAD;
                             }
                             else{
-                                // TODO: change to test
-                                l = requests.TEST_SODER_STREETS;
+                                //l = requests.TEST_SODER_STREETS;
+                                l = requests.ROAD;
                             }
                             return new l(r.map(c => [c[1], c[0]])).call().then(streets =>{  
                                                               
@@ -162,7 +163,8 @@ class Zone{
                 r = new requests.TEST_COUNTRIES();
             }
             else if (this.name[0].slice(this.name[0].length-zone_token.length, this.name[0].length) == zone_token){
-                r = new requests.TEST_SODER_BOUNDS();
+                //r = new requests.TEST_SODER_BOUNDS();
+                r = new requests.NOMINATIM(this.name);
             }
             else{
                 r = new requests.TEST_STHLM_BOUNDS();

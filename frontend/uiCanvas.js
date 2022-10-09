@@ -134,19 +134,37 @@ class mainCanvas{
         
     }
 
-    makeOverview(){
+    getOverview(){
+        /*
+        Function that gets an overview of an athlete's activity
+        Overview contains the activities with their data (id, coords etc), countries
+        in which these activities were performed.
+
+        returns a Promise.
+        */
+
         if (this.overview!=undefined){
             return new Promise ((res)=>res(this.overview));
         }
-        let l = undefined;
+        
+        // If there is no overview, create one
+
+        let req = undefined; // request to make to the server
+        // getting all the activities from strava or from the test file
+        // this request is made independent of whether we have cached activities or not, since
+        // 1. the activities might be updated (deleted or added)
+        // 2. it is a one-time operation that does not put heavy load on strava server
+        // 3. it is a one-time operation that does not take long time
+
         if (mode==modes.RELEASE){
-            l = new requests.LOCAL("activities");
+            // request to strava API - release mode
+            req = new requests.LOCAL("activities");
         }
         else{
-            l = new requests.LOCAL("test/activities");
+            // request to grab activities from the test file - test mode
+            req = new requests.LOCAL("test/activities");
         }
-            
-        return l.call().then(r=>new ActivityOverview(r));
+        return req.call().then(r=>new ActivityOverview(r));
         
     }
 
@@ -168,7 +186,7 @@ class mainCanvas{
             else{
                 
                 //this.loading();
-                this.makeOverview().then(r=>{
+                this.getOverview().then(r=>{
                                         this.overview = r; 
                                         return this.overview.getCountries();
                                     })

@@ -145,7 +145,7 @@ class connectButton extends graphicElement{
                                                     .forEach(element => {
                                                         element.clear();
                                                     }))
-                    .then(r=> mainWindow.makeOverview()
+                    .then(r=> mainWindow.getOverview()
                             .then( r => {
                                 
                                 mainWindow.overview = r;
@@ -238,7 +238,7 @@ class testButton extends Button{
         mode = modes.TEST;  // margin by which the window is larger than the canvas
         w.mainWindow.children.filter(r=>r.id==this.pageid)
                             .forEach(element => { element.clear(); });
-        w.mainWindow.makeOverview()
+        w.mainWindow.getOverview()
         .then( r => {
                     w.mainWindow.overview = r;
                     w.mainWindow.overview.getCountries();
@@ -510,6 +510,24 @@ class introText extends graphicElement{
                 .attr("y", y + 20)
                 .attr("text-anchor", "middle")
                 .text(this.content[1])
+                .datum(this.datum());
+    }
+}
+
+class statsText extends graphicElement{
+    
+    constructor(params){
+        super(params);
+        this.content = params;
+    }
+
+    make(mainWindow, x, y){
+        mainWindow.canvas.append("text")
+                .text(this.content[0].toString() + " %")
+                .attr("x", x)
+                .attr("y", y)
+                .attr("text-anchor", "middle")
+                .attr("fill", "#212121")
                 .datum(this.datum());
     }
 }
