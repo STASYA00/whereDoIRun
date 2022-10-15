@@ -192,6 +192,7 @@ class MapPage extends RegionPage{
             }
             return "";
         }).then(r => {
+            console.log(x1, y1, x1 + w, y1 + h);
             let drawer = new ZoneDrawer(this.window, [x1, y1, x1 + w, y1 + h], zone);
             drawer.setScale();
             zone.getBoundary().then(b => {

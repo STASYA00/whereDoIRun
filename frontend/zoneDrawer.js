@@ -213,10 +213,7 @@ class Drawer {
         }
                         
         this.#canvasOrg.canvas.append("polygon")
-            .attr("fill", color)
-            .style("fill-opacity", 1)
-            .style("stroke-width", 0.01)
-            .style("stroke", "#FFF")
+            .attr("class", "area")
             .attr("points", coords)
             .datum({
                 "zone": zone,
@@ -241,10 +238,10 @@ class Drawer {
         let thickness = 1;
         
         this.#canvasOrg.canvas.append("polyline")
-            .attr("fill", "none")
-            .style("stroke-width", thickness)
-            .style("stroke", color)
-            .style("opacity", 0.7)
+            .attr("class", "street")
+            // .style("stroke-width", thickness)
+            // .style("stroke", color)
+            // .style("opacity", 0.7)
             .attr("points", coords);
         // }
 
@@ -255,9 +252,9 @@ class Drawer {
         }
         this.#canvasOrg.canvas.append("text")
             .text(t)
+            .class("label")
             .attr("x", this.#drawarea[0] + (this.#drawarea[2] - this.#drawarea[0]) * 0.5)
             .attr("y", this.#drawarea[1] + (this.#drawarea[3] - this.#drawarea[1]) * 0.5)
-            .attr("fill", "#FFFFFF");
     }
 
     setScale(){
