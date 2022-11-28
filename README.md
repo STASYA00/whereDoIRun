@@ -128,19 +128,19 @@ Limitations:
 <!-- ROADMAP -->
 ## Roadmap
 
-- Percentage of a geographical area covered by runs (streets mapped on OSM)
-- Two types of maps: binary (run / not run) and where a person runs most
-- Caching the activity and the geo data, to ease the load on OSM and strava
-- CSS for styles
-- Dynamic website version
-- Mobile app version
-- Different color styles for the app and graphics
-- Timeline to show how the territory discovery changes
-- An option to upload local activity files without using strava
-- an option to connect to the other running apps
-- rewrite as typescript
-- reactjs
-- add fonts
+- [ ] Percentage of a geographical area covered by runs (streets mapped on OSM)
+- [ ] Two types of maps: binary (run / not run) and where a person runs most
+- [ ] Caching the activity and the geo data, to ease the load on OSM and strava
+- [x] CSS for styles
+- [ ] Dynamic website version
+- [ ] Mobile app version
+- [ ] Different color styles for the app and graphics
+- [ ] Timeline to show how the territory discovery changes
+- [ ] An option to upload local activity files without using strava
+- [ ] an option to connect to the other running apps
+- [ ] rewrite as typescript
+- [ ] reactjs
+- [x] add fonts
 
 See the [open issues](https://github.com/STASYA00/whereDoIRun/issues) for a full list of proposed features (and known issues).
 

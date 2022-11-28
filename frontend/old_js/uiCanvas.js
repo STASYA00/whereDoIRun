@@ -10,66 +10,25 @@ class mainCanvas{
         this.children = [];
         this.creditMargin = 20;
 
-        this.canvas = d3.select("svg").append("svg");
-        this.canvas.width = window.innerWidth,
-        this.canvas.height = window.innerHeight;
+        //this.canvas = d3.select("svg").append("svg");
+        // this.canvas.width = window.innerWidth,
+        // this.canvas.height = window.innerHeight;
 
-        this.left = Math.ceil(this.canvas.width * 0.25);
-        this.top = Math.ceil(this.canvas.height * 0.25);
-        this.bottom = this.canvas.height - this.top;
+        // this.left = Math.ceil(this.canvas.width * 0.25);
+        // this.top = Math.ceil(this.canvas.height * 0.25);
+        // this.bottom = this.canvas.height - this.top;
         
-        this.coords = [[this.left, this.topMargin],
-                       [this.canvas.width - this.left, this.topMargin],
-                       [this.canvas.width - this.left, this.bottom],
-                       [this.left, this.bottom],
-                       [this.left, this.topMargin]];
-        this.coords = this.coords.filter(c=>c!=undefined)
-                        .map(c=>[`${c[0].toString()},${c[1].toString()}`])
-                        .join(",");
+        // this.coords = [[this.left, this.topMargin],
+        //                [this.canvas.width - this.left, this.topMargin],
+        //                [this.canvas.width - this.left, this.bottom],
+        //                [this.left, this.bottom],
+        //                [this.left, this.topMargin]];
+        // this.coords = this.coords.filter(c=>c!=undefined)
+        //                 .map(c=>[`${c[0].toString()},${c[1].toString()}`])
+        //                 .join(",");
         this.#setID().then(r=>this.make());
-        this.curInd = 0;
-        this.#loadingpage = undefined; 
-    }
-
-    #dropShadow(){
-        /* For the drop shadow filter... */
-        // https://stackoverflow.com/questions/12277776/how-to-add-drop-shadow-to-d3-js-pie-or-donut-chart
-        // https://observablehq.com/@bumbeishvili/svg-drop-shadows
-
-        var defs = this.canvas.append("defs");
-        var filter = defs.append("filter")
-            .attr("id", "dropshadow")
-
-        filter.append("feGaussianBlur")
-            .attr("in", "SourceAlpha")
-            .attr("stdDeviation", 20)
-            .attr("result", "blur");
-
-        filter.append("feOffset")
-            .attr("in", "blur")
-            .attr("dx", 2)
-            .attr("dy", 2)
-            .attr("result", "offsetBlur")
-
-        filter.append("feFlood")
-            .attr("in", "offsetBlur")
-            // .attr("flood-color", "#3d3d3d")
-            .attr("flood-opacity", "0.25")
-            .attr("result", "offsetColor");
-
-        filter.append("feComposite")
-            .attr("in", "offsetColor")
-            .attr("in2", "offsetBlur")
-            .attr("operator", "in")
-            .attr("result", "offsetBlur");
-    
-        var feMerge = filter.append("feMerge");
-    
-        feMerge.append("feMergeNode")
-            .attr("in", "offsetBlur")
-        feMerge.append("feMergeNode")
-            .attr("in", "SourceGraphic");
-
+        // this.curInd = 0;
+        // this.#loadingpage = undefined; 
     }
 
     #footer(){
@@ -95,18 +54,11 @@ class mainCanvas{
     }
 
     base(){
-        this.#dropShadow();
-        this.canvas.append("polygon")
-            .attr("fill", "#FFF")
-            .style("fill-opacity", 1)
-            .style("stroke-width", 0)
-            .style("stroke", "none")
-            .attr("points", this.coords)
-            .attr("filter", "url(#dropshadow)")
-            .datum({"children": this.children})
-            ;
-
-        this.#footer();
+        let d = document.getElementsByTagName("body")[0];
+        let canvas = document.createElement("div");
+        canvas.className = "canvas";
+        d.appendChild(canvas);
+        //this.#footer();
     }
 
     clear(){
@@ -181,7 +133,7 @@ class mainCanvas{
         this.isAuthorized().then(r =>{
             console.log("is auth", r);
             if (r == "0"){
-                this.makePage(pageCatalog.AUTH);
+                //this.makePage(pageCatalog.AUTH);
             }
             else{
                 
