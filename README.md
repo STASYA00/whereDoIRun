@@ -227,6 +227,9 @@ if ```127.0.0.1:3000``` works with ```http``` but not with ```express```, try ``
 
 if the runs are not coherent with the map, the issue probably lies in backslashes. They should be double in the encoded string.
 
+to compile the Typescript files:
+```tsc --module system --out main.js main.ts && cp main.js ../js```
+
 ## TODO:
 
 define a standard for lat-lon

@@ -1,5 +1,348 @@
-"use strict";
-exports.__esModule = true;
-var canvas_1 = require("./canvas");
-var c = new canvas_1.Canvas();
-c.make();
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = function (d, b) {
+        extendStatics = Object.setPrototypeOf ||
+            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+            function (d, b) { for (var p in b) if (Object.prototype.hasOwnProperty.call(b, p)) d[p] = b[p]; };
+        return extendStatics(d, b);
+    };
+    return function (d, b) {
+        if (typeof b !== "function" && b !== null)
+            throw new TypeError("Class extends value " + String(b) + " is not a constructor or null");
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+//import * as uuid from "uuid";
+System.register("constants", [], function (exports_1, context_1) {
+    "use strict";
+    var constants;
+    var __moduleName = context_1 && context_1.id;
+    return {
+        setters: [],
+        execute: function () {//import * as uuid from "uuid";
+            exports_1("constants", constants = {
+                CANVAS_ID: "123",
+                CANVAS_CLASSNAME: "canvas",
+                PANEL_ID_START: "id_start",
+                FOOTER: "footer",
+                HEADER: "header",
+                ROOT_CLASSNAME: "root"
+            });
+        }
+    };
+});
+System.register("uiElements", ["constants"], function (exports_2, context_2) {
+    "use strict";
+    var constants_1, PanelElement, PanelText, Pane, PanelButton, Panel;
+    var __moduleName = context_2 && context_2.id;
+    return {
+        setters: [
+            function (constants_1_1) {
+                constants_1 = constants_1_1;
+            }
+        ],
+        execute: function () {
+            PanelElement = /** @class */ (function () {
+                function PanelElement(id, css, classname) {
+                    if (id === void 0) { id = null; }
+                    if (css === void 0) { css = []; }
+                    if (classname === void 0) { classname = null; }
+                    this.id = id ? id : "11"; //uuid.v4();
+                    this.css = css;
+                    this.elementType = "div";
+                    this.className = classname;
+                }
+                PanelElement.prototype.createElement = function () {
+                    var el = document.createElement(this.elementType);
+                    return el;
+                };
+                PanelElement.prototype.add = function (parentId) {
+                    if (parentId === void 0) { parentId = ""; }
+                    var el = this.createElement();
+                    el.id = this.id;
+                    if (this.className) {
+                        el.className = this.className;
+                    }
+                    this.css.forEach(function (x) {
+                        el.style.setProperty(x.tag, x.value);
+                    });
+                    this.appendElement(parentId, el);
+                    this.postprocess(el);
+                };
+                PanelElement.prototype.appendElement = function (parentId, child) {
+                    var parent = document.getElementById(parentId);
+                    if (parent) {
+                        parent.appendChild(child);
+                    }
+                };
+                PanelElement.prototype.postprocess = function (el) {
+                };
+                return PanelElement;
+            }());
+            exports_2("PanelElement", PanelElement);
+            PanelText = /** @class */ (function (_super) {
+                __extends(PanelText, _super);
+                function PanelText(text, classname, id) {
+                    if (classname === void 0) { classname = null; }
+                    if (id === void 0) { id = null; }
+                    var _this = _super.call(this, id, [], classname) || this;
+                    _this.text = text;
+                    _this.elementType = "p";
+                    return _this;
+                }
+                PanelText.prototype.createElement = function () {
+                    var el = document.createElement(this.elementType);
+                    el.innerHTML = this.text;
+                    el.id = this.id;
+                    return el;
+                };
+                return PanelText;
+            }(PanelElement));
+            exports_2("PanelText", PanelText);
+            Pane = /** @class */ (function (_super) {
+                __extends(Pane, _super);
+                function Pane(parentId, classname, parent) {
+                    if (classname === void 0) { classname = null; }
+                    if (parent === void 0) { parent = null; }
+                    var _this = _super.call(this, null, [], classname) || this;
+                    _this.parent = parent;
+                    _this.parentId = parentId;
+                    return _this;
+                }
+                Pane.prototype.getElements = function () {
+                    return [];
+                };
+                Pane.prototype.add = function () {
+                    var _this = this;
+                    var pane = document.createElement("div");
+                    pane.id = this.id;
+                    if (this.className) {
+                        pane.className = this.className;
+                    }
+                    var rootElement = document.getElementById(this.parentId);
+                    if (rootElement) {
+                        rootElement.append(pane);
+                    }
+                    else {
+                        console.log("Could not create ".concat("pane"));
+                        return;
+                    }
+                    var elements = this.getElements();
+                    elements.forEach(function (el) {
+                        el.add(_this.id);
+                    });
+                    this.postprocess(pane);
+                };
+                return Pane;
+            }(PanelElement));
+            exports_2("Pane", Pane);
+            PanelButton = /** @class */ (function (_super) {
+                __extends(PanelButton, _super);
+                function PanelButton(label, onclickFn, classname, css, disabled) {
+                    if (classname === void 0) { classname = null; }
+                    if (css === void 0) { css = []; }
+                    if (disabled === void 0) { disabled = false; }
+                    var _this = _super.call(this, null, css, classname) || this;
+                    _this.label = label;
+                    _this.onclickFn = onclickFn;
+                    _this.elementType = "button";
+                    _this.disabled = disabled;
+                    if (!_this.className) {
+                        _this.className = "button";
+                    }
+                    return _this;
+                }
+                PanelButton.prototype.createElement = function () {
+                    var el = document.createElement("button");
+                    el.innerHTML = this.label;
+                    el.onclick = this.onclickFn;
+                    if (this.disabled) {
+                        el.disabled = true;
+                    }
+                    return el;
+                };
+                return PanelButton;
+            }(PanelElement));
+            exports_2("PanelButton", PanelButton);
+            Panel = /** @class */ (function () {
+                function Panel(id, parent) {
+                    if (id === void 0) { id = null; }
+                    this.id = id ? id : "11"; //uuid.v4();
+                    this.classname = "panel";
+                    this.parent = parent;
+                    this.parentId = constants_1.constants.ROOT_CLASSNAME;
+                }
+                Panel.prototype.getElements = function () {
+                    return [];
+                };
+                Panel.prototype.add = function () {
+                    var _this = this;
+                    var panel = document.createElement("div");
+                    panel.id = this.id;
+                    panel.className = this.classname;
+                    var rootElement = document.getElementById(this.parentId);
+                    if (rootElement) {
+                        rootElement.append(panel);
+                    }
+                    else {
+                        console.log("Could not create ".concat(this.classname));
+                        return;
+                    }
+                    var elements = this.getElements();
+                    elements.forEach(function (el) {
+                        el.add(_this.id);
+                    });
+                    this.postActions();
+                };
+                Panel.prototype.postActions = function () {
+                };
+                return Panel;
+            }());
+            exports_2("Panel", Panel);
+        }
+    };
+});
+System.register("panel", ["constants", "uiElements"], function (exports_3, context_3) {
+    "use strict";
+    var constants_2, uiElements_1, Header, Footer, StartPanel;
+    var __moduleName = context_3 && context_3.id;
+    return {
+        setters: [
+            function (constants_2_1) {
+                constants_2 = constants_2_1;
+            },
+            function (uiElements_1_1) {
+                uiElements_1 = uiElements_1_1;
+            }
+        ],
+        execute: function () {
+            Header = /** @class */ (function (_super) {
+                __extends(Header, _super);
+                function Header() {
+                    var _this = _super.call(this, constants_2.constants.ROOT_CLASSNAME, constants_2.constants.HEADER) || this;
+                    _this.id = constants_2.constants.HEADER;
+                    return _this;
+                }
+                Header.prototype.getElements = function () {
+                    return [
+                    //new PanelImage( null, "../assets/egg.svg", [ { tag: "width", value: "15px" } ] ),
+                    //new PanelText("Hatch Print Info"),
+                    ];
+                };
+                return Header;
+            }(uiElements_1.Pane));
+            exports_3("Header", Header);
+            Footer = /** @class */ (function (_super) {
+                __extends(Footer, _super);
+                function Footer(id) {
+                    var _this = _super.call(this, constants_2.constants.ROOT_CLASSNAME, constants_2.constants.FOOTER) || this;
+                    _this.id = constants_2.constants.FOOTER;
+                    return _this;
+                }
+                Footer.prototype.getElements = function () {
+                    return [];
+                };
+                return Footer;
+            }(uiElements_1.Pane));
+            exports_3("Footer", Footer);
+            StartPanel = /** @class */ (function (_super) {
+                __extends(StartPanel, _super);
+                function StartPanel(parent) {
+                    var id = constants_2.constants.PANEL_ID_START;
+                    return _super.call(this, id, parent) || this;
+                }
+                StartPanel.prototype.getElements = function () {
+                    var elements = [new uiElements_1.PanelText("some text")];
+                    return elements;
+                };
+                return StartPanel;
+            }(uiElements_1.Panel));
+            exports_3("StartPanel", StartPanel);
+        }
+    };
+});
+System.register("canvas", ["constants", "panel"], function (exports_4, context_4) {
+    "use strict";
+    var constants_3, panel_1, Canvas;
+    var __moduleName = context_4 && context_4.id;
+    return {
+        setters: [
+            function (constants_3_1) {
+                constants_3 = constants_3_1;
+            },
+            function (panel_1_1) {
+                panel_1 = panel_1_1;
+            }
+        ],
+        execute: function () {
+            Canvas = /** @class */ (function () {
+                function Canvas() {
+                    this.currentDisplayedPanelId = "";
+                }
+                Canvas.prototype.make = function () {
+                    this.addHeader();
+                    this.addPanels();
+                    this.addFooter();
+                    this.switchToPanel(constants_3.constants.PANEL_ID_START);
+                };
+                Canvas.prototype.switchToPanel = function (id) {
+                    if (this.currentDisplayedPanelId) {
+                        var el_1 = document.getElementById(this.currentDisplayedPanelId);
+                        if (el_1) {
+                            el_1.style.display = "none";
+                        }
+                    }
+                    var el = document.getElementById(id);
+                    if (el) {
+                        el.style.display = "flex";
+                    }
+                    this.currentDisplayedPanelId = id;
+                };
+                Canvas.prototype.addHeader = function () {
+                    var h = new panel_1.Header();
+                    h.add();
+                };
+                Canvas.prototype.addPanels = function () {
+                    var panels = [
+                        new panel_1.StartPanel(this)
+                    ];
+                    panels.forEach(function (panel) { return panel.add(); });
+                };
+                Canvas.prototype.addFooter = function () {
+                    var h = new panel_1.Footer(constants_3.constants.FOOTER);
+                    h.add();
+                };
+                return Canvas;
+            }());
+            exports_4("Canvas", Canvas);
+        }
+    };
+});
+System.register("main", ["canvas", "constants"], function (exports_5, context_5) {
+    "use strict";
+    var canvas_1, constants_4, c;
+    var __moduleName = context_5 && context_5.id;
+    function runInBrowser() {
+        // Add class to adjust size of application
+        var el = document.getElementById("root");
+        el === null || el === void 0 ? void 0 : el.classList.add(constants_4.constants.ROOT_CLASSNAME);
+    }
+    return {
+        setters: [
+            function (canvas_1_1) {
+                canvas_1 = canvas_1_1;
+            },
+            function (constants_4_1) {
+                constants_4 = constants_4_1;
+            }
+        ],
+        execute: function () {
+            runInBrowser();
+            c = new canvas_1.Canvas();
+            console.log("canvas");
+            c.make();
+            console.log("canvas made");
+        }
+    };
+});
