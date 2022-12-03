@@ -175,5 +175,24 @@ class Panel {
     }
 }
 
+class PanelImage extends PanelElement {
+    src: string;
+    onchangeFn:any;
 
-export {CssData, PanelElement, Pane, PanelButton, Panel, PanelText};
+    constructor ( id: string | null, src: string, css: CssData[] = [], classname: string | null = null, onchangeFn:any=null ) {
+        super( id, css, classname );
+        this.src = src;
+        this.elementType = "img";
+        this.onchangeFn = onchangeFn;
+    }
+
+    createElement(): HTMLImageElement {
+        const img = document.createElement( "img" );
+        img.id = this.id;
+        img.src = this.src;
+        return img;
+    }
+}
+
+
+export {CssData, PanelElement, PanelImage, Pane, PanelButton, Panel, PanelText};

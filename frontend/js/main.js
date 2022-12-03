@@ -27,14 +27,18 @@ System.register("constants", [], function (exports_1, context_1) {
                 PANEL_ID_START: "id_start",
                 FOOTER: "footer",
                 HEADER: "header",
-                ROOT_CLASSNAME: "root"
+                ROOT_CLASSNAME: "root",
+                ASSETS_PATH: "../../assets/attr",
+                COLOR_ORANGE: "orange",
+                COLOR_WHITE: "white",
+                COLOR_GRAY: "gray"
             });
         }
     };
 });
 System.register("uiElements", ["constants"], function (exports_2, context_2) {
     "use strict";
-    var constants_1, PanelElement, PanelText, Pane, PanelButton, Panel;
+    var constants_1, PanelElement, PanelText, Pane, PanelButton, Panel, PanelImage;
     var __moduleName = context_2 && context_2.id;
     return {
         setters: [
@@ -200,76 +204,155 @@ System.register("uiElements", ["constants"], function (exports_2, context_2) {
                 return Panel;
             }());
             exports_2("Panel", Panel);
+            PanelImage = /** @class */ (function (_super) {
+                __extends(PanelImage, _super);
+                function PanelImage(id, src, css, classname, onchangeFn) {
+                    if (css === void 0) { css = []; }
+                    if (classname === void 0) { classname = null; }
+                    if (onchangeFn === void 0) { onchangeFn = null; }
+                    var _this = _super.call(this, id, css, classname) || this;
+                    _this.src = src;
+                    _this.elementType = "img";
+                    _this.onchangeFn = onchangeFn;
+                    return _this;
+                }
+                PanelImage.prototype.createElement = function () {
+                    var img = document.createElement("img");
+                    img.id = this.id;
+                    img.src = this.src;
+                    return img;
+                };
+                return PanelImage;
+            }(PanelElement));
+            exports_2("PanelImage", PanelImage);
         }
     };
 });
-System.register("panel", ["constants", "uiElements"], function (exports_3, context_3) {
+System.register("naming", ["constants"], function (exports_3, context_3) {
     "use strict";
-    var constants_2, uiElements_1, Header, Footer, StartPanel;
+    var constants_2, Naming, StravaAssetsNaming, StravaConnectNaming;
     var __moduleName = context_3 && context_3.id;
     return {
         setters: [
             function (constants_2_1) {
                 constants_2 = constants_2_1;
+            }
+        ],
+        execute: function () {
+            Naming = /** @class */ (function () {
+                function Naming() {
+                }
+                Naming.prototype.get = function () {
+                    return "";
+                };
+                return Naming;
+            }());
+            exports_3("Naming", Naming);
+            StravaAssetsNaming = /** @class */ (function (_super) {
+                __extends(StravaAssetsNaming, _super);
+                function StravaAssetsNaming(color) {
+                    var _this = _super.call(this) || this;
+                    _this.color = color;
+                    _this.apiPath = "1.2 strava api logos";
+                    _this.secDir = "powered by Strava/pwrdBy_strava_".concat(_this.color);
+                    _this.assetname = "api_logo_pwrdBy_strava_horiz_".concat(_this.color);
+                    return _this;
+                }
+                StravaAssetsNaming.prototype.get = function () {
+                    return "".concat(constants_2.constants.ASSETS_PATH, "/").concat(this.apiPath, "/").concat(this.secDir, "/").concat(this.assetname, ".svg");
+                };
+                return StravaAssetsNaming;
+            }(Naming));
+            exports_3("StravaAssetsNaming", StravaAssetsNaming);
+            StravaConnectNaming = /** @class */ (function (_super) {
+                __extends(StravaConnectNaming, _super);
+                function StravaConnectNaming(color) {
+                    var _this = _super.call(this, color) || this;
+                    _this.apiPath = "1.1 connect with strava";
+                    _this.secDir = "btn_strava_connectwith_".concat(_this.color);
+                    _this.assetname = _this.secDir;
+                    return _this;
+                }
+                return StravaConnectNaming;
+            }(StravaAssetsNaming));
+            exports_3("StravaConnectNaming", StravaConnectNaming);
+        }
+    };
+});
+System.register("panel", ["constants", "uiElements", "naming"], function (exports_4, context_4) {
+    "use strict";
+    var constants_3, uiElements_1, naming_1, Header, Footer, StartPanel;
+    var __moduleName = context_4 && context_4.id;
+    return {
+        setters: [
+            function (constants_3_1) {
+                constants_3 = constants_3_1;
             },
             function (uiElements_1_1) {
                 uiElements_1 = uiElements_1_1;
+            },
+            function (naming_1_1) {
+                naming_1 = naming_1_1;
             }
         ],
         execute: function () {
             Header = /** @class */ (function (_super) {
                 __extends(Header, _super);
                 function Header() {
-                    var _this = _super.call(this, constants_2.constants.ROOT_CLASSNAME, constants_2.constants.HEADER) || this;
-                    _this.id = constants_2.constants.HEADER;
+                    var _this = _super.call(this, constants_3.constants.ROOT_CLASSNAME, constants_3.constants.HEADER) || this;
+                    _this.id = constants_3.constants.HEADER;
                     return _this;
                 }
                 Header.prototype.getElements = function () {
                     return [
-                    //new PanelImage( null, "../assets/egg.svg", [ { tag: "width", value: "15px" } ] ),
                     //new PanelText("Hatch Print Info"),
                     ];
                 };
                 return Header;
             }(uiElements_1.Pane));
-            exports_3("Header", Header);
+            exports_4("Header", Header);
             Footer = /** @class */ (function (_super) {
                 __extends(Footer, _super);
                 function Footer(id) {
-                    var _this = _super.call(this, constants_2.constants.ROOT_CLASSNAME, constants_2.constants.FOOTER) || this;
-                    _this.id = constants_2.constants.FOOTER;
+                    var _this = _super.call(this, constants_3.constants.ROOT_CLASSNAME, constants_3.constants.FOOTER) || this;
+                    _this.id = constants_3.constants.FOOTER;
                     return _this;
                 }
                 Footer.prototype.getElements = function () {
-                    return [];
+                    var naming = new naming_1.StravaAssetsNaming(constants_3.constants.COLOR_ORANGE);
+                    return [new uiElements_1.PanelImage(null, naming.get(), [], "poweredby")];
                 };
                 return Footer;
             }(uiElements_1.Pane));
-            exports_3("Footer", Footer);
+            exports_4("Footer", Footer);
             StartPanel = /** @class */ (function (_super) {
                 __extends(StartPanel, _super);
                 function StartPanel(parent) {
-                    var id = constants_2.constants.PANEL_ID_START;
+                    var id = constants_3.constants.PANEL_ID_START;
                     return _super.call(this, id, parent) || this;
                 }
                 StartPanel.prototype.getElements = function () {
-                    var elements = [new uiElements_1.PanelText("some text")];
+                    var naming = new naming_1.StravaConnectNaming(constants_3.constants.COLOR_ORANGE);
+                    var elements = [
+                        new uiElements_1.PanelText("some text"),
+                        new uiElements_1.PanelImage(null, naming.get(), [], "connectwith"),
+                    ];
                     return elements;
                 };
                 return StartPanel;
             }(uiElements_1.Panel));
-            exports_3("StartPanel", StartPanel);
+            exports_4("StartPanel", StartPanel);
         }
     };
 });
-System.register("canvas", ["constants", "panel"], function (exports_4, context_4) {
+System.register("canvas", ["constants", "panel"], function (exports_5, context_5) {
     "use strict";
-    var constants_3, panel_1, Canvas;
-    var __moduleName = context_4 && context_4.id;
+    var constants_4, panel_1, Canvas;
+    var __moduleName = context_5 && context_5.id;
     return {
         setters: [
-            function (constants_3_1) {
-                constants_3 = constants_3_1;
+            function (constants_4_1) {
+                constants_4 = constants_4_1;
             },
             function (panel_1_1) {
                 panel_1 = panel_1_1;
@@ -284,7 +367,7 @@ System.register("canvas", ["constants", "panel"], function (exports_4, context_4
                     this.addHeader();
                     this.addPanels();
                     this.addFooter();
-                    this.switchToPanel(constants_3.constants.PANEL_ID_START);
+                    this.switchToPanel(constants_4.constants.PANEL_ID_START);
                 };
                 Canvas.prototype.switchToPanel = function (id) {
                     if (this.currentDisplayedPanelId) {
@@ -310,31 +393,31 @@ System.register("canvas", ["constants", "panel"], function (exports_4, context_4
                     panels.forEach(function (panel) { return panel.add(); });
                 };
                 Canvas.prototype.addFooter = function () {
-                    var h = new panel_1.Footer(constants_3.constants.FOOTER);
+                    var h = new panel_1.Footer(constants_4.constants.FOOTER);
                     h.add();
                 };
                 return Canvas;
             }());
-            exports_4("Canvas", Canvas);
+            exports_5("Canvas", Canvas);
         }
     };
 });
-System.register("main", ["canvas", "constants"], function (exports_5, context_5) {
+System.register("main", ["canvas", "constants"], function (exports_6, context_6) {
     "use strict";
-    var canvas_1, constants_4, c;
-    var __moduleName = context_5 && context_5.id;
+    var canvas_1, constants_5, c;
+    var __moduleName = context_6 && context_6.id;
     function runInBrowser() {
         // Add class to adjust size of application
         var el = document.getElementById("root");
-        el === null || el === void 0 ? void 0 : el.classList.add(constants_4.constants.ROOT_CLASSNAME);
+        el === null || el === void 0 ? void 0 : el.classList.add(constants_5.constants.ROOT_CLASSNAME);
     }
     return {
         setters: [
             function (canvas_1_1) {
                 canvas_1 = canvas_1_1;
             },
-            function (constants_4_1) {
-                constants_4 = constants_4_1;
+            function (constants_5_1) {
+                constants_5 = constants_5_1;
             }
         ],
         execute: function () {

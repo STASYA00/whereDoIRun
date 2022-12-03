@@ -1,9 +1,7 @@
 <head>
-    <meta charset="utf-8">
-    <title>
-        Where Do I Run?
-    </title>
-    <!-- <style>
+  <meta charset="utf-8" />
+  <title>Where Do I Run?</title>
+  <!-- <style>
         body {
           background-image: url('../assets/bgr/bgr1.jpg');
           background-repeat: no-repeat;
@@ -13,47 +11,53 @@
         
         </style> -->
 
-    <!-- FONTS -->
-    <script>var exports = {};</script>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    
-    <script src="../js/system.min.js"></script>
-	<script src="../js/named-register.js"></script>
-	<script type="systemjs-importmap">
-		{
-		  "imports": {
-			"uuid": "https://unpkg.com/uuid@8.3.2/dist/umd/uuid.min.js"
-		  }
-		}
-		</script>
-	<script type="systemjs-module" src="../js/main.js"></script>
-    
-    <link rel="stylesheet" href="../css/styles.css">
+  <!-- FONTS -->
+  <script>
+    var exports = {};
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 
-    <!-- <link rel="stylesheet" href="https://unpkg.com/leaflet@1.8.0/dist/leaflet.css", integrity="sha512-hoalWLoI8r4UszCkZ5kL8vayOGVae1oxXe/2A4AO6J9+580uKHDO3JdHb7NzwwzK5xr/Fs0W40kiNHxM9vyTtQ=="
+  <script src="../js/system.min.js"></script>
+  <script src="../js/named-register.js"></script>
+  <script type="systemjs-importmap">
+    {
+      "imports": {
+        "uuid": "https://unpkg.com/uuid@8.3.2/dist/umd/uuid.min.js"
+      }
+    }
+  </script>
+  <script type="systemjs-module" src="../js/main.js"></script>
+
+  <link rel="stylesheet" href="../css/styles.css" />
+
+  <!-- <link rel="stylesheet" href="https://unpkg.com/leaflet@1.8.0/dist/leaflet.css", integrity="sha512-hoalWLoI8r4UszCkZ5kL8vayOGVae1oxXe/2A4AO6J9+580uKHDO3JdHb7NzwwzK5xr/Fs0W40kiNHxM9vyTtQ=="
     crossorigin=""/> -->
-    
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans" rel="stylesheet">
 
-    <!-- <script src="https://unpkg.com/leaflet@1.8.0/dist/leaflet.js" integrity="sha512-BB3hKbKWOc9Ez/TAwyWxNXeoV9c1v6FIeYiBieIWkpLjauysF18NzgR1MBNBXf8/KABdlkX68nAhlwcDFLGPCQ==" crossorigin=""></script> -->
-    <!-- <script src="https://d3js.org/d3.v4.js" charset="utf-8"></script> -->
-    
-    
-    <!-- <script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script>
+  <link
+    href="https://fonts.googleapis.com/icon?family=Material+Icons"
+    rel="stylesheet"
+  />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Josefin+Sans"
+    rel="stylesheet"
+  />
+
+  <!-- <script src="https://unpkg.com/leaflet@1.8.0/dist/leaflet.js" integrity="sha512-BB3hKbKWOc9Ez/TAwyWxNXeoV9c1v6FIeYiBieIWkpLjauysF18NzgR1MBNBXf8/KABdlkX68nAhlwcDFLGPCQ==" crossorigin=""></script> -->
+  <!-- <script src="https://d3js.org/d3.v4.js" charset="utf-8"></script> -->
+
+  <!-- <script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script>
     <script src="https://d3js.org/d3-geo-projection.v2.min.js"></script> -->
-    
 </head>
 
 <body>
-    <!-- <script src="activity.js"></script>
+  <!-- <script src="activity.js"></script>
     <script src="cache.js"></script>
     <script src="collection.js"></script>
     <script src="factory.js"></script>-->
 
-    <!-- COMMENTED FOR TESTING -- UNCOMMENT TO USE STRAVA API -->
-    <!-- <script src="auth.js"></script>
+  <!-- COMMENTED FOR TESTING -- UNCOMMENT TO USE STRAVA API -->
+  <!-- <script src="auth.js"></script>
     <script src="geometryOps.js"></script>
     
     <script src="params.js"></script>
@@ -70,11 +74,11 @@
     <script src="zone.js"></script>
     <script src="zoneDetector.js"></script>
     <script src="zoneDrawer.js"></script> -->
-    <!-- <h1 style="color: #fffdfa; font-family: 'Josefin Sans', sans-serif; font-size: 68;">
+  <!-- <h1 style="color: #fffdfa; font-family: 'Josefin Sans', sans-serif; font-size: 68;">
         Where Do I Run?
     </h1> -->
-    <!-- stravaMain() -->
-    <!-- <button onclick="main()">
+  <!-- stravaMain() -->
+  <!-- <button onclick="main()">
         Create Heatmap
     </button>
     <button onclick="auth()">
@@ -83,19 +87,17 @@
     <button onclick="testOverview()">
         TEST
     </button> -->
-    
-    <script type="text/javascript" src="../../assets/data.geojson"></script>
-    <script type="text/javascript" src="../../assets/södermalm.geojson"></script>
-    <script type="text/javascript" src="../../assets/run_summary.json"></script>
-    <script type="text/javascript" src="../../node_modules/polyline-encoded/Polyline.encoded.js"></script>
-    
-    
-    <div id="root"></div>
-    <script src="main.js"></script> -->
-    
 
-    
-    <!-- Photo by <a href="https://unsplash.com/@hunterbryant?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Hunter Bryant</a> on <a href="https://unsplash.com/s/photos/running?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a> -->
-  
+  <script type="text/javascript" src="../../assets/data.geojson"></script>
+  <script type="text/javascript" src="../../assets/södermalm.geojson"></script>
+  <script type="text/javascript" src="../../assets/run_summary.json"></script>
+  <script
+    type="text/javascript"
+    src="../../node_modules/polyline-encoded/Polyline.encoded.js"
+  ></script>
+
+  <div id="root"></div>
+  <script src="main.js"></script>
+
+  <!-- Photo by <a href="https://unsplash.com/@hunterbryant?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Hunter Bryant</a> on <a href="https://unsplash.com/s/photos/running?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a> -->
 </body>
-

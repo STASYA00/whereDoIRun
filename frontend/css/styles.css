@@ -1,56 +1,82 @@
 body {
-  
-    background-color: #212121;
-    background-image: url("../../assets/bgr/bgr1.jpg");
-    background-repeat: no-repeat;
-    background-attachment: fixed;
-    /* background-size: 100%; */
-    background-size: cover;
-    
-    
-    font-family: 'Josefin Sans';
-  }
-  
-  @font-face {
-    font-family: 'Josefin Sans';
-    font-style: normal;
-    font-weight: 400;
-    src: url(https://fonts.gstatic.com/s/josefinsans/v25/Qw3PZQNVED7rKGKxtqIqX5E-AVSJrOCfjY46_DjQbMhhLzTs.woff2) format('woff2');
-    unicode-range: U+0100-024F, U+0259, U+1E00-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF;
-  }
-  img.background {
-    filter: blur(35px);
-  }
+  background-color: #212121;
+  background-image: url("../../assets/bgr/bgr1.jpg");
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  /* background-size: 100%; */
+  background-size: cover;
 
-  .root {
-    --main-width: 40%;
-    width: var(--main-width);
-    height: 50%;
-    
-    position: relative;
-    top: 20%;
-    left: 30%;
-    background-color: #ffffff;
+  font-family: "Josefin Sans";
+}
 
-    filter: drop-shadow(0px 0px 15px rgba(0, 0, 0, 0.45));
-  }
-  .panel {
-    height: 80%;
-    background-color: #F00;
-    margin: 10px;
-  }
+@font-face {
+  font-family: "Josefin Sans";
+  font-style: normal;
+  font-weight: 400;
+  src: url(https://fonts.gstatic.com/s/josefinsans/v25/Qw3PZQNVED7rKGKxtqIqX5E-AVSJrOCfjY46_DjQbMhhLzTs.woff2)
+    format("woff2");
+  unicode-range: U+0100-024F, U+0259, U+1E00-1EFF, U+2020, U+20A0-20AB,
+    U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+img.background {
+  filter: blur(35px);
+}
 
+.root {
+  --main-width: 40%;
+  width: var(--main-width);
+  height: 50%;
 
-  .area{
-    background-color: greenyellow;
-    fill: greenyellow;
-  }
+  position: relative;
+  top: 20%;
+  left: 30%;
+  background-color: #ffffff;
 
-  .street {
-    stroke: red;
-  }
+  filter: drop-shadow(0px 0px 15px rgba(0, 0, 0, 0.45));
+}
 
-  .house {
-    background-color: orange;
-    fill: orange
-  }
+.panel {
+  display: flex;
+  flex-wrap: wrap;
+  flex-basis: auto;
+  flex-direction: column;
+  align-items: center;
+  height: 80%;
+  background-color: #f00;
+  margin: 10px;
+}
+
+.poweredby {
+  width: 100px;
+  height: min-content;
+  padding-left: 10px;
+  padding-bottom: 10px;
+}
+
+.connectwith {
+  width: 150px;
+  height: min-content;
+}
+
+.footer {
+  display: flex;
+  flex-wrap: wrap;
+  flex-basis: auto;
+  height: 20%;
+  background-color: rgb(255, 255, 255);
+  align-content: flex-end;
+}
+
+.area {
+  background-color: greenyellow;
+  fill: greenyellow;
+}
+
+.street {
+  stroke: red;
+}
+
+.house {
+  background-color: orange;
+  fill: orange;
+}
