@@ -24,18 +24,63 @@ class Header extends Pane {
 }
 
 class Footer extends Pane {
-  constructor(id: string) {
+  parent: Canvas;
+  constructor(id: string, parent: Canvas) {
     super(constants.ROOT_CLASSNAME, constants.FOOTER);
     this.id = constants.FOOTER;
+    this.parent = parent;
   }
 
   getElements(): PanelElement[] {
     let naming = new StravaAssetsNaming(constants.COLOR_ORANGE);
-    return [new PanelImage(null, naming.get(), [], "poweredby")];
+    return [
+      new NavigationPane(this.id, this.parent),
+      new PanelImage(this.id, naming.get(), [], constants.POWEREDBY_CLASSNAME),
+    ];
   }
 }
 
-class StartPanel extends Panel {
+class NavigationPane extends Pane {
+  parent: Canvas;
+  constructor(parentId: string, parent: Canvas) {
+    super(parentId);
+    this.parent = parent;
+    this.className = constants.NAVIGATION_CLASSNAME;
+  }
+  getElements(): PanelElement[] {
+    return [new BackButton(this.parent), new ForwardButton(this.parent)];
+  }
+}
+
+class ForwardButton extends PanelButton {
+  parent: Canvas;
+  constructor(parent: Canvas) {
+    super(
+      "",
+      () => {
+        parent.nextPage();
+      },
+      constants.FRONT_CLASSNAME
+    );
+    this.parent = parent;
+  }
+}
+
+class BackButton extends PanelButton {
+  parent: Canvas;
+  constructor(parent: Canvas) {
+    super(
+      "",
+      () => {
+        parent.previousPage();
+      },
+      constants.BACK_CLASSNAME
+    );
+    this.parent = parent;
+  }
+}
+
+class PanelStart extends Panel {
   constructor(parent: Canvas) {
     let id = constants.PANEL_ID_START;
     super(id, parent);
@@ -50,4 +95,68 @@ class StartPanel extends Panel {
   }
 }
 
-export { Footer, Header, StartPanel };
+class PanelList extends Panel {
+  constructor(parent: Canvas) {
+    let id = constants.PANEL_ID_COUNTRIES;
+    super(id, parent);
+  }
+  getElements() {
+    let elements = [new ZoneContainer(this.id)];
+    return elements;
+  }
+}
+
+class ZoneContainer extends Pane {
+  constructor(parentId: string) {
+    super(parentId);
+    this.className = constants.ZONE_CONTAINER_CLASSNAME;
+  }
+
+  getElements() {
+    let elements = [
+      new ZoneIndicatorButton(this.id, "Kungsholmen", 0.85),
+      new ZoneIndicatorButton(this.id, "Södermalm", 0.15),
+    ];
+    return elements;
+  }
+}
+
+class ZoneIndicatorButton extends Pane {
+  name: string;
+  value: number;
+  constructor(parent: string, name: string, value: number) {
+    super(parent);
+    this.className = constants.ZONE_CLASSNAME;
+    this.name = name;
+    this.value = value;
+  }
+
+  getElements() {
+    let elements = [
+      new PanelText(this.name, constants.ZONETEXT_CLASSNAME),
+      new ProgressBar(this.id, this.value),
+    ];
+    return elements;
+  }
+}
+
+class ProgressBar extends Pane {
+  value: number;
+  constructor(parent: string, value: number) {
+    super(parent);
+    this.className = constants.BAR_CLASSNAME;
+    this.value = value;
+  }
+  getElements() {
+    let elements = [
+      new PanelElement(
+        null,
+        [{ tag: "width", value: `${this.value * 100}%` }],
+        constants.PERCENT_CLASSNAME
+      ),
+    ];
+    return elements;
+  }
+}
+
+export { Footer, Header, PanelStart, PanelList };

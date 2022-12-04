@@ -13,21 +13,39 @@ var __extends = (this && this.__extends) || (function () {
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
     };
 })();
-//import * as uuid from "uuid";
-System.register("constants", [], function (exports_1, context_1) {
+System.register("constants", ["uuid"], function (exports_1, context_1) {
     "use strict";
-    var constants;
+    var uuid, constants;
     var __moduleName = context_1 && context_1.id;
     return {
-        setters: [],
-        execute: function () {//import * as uuid from "uuid";
+        setters: [
+            function (uuid_1) {
+                uuid = uuid_1;
+            }
+        ],
+        execute: function () {
             exports_1("constants", constants = {
-                CANVAS_ID: "123",
+                CANVAS_ID: uuid.v4(),
+                BACK_ID: uuid.v4(),
+                FRONT_ID: uuid.v4(),
                 CANVAS_CLASSNAME: "canvas",
-                PANEL_ID_START: "id_start",
+                BACK_CLASSNAME: "backbutton",
+                FRONT_CLASSNAME: "frontbutton",
+                NAVIGATION_CLASSNAME: "navigationpane",
+                BAR_CLASSNAME: "bar",
+                PERCENT_CLASSNAME: "percent",
+                POWEREDBY_CLASSNAME: "poweredby",
+                PANEL_ID_START: uuid.v4(),
+                PANEL_ID_COUNTRIES: uuid.v4(),
+                PANEL_ID_CITIES: uuid.v4(),
+                PANEL_ID_ZONES: uuid.v4(),
+                PANEL_ID_STATS: uuid.v4(),
                 FOOTER: "footer",
                 HEADER: "header",
                 ROOT_CLASSNAME: "root",
+                ZONE_CLASSNAME: "zoneindicator",
+                ZONETEXT_CLASSNAME: "zonetext",
+                ZONE_CONTAINER_CLASSNAME: "zonecontainer",
                 ASSETS_PATH: "../../assets/attr",
                 COLOR_ORANGE: "orange",
                 COLOR_WHITE: "white",
@@ -36,12 +54,15 @@ System.register("constants", [], function (exports_1, context_1) {
         }
     };
 });
-System.register("uiElements", ["constants"], function (exports_2, context_2) {
+System.register("uiElements", ["uuid", "constants"], function (exports_2, context_2) {
     "use strict";
-    var constants_1, PanelElement, PanelText, Pane, PanelButton, Panel, PanelImage;
+    var uuid, constants_1, PanelElement, PanelText, Pane, PanelButton, Panel, PanelImage;
     var __moduleName = context_2 && context_2.id;
     return {
         setters: [
+            function (uuid_2) {
+                uuid = uuid_2;
+            },
             function (constants_1_1) {
                 constants_1 = constants_1_1;
             }
@@ -52,7 +73,7 @@ System.register("uiElements", ["constants"], function (exports_2, context_2) {
                     if (id === void 0) { id = null; }
                     if (css === void 0) { css = []; }
                     if (classname === void 0) { classname = null; }
-                    this.id = id ? id : "11"; //uuid.v4();
+                    this.id = id ? id : uuid.v4();
                     this.css = css;
                     this.elementType = "div";
                     this.className = classname;
@@ -80,8 +101,7 @@ System.register("uiElements", ["constants"], function (exports_2, context_2) {
                         parent.appendChild(child);
                     }
                 };
-                PanelElement.prototype.postprocess = function (el) {
-                };
+                PanelElement.prototype.postprocess = function (el) { };
                 return PanelElement;
             }());
             exports_2("PanelElement", PanelElement);
@@ -193,14 +213,14 @@ System.register("uiElements", ["constants"], function (exports_2, context_2) {
                         console.log("Could not create ".concat(this.classname));
                         return;
                     }
+                    panel.style.display = "none";
                     var elements = this.getElements();
                     elements.forEach(function (el) {
                         el.add(_this.id);
                     });
                     this.postActions();
                 };
-                Panel.prototype.postActions = function () {
-                };
+                Panel.prototype.postActions = function () { };
                 return Panel;
             }());
             exports_2("Panel", Panel);
@@ -281,7 +301,7 @@ System.register("naming", ["constants"], function (exports_3, context_3) {
 });
 System.register("panel", ["constants", "uiElements", "naming"], function (exports_4, context_4) {
     "use strict";
-    var constants_3, uiElements_1, naming_1, Header, Footer, StartPanel;
+    var constants_3, uiElements_1, naming_1, Header, Footer, NavigationPane, ForwardButton, BackButton, PanelStart, PanelList, ZoneContainer, ZoneIndicatorButton, ProgressBar;
     var __moduleName = context_4 && context_4.id;
     return {
         setters: [
@@ -313,25 +333,64 @@ System.register("panel", ["constants", "uiElements", "naming"], function (export
             exports_4("Header", Header);
             Footer = /** @class */ (function (_super) {
                 __extends(Footer, _super);
-                function Footer(id) {
+                function Footer(id, parent) {
                     var _this = _super.call(this, constants_3.constants.ROOT_CLASSNAME, constants_3.constants.FOOTER) || this;
                     _this.id = constants_3.constants.FOOTER;
+                    _this.parent = parent;
                     return _this;
                 }
                 Footer.prototype.getElements = function () {
                     var naming = new naming_1.StravaAssetsNaming(constants_3.constants.COLOR_ORANGE);
-                    return [new uiElements_1.PanelImage(null, naming.get(), [], "poweredby")];
+                    return [
+                        new NavigationPane(this.id, this.parent),
+                        new uiElements_1.PanelImage(this.id, naming.get(), [], constants_3.constants.POWEREDBY_CLASSNAME),
+                    ];
                 };
                 return Footer;
             }(uiElements_1.Pane));
             exports_4("Footer", Footer);
-            StartPanel = /** @class */ (function (_super) {
-                __extends(StartPanel, _super);
-                function StartPanel(parent) {
+            NavigationPane = /** @class */ (function (_super) {
+                __extends(NavigationPane, _super);
+                function NavigationPane(parentId, parent) {
+                    var _this = _super.call(this, parentId) || this;
+                    _this.parent = parent;
+                    _this.className = constants_3.constants.NAVIGATION_CLASSNAME;
+                    return _this;
+                }
+                NavigationPane.prototype.getElements = function () {
+                    return [new BackButton(this.parent), new ForwardButton(this.parent)];
+                };
+                return NavigationPane;
+            }(uiElements_1.Pane));
+            ForwardButton = /** @class */ (function (_super) {
+                __extends(ForwardButton, _super);
+                function ForwardButton(parent) {
+                    var _this = _super.call(this, "", function () {
+                        parent.nextPage();
+                    }, constants_3.constants.FRONT_CLASSNAME) || this;
+                    _this.parent = parent;
+                    return _this;
+                }
+                return ForwardButton;
+            }(uiElements_1.PanelButton));
+            BackButton = /** @class */ (function (_super) {
+                __extends(BackButton, _super);
+                function BackButton(parent) {
+                    var _this = _super.call(this, "", function () {
+                        parent.previousPage();
+                    }, constants_3.constants.BACK_CLASSNAME) || this;
+                    _this.parent = parent;
+                    return _this;
+                }
+                return BackButton;
+            }(uiElements_1.PanelButton));
+            PanelStart = /** @class */ (function (_super) {
+                __extends(PanelStart, _super);
+                function PanelStart(parent) {
                     var id = constants_3.constants.PANEL_ID_START;
                     return _super.call(this, id, parent) || this;
                 }
-                StartPanel.prototype.getElements = function () {
+                PanelStart.prototype.getElements = function () {
                     var naming = new naming_1.StravaConnectNaming(constants_3.constants.COLOR_ORANGE);
                     var elements = [
                         new uiElements_1.PanelText("some text"),
@@ -339,9 +398,72 @@ System.register("panel", ["constants", "uiElements", "naming"], function (export
                     ];
                     return elements;
                 };
-                return StartPanel;
+                return PanelStart;
             }(uiElements_1.Panel));
-            exports_4("StartPanel", StartPanel);
+            exports_4("PanelStart", PanelStart);
+            PanelList = /** @class */ (function (_super) {
+                __extends(PanelList, _super);
+                function PanelList(parent) {
+                    var id = constants_3.constants.PANEL_ID_COUNTRIES;
+                    return _super.call(this, id, parent) || this;
+                }
+                PanelList.prototype.getElements = function () {
+                    var elements = [new ZoneContainer(this.id)];
+                    return elements;
+                };
+                return PanelList;
+            }(uiElements_1.Panel));
+            exports_4("PanelList", PanelList);
+            ZoneContainer = /** @class */ (function (_super) {
+                __extends(ZoneContainer, _super);
+                function ZoneContainer(parentId) {
+                    var _this = _super.call(this, parentId) || this;
+                    _this.className = constants_3.constants.ZONE_CONTAINER_CLASSNAME;
+                    return _this;
+                }
+                ZoneContainer.prototype.getElements = function () {
+                    var elements = [
+                        new ZoneIndicatorButton(this.id, "Kungsholmen", 0.85),
+                        new ZoneIndicatorButton(this.id, "Södermalm", 0.15),
+                    ];
+                    return elements;
+                };
+                return ZoneContainer;
+            }(uiElements_1.Pane));
+            ZoneIndicatorButton = /** @class */ (function (_super) {
+                __extends(ZoneIndicatorButton, _super);
+                function ZoneIndicatorButton(parent, name, value) {
+                    var _this = _super.call(this, parent) || this;
+                    _this.className = constants_3.constants.ZONE_CLASSNAME;
+                    _this.name = name;
+                    _this.value = value;
+                    return _this;
+                }
+                ZoneIndicatorButton.prototype.getElements = function () {
+                    var elements = [
+                        new uiElements_1.PanelText(this.name, constants_3.constants.ZONETEXT_CLASSNAME),
+                        new ProgressBar(this.id, this.value),
+                    ];
+                    return elements;
+                };
+                return ZoneIndicatorButton;
+            }(uiElements_1.Pane));
+            ProgressBar = /** @class */ (function (_super) {
+                __extends(ProgressBar, _super);
+                function ProgressBar(parent, value) {
+                    var _this = _super.call(this, parent) || this;
+                    _this.className = constants_3.constants.BAR_CLASSNAME;
+                    _this.value = value;
+                    return _this;
+                }
+                ProgressBar.prototype.getElements = function () {
+                    var elements = [
+                        new uiElements_1.PanelElement(null, [{ tag: "width", value: "".concat(this.value * 100, "%") }], constants_3.constants.PERCENT_CLASSNAME),
+                    ];
+                    return elements;
+                };
+                return ProgressBar;
+            }(uiElements_1.Pane));
         }
     };
 });
@@ -362,11 +484,21 @@ System.register("canvas", ["constants", "panel"], function (exports_5, context_5
             Canvas = /** @class */ (function () {
                 function Canvas() {
                     this.currentDisplayedPanelId = "";
+                    this.panelIds = [];
                 }
                 Canvas.prototype.make = function () {
                     this.addHeader();
                     this.addPanels();
                     this.addFooter();
+                    //this.switchToPanel(constants.PANEL_ID_START);
+                    this.switchToPanel(constants_4.constants.PANEL_ID_COUNTRIES);
+                };
+                Canvas.prototype.nextPage = function () {
+                    console.log("clicked next");
+                    this.switchToPanel(constants_4.constants.PANEL_ID_COUNTRIES);
+                };
+                Canvas.prototype.previousPage = function () {
+                    console.log("clicked prev");
                     this.switchToPanel(constants_4.constants.PANEL_ID_START);
                 };
                 Canvas.prototype.switchToPanel = function (id) {
@@ -387,13 +519,11 @@ System.register("canvas", ["constants", "panel"], function (exports_5, context_5
                     h.add();
                 };
                 Canvas.prototype.addPanels = function () {
-                    var panels = [
-                        new panel_1.StartPanel(this)
-                    ];
+                    var panels = [new panel_1.PanelStart(this), new panel_1.PanelList(this)];
                     panels.forEach(function (panel) { return panel.add(); });
                 };
                 Canvas.prototype.addFooter = function () {
-                    var h = new panel_1.Footer(constants_4.constants.FOOTER);
+                    var h = new panel_1.Footer(constants_4.constants.FOOTER, this);
                     h.add();
                 };
                 return Canvas;
