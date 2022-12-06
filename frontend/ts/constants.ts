@@ -1,5 +1,12 @@
 import * as uuid from "uuid";
 
+const WEBSERVERURL = "http://localhost" as string;
+const PORT = "3000" as string;
+const CLIENTID = "89141" as string;
+const SCOPE = "activity:read_all" as string;
+const STRAVAURL = `https://www.strava.com/oauth/authorize?client_id=${CLIENTID}&response_type=code&redirect_uri=${WEBSERVERURL}:${PORT}/exchange_token&approval_prompt=force&scope=${SCOPE}`;
+
+
 export const constants = {
   CANVAS_ID: uuid.v4(),
   BACK_ID: uuid.v4(),
@@ -38,10 +45,7 @@ export const constants = {
   NOMINATIMURL: "https://nominatim.openstreetmap.org/search" as string,
   OVERPASSURL: "https://overpass-api.de/api/interpreter" as string,
 
-  WEBSERVERURL: "http://localhost" as string,
-  PORT: "3000" as string,
-  CLIENTID: "89141" as string,
-  SCOPE: "activity:read_all" as string,
+  WEBSERVERURL, PORT, CLIENTID, SCOPE, STRAVAURL,
 
 
 } as const;

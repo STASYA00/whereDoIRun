@@ -2,7 +2,6 @@ import { stringify } from "uuid";
 import { constants } from "./constants";
 import { sleep } from "./utils";
 
-const STRAVAURL = `https://www.strava.com/oauth/authorize?client_id=${constants.CLIENTID}&response_type=code&redirect_uri=${constants.WEBSERVERURL}:${constants.PORT}/exchange_token&approval_prompt=force&scope=${constants.SCOPE}`;
 
 class Request {
     method: string;
@@ -32,7 +31,7 @@ class Request {
         return this.params;
     }
 
-    request(callback: any = null): any {
+    request(callback: any = null): Promise<any> {
         const url = this.getUrl();
         console.log(`URL: ${url}`);
         return fetch(url, {
@@ -59,6 +58,7 @@ class Request {
     }
 }
 
+
 class LocalRequest extends Request {
     endpoint: string;
     constructor(params: any) {
@@ -71,6 +71,14 @@ class LocalRequest extends Request {
     }
     getQuery() {
         return "";
+    }
+}
+
+class StravaAuthRequest extends LocalRequest {
+    endpoint: string;
+    constructor(params: any = null) {
+        super(params);
+        this.endpoint = "has_token";
     }
 }
 
@@ -96,12 +104,14 @@ class OverpassRequest extends Request {
     output: string;
     constructor(params: any) {
         super(params);
-        this.url = constants.OVERPASSURL;
         this.level = 2;
         this.tags = this.getTags();
         this.distance = undefined;
         this.geometries = "wr";
         this.output = "geom";
+    }
+    getBaseUrl(): string {
+        return constants.OVERPASSURL;
     }
     call() {
         return super.call();
@@ -302,4 +312,8 @@ const requests = {
 
     TEST_SODER_STREETS: TestSoderStreetsRequest,
     TEST_SODER_BUILDINGS: TestSoderBuildingsRequest,
+
+    STRAVA_AUTH: StravaAuthRequest,
 }
+
+export { requests, Request };
