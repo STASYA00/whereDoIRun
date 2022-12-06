@@ -96,12 +96,16 @@ class ActivitiesRequest extends LocalRequest {
 }
 
 class NominatimRequest extends Request {
-    constructor(params: any) {
+    params: string[];
+    constructor(params: string[]) {
         super(params);
-        this.url = constants.NOMINATIMURL;
+        this.params = params;
     }
     async call() {
         return await super.call();
+    }
+    getBaseUrl(): string {
+        return constants.NOMINATIMURL;
     }
     getQuery() {
         let queryParams = this.params.filter(p => p != undefined).join("+");

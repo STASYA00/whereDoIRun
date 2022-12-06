@@ -16,7 +16,7 @@ class Canvas {
 
     this.addPanels();
     this.addFooter();
-    this.switchToPanel(this.panelIds[2]);
+    this.switchToPanel(this.panelIds[0]);
   }
 
   nextPage() {

@@ -13,9 +13,45 @@ var __extends = (this && this.__extends) || (function () {
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
     };
 })();
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
+var __generator = (this && this.__generator) || function (thisArg, body) {
+    var _ = { label: 0, sent: function() { if (t[0] & 1) throw t[1]; return t[1]; }, trys: [], ops: [] }, f, y, t, g;
+    return g = { next: verb(0), "throw": verb(1), "return": verb(2) }, typeof Symbol === "function" && (g[Symbol.iterator] = function() { return this; }), g;
+    function verb(n) { return function (v) { return step([n, v]); }; }
+    function step(op) {
+        if (f) throw new TypeError("Generator is already executing.");
+        while (g && (g = 0, op[0] && (_ = 0)), _) try {
+            if (f = 1, y && (t = op[0] & 2 ? y["return"] : op[0] ? y["throw"] || ((t = y["return"]) && t.call(y), 0) : y.next) && !(t = t.call(y, op[1])).done) return t;
+            if (y = 0, t) op = [op[0] & 2, t.value];
+            switch (op[0]) {
+                case 0: case 1: t = op; break;
+                case 4: _.label++; return { value: op[1], done: false };
+                case 5: _.label++; y = op[1]; op = [0]; continue;
+                case 7: op = _.ops.pop(); _.trys.pop(); continue;
+                default:
+                    if (!(t = _.trys, t = t.length > 0 && t[t.length - 1]) && (op[0] === 6 || op[0] === 2)) { _ = 0; continue; }
+                    if (op[0] === 3 && (!t || (op[1] > t[0] && op[1] < t[3]))) { _.label = op[1]; break; }
+                    if (op[0] === 6 && _.label < t[1]) { _.label = t[1]; t = op; break; }
+                    if (t && _.label < t[2]) { _.label = t[2]; _.ops.push(op); break; }
+                    if (t[2]) _.ops.pop();
+                    _.trys.pop(); continue;
+            }
+            op = body.call(thisArg, _);
+        } catch (e) { op = [6, e]; y = 0; } finally { f = t = 0; }
+        if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
+    }
+};
 System.register("constants", ["uuid"], function (exports_1, context_1) {
     "use strict";
-    var uuid, constants;
+    var uuid, WEBSERVERURL, PORT, CLIENTID, SCOPE, STRAVAURL, constants;
     var __moduleName = context_1 && context_1.id;
     return {
         setters: [
@@ -24,6 +60,11 @@ System.register("constants", ["uuid"], function (exports_1, context_1) {
             }
         ],
         execute: function () {
+            WEBSERVERURL = "http://localhost";
+            PORT = "3000";
+            CLIENTID = "89141";
+            SCOPE = "activity:read_all";
+            STRAVAURL = "https://www.strava.com/oauth/authorize?client_id=".concat(CLIENTID, "&response_type=code&redirect_uri=").concat(WEBSERVERURL, ":").concat(PORT, "/exchange_token&approval_prompt=force&scope=").concat(SCOPE);
             exports_1("constants", constants = {
                 CANVAS_ID: uuid.v4(),
                 BACK_ID: uuid.v4(),
@@ -55,10 +96,11 @@ System.register("constants", ["uuid"], function (exports_1, context_1) {
                 OSMBASEURL: "https://openstreetmap.org/api/0.6",
                 NOMINATIMURL: "https://nominatim.openstreetmap.org/search",
                 OVERPASSURL: "https://overpass-api.de/api/interpreter",
-                WEBSERVERURL: "http://localhost",
-                PORT: "3000",
-                CLIENTID: "89141",
-                SCOPE: "activity:read_all"
+                WEBSERVERURL: WEBSERVERURL,
+                PORT: PORT,
+                CLIENTID: CLIENTID,
+                SCOPE: SCOPE,
+                STRAVAURL: STRAVAURL
             });
         }
     };
@@ -354,14 +396,471 @@ System.register("map", ["constants", "uiElements"], function (exports_4, context
         }
     };
 });
-System.register("panel", ["constants", "uiElements", "naming", "map"], function (exports_5, context_5) {
+System.register("utils", [], function (exports_5, context_5) {
     "use strict";
-    var constants_4, uiElements_2, naming_1, map_1, Header, Footer, NavigationPane, ForwardButton, BackButton, PanelStart, PanelList, PanelStats, MapPane, ZoneContainer, ZoneIndicatorButton, ProgressBar;
     var __moduleName = context_5 && context_5.id;
+    function sleep(ms) {
+        return new Promise(function (resolve) { return setTimeout(resolve, ms); });
+    }
+    exports_5("sleep", sleep);
+    return {
+        setters: [],
+        execute: function () {
+        }
+    };
+});
+System.register("request", ["constants", "utils"], function (exports_6, context_6) {
+    "use strict";
+    var constants_4, utils_1, Request, LocalRequest, StravaAuthRequest, ActivitiesRequest, NominatimRequest, OverpassRequest, CountryRequest, PreciseCountryRequest, RegionRequest, CityRequest, RoadRequest, BuildingRequest, TestCountryBoundsRequest, TestCountriesRequest, TestSthlmRequest, TestCitiesRequest, TestZonesRequest, TestZonesLtdRequest, TestSoderRequest, TestSoderStreetsRequest, TestSoderBuildingsRequest, requests;
+    var __moduleName = context_6 && context_6.id;
     return {
         setters: [
             function (constants_4_1) {
                 constants_4 = constants_4_1;
+            },
+            function (utils_1_1) {
+                utils_1 = utils_1_1;
+            }
+        ],
+        execute: function () {
+            Request = /** @class */ (function () {
+                function Request(params) {
+                    this.params = params;
+                    this.method = "GET";
+                }
+                Request.prototype.call = function () {
+                    return this.request();
+                };
+                Request.prototype.getBaseUrl = function () {
+                    return constants_4.constants.OVERPASSURL;
+                };
+                Request.prototype.getUrl = function () {
+                    var query = this.getQuery();
+                    if (query == "") {
+                        return this.getBaseUrl();
+                    }
+                    return "".concat(this.getBaseUrl(), "?").concat(query);
+                };
+                Request.prototype.getQuery = function () {
+                    return this.params;
+                };
+                Request.prototype.request = function (callback) {
+                    var _this = this;
+                    if (callback === void 0) { callback = null; }
+                    var url = this.getUrl();
+                    console.log("URL: ".concat(url));
+                    return fetch(url, {
+                        method: this.method,
+                        headers: { 'Content-Type': 'application/json' }
+                    }).then(function (result) {
+                        if (result.status == 200) {
+                            if (callback != undefined) {
+                                result.json().then(function (r) { return callback(r); });
+                            }
+                            return result.json();
+                        }
+                        else if (result.status == 429) {
+                            return utils_1.sleep(1000).then(function (r) { return _this.request(); });
+                        }
+                        else if (result.status == 504) {
+                            return _this.request();
+                        }
+                        else {
+                            console.log("CODE: ".concat(result.status));
+                        }
+                        return result;
+                    });
+                };
+                return Request;
+            }());
+            exports_6("Request", Request);
+            LocalRequest = /** @class */ (function (_super) {
+                __extends(LocalRequest, _super);
+                function LocalRequest(params) {
+                    var _this = _super.call(this, params) || this;
+                    _this.endpoint = "".concat(params);
+                    return _this;
+                }
+                LocalRequest.prototype.getBaseUrl = function () {
+                    return "".concat(constants_4.constants.WEBSERVERURL, ":").concat(constants_4.constants.PORT, "/").concat(this.endpoint);
+                };
+                LocalRequest.prototype.getQuery = function () {
+                    return "";
+                };
+                return LocalRequest;
+            }(Request));
+            StravaAuthRequest = /** @class */ (function (_super) {
+                __extends(StravaAuthRequest, _super);
+                function StravaAuthRequest(params) {
+                    if (params === void 0) { params = null; }
+                    var _this = _super.call(this, params) || this;
+                    _this.endpoint = "has_token";
+                    return _this;
+                }
+                return StravaAuthRequest;
+            }(LocalRequest));
+            ActivitiesRequest = /** @class */ (function (_super) {
+                __extends(ActivitiesRequest, _super);
+                function ActivitiesRequest(params) {
+                    if (params === void 0) { params = null; }
+                    var _this = _super.call(this, params) || this;
+                    _this.endpoint = "activities";
+                    return _this;
+                }
+                ActivitiesRequest.prototype.call = function () {
+                    return this.request();
+                };
+                ActivitiesRequest.prototype.request = function (callback) {
+                    return _super.prototype.request.call(this, callback);
+                };
+                return ActivitiesRequest;
+            }(LocalRequest));
+            exports_6("ActivitiesRequest", ActivitiesRequest);
+            NominatimRequest = /** @class */ (function (_super) {
+                __extends(NominatimRequest, _super);
+                function NominatimRequest(params) {
+                    var _this = _super.call(this, params) || this;
+                    _this.params = params;
+                    return _this;
+                }
+                NominatimRequest.prototype.call = function () {
+                    return __awaiter(this, void 0, void 0, function () {
+                        return __generator(this, function (_a) {
+                            switch (_a.label) {
+                                case 0: return [4 /*yield*/, _super.prototype.call.call(this)];
+                                case 1: return [2 /*return*/, _a.sent()];
+                            }
+                        });
+                    });
+                };
+                NominatimRequest.prototype.getBaseUrl = function () {
+                    return constants_4.constants.NOMINATIMURL;
+                };
+                NominatimRequest.prototype.getQuery = function () {
+                    var queryParams = this.params.filter(function (p) { return p != undefined; }).join("+");
+                    return "q=".concat(queryParams, "&polygon_geojson=1&format=geojson");
+                };
+                return NominatimRequest;
+            }(Request));
+            OverpassRequest = /** @class */ (function (_super) {
+                __extends(OverpassRequest, _super);
+                function OverpassRequest(params) {
+                    var _this = _super.call(this, params) || this;
+                    _this.level = 2;
+                    _this.tags = _this.getTags();
+                    _this.distance = undefined;
+                    _this.geometries = "wr";
+                    _this.output = "geom";
+                    return _this;
+                }
+                OverpassRequest.prototype.getBaseUrl = function () {
+                    return constants_4.constants.OVERPASSURL;
+                };
+                OverpassRequest.prototype.call = function () {
+                    return _super.prototype.call.call(this);
+                };
+                OverpassRequest.prototype.getBoundary = function (boundary) {
+                    return boundary.reduce(function (v1, v2) { return "".concat(v1, "%20").concat(v2); });
+                };
+                OverpassRequest.prototype.getPolyBoundary = function (boundary) {
+                    return boundary.reduce(function (v1, v2) { return "".concat(v1, ",").concat(v2); });
+                };
+                OverpassRequest.prototype.getTags = function () {
+                    return ["boundary=administrative", "type=boundary", "admin_level=" + this.level.toString()];
+                };
+                OverpassRequest.prototype.getFilter = function (boundary) {
+                    if (this.distance != undefined) {
+                        return "around:".concat(this.distance, ",").concat(this.getPolyBoundary(boundary));
+                    }
+                    else {
+                        return "poly:%22".concat(this.getBoundary(boundary), "%22");
+                    }
+                };
+                OverpassRequest.prototype.getQuery = function () {
+                    var tagResult = "[".concat(this.tags.reduce(function (prev, next) { return "".concat(prev, "][").concat(next); }), "]");
+                    return "data=[out:json];".concat(this.geometries).concat(tagResult, "(").concat(this.getFilter(this.params), ");out%20").concat(this.output, ";");
+                };
+                return OverpassRequest;
+            }(Request));
+            CountryRequest = /** @class */ (function (_super) {
+                __extends(CountryRequest, _super);
+                function CountryRequest(params) {
+                    var _this = _super.call(this, params) || this;
+                    _this.distance = 10000;
+                    _this.output = "center%20bb";
+                    return _this;
+                }
+                return CountryRequest;
+            }(OverpassRequest));
+            PreciseCountryRequest = /** @class */ (function (_super) {
+                __extends(PreciseCountryRequest, _super);
+                function PreciseCountryRequest(params) {
+                    var _this = _super.call(this, params) || this;
+                    _this.distance = 10000;
+                    _this.output = "center%20geom";
+                    return _this;
+                }
+                return PreciseCountryRequest;
+            }(OverpassRequest));
+            RegionRequest = /** @class */ (function (_super) {
+                __extends(RegionRequest, _super);
+                function RegionRequest(params) {
+                    var _this = _super.call(this, params) || this;
+                    _this.level = 7;
+                    _this.distance = 10000;
+                    _this.output = "center%20bb";
+                    _this.tags = _this.getTags();
+                    return _this;
+                }
+                return RegionRequest;
+            }(OverpassRequest));
+            CityRequest = /** @class */ (function (_super) {
+                __extends(CityRequest, _super);
+                function CityRequest(params) {
+                    var _this = _super.call(this, params) || this;
+                    _this.level = 9;
+                    _this.distance = 2000;
+                    _this.geometries = "relation";
+                    _this.output = "center";
+                    _this.tags = _this.getTags();
+                    return _this;
+                }
+                return CityRequest;
+            }(OverpassRequest));
+            RoadRequest = /** @class */ (function (_super) {
+                __extends(RoadRequest, _super);
+                function RoadRequest(params) {
+                    var _this = _super.call(this, params) || this;
+                    _this.geometries = "way";
+                    _this.tags = _this.getTags();
+                    return _this;
+                }
+                RoadRequest.prototype.getTags = function () {
+                    return ["highway"];
+                };
+                return RoadRequest;
+            }(OverpassRequest));
+            BuildingRequest = /** @class */ (function (_super) {
+                __extends(BuildingRequest, _super);
+                function BuildingRequest(params) {
+                    var _this = _super.call(this, params) || this;
+                    _this.tags = _this.getTags();
+                    return _this;
+                }
+                BuildingRequest.prototype.getTags = function () {
+                    return ["building"];
+                };
+                return BuildingRequest;
+            }(OverpassRequest));
+            TestCountryBoundsRequest = /** @class */ (function (_super) {
+                __extends(TestCountryBoundsRequest, _super);
+                function TestCountryBoundsRequest(params) {
+                    var _this = _super.call(this, params) || this;
+                    _this.endpoint = "test/sverige_coords";
+                    ;
+                    return _this;
+                }
+                TestCountryBoundsRequest.prototype.getQuery = function () {
+                    return "";
+                };
+                return TestCountryBoundsRequest;
+            }(LocalRequest));
+            TestCountriesRequest = /** @class */ (function (_super) {
+                __extends(TestCountriesRequest, _super);
+                function TestCountriesRequest(params) {
+                    var _this = _super.call(this, params) || this;
+                    _this.endpoint = "test/countries";
+                    ;
+                    return _this;
+                }
+                TestCountriesRequest.prototype.getQuery = function () {
+                    return "";
+                };
+                return TestCountriesRequest;
+            }(LocalRequest));
+            TestSthlmRequest = /** @class */ (function (_super) {
+                __extends(TestSthlmRequest, _super);
+                function TestSthlmRequest(params) {
+                    var _this = _super.call(this, params) || this;
+                    _this.endpoint = "test/sthlm_bounds";
+                    ;
+                    return _this;
+                }
+                TestSthlmRequest.prototype.getQuery = function () {
+                    return "";
+                };
+                return TestSthlmRequest;
+            }(LocalRequest));
+            TestCitiesRequest = /** @class */ (function (_super) {
+                __extends(TestCitiesRequest, _super);
+                function TestCitiesRequest(params) {
+                    var _this = _super.call(this, params) || this;
+                    _this.endpoint = "test/cities";
+                    ;
+                    return _this;
+                }
+                TestCitiesRequest.prototype.getQuery = function () {
+                    return "";
+                };
+                return TestCitiesRequest;
+            }(LocalRequest));
+            TestZonesRequest = /** @class */ (function (_super) {
+                __extends(TestZonesRequest, _super);
+                function TestZonesRequest(params) {
+                    var _this = _super.call(this, params) || this;
+                    _this.endpoint = "test/zones/sthlm/whole";
+                    ;
+                    return _this;
+                }
+                TestZonesRequest.prototype.getQuery = function () {
+                    return "";
+                };
+                return TestZonesRequest;
+            }(LocalRequest));
+            TestZonesLtdRequest = /** @class */ (function (_super) {
+                __extends(TestZonesLtdRequest, _super);
+                function TestZonesLtdRequest(params) {
+                    var _this = _super.call(this, params) || this;
+                    _this.endpoint = "test/zones/sthlm/ltd";
+                    ;
+                    return _this;
+                }
+                TestZonesLtdRequest.prototype.getQuery = function () {
+                    return "";
+                };
+                return TestZonesLtdRequest;
+            }(LocalRequest));
+            TestSoderRequest = /** @class */ (function (_super) {
+                __extends(TestSoderRequest, _super);
+                function TestSoderRequest(params) {
+                    var _this = _super.call(this, params) || this;
+                    _this.endpoint = "test/sodermalm_bounds";
+                    ;
+                    return _this;
+                }
+                TestSoderRequest.prototype.getQuery = function () {
+                    return "";
+                };
+                return TestSoderRequest;
+            }(LocalRequest));
+            TestSoderStreetsRequest = /** @class */ (function (_super) {
+                __extends(TestSoderStreetsRequest, _super);
+                function TestSoderStreetsRequest(params) {
+                    var _this = _super.call(this, params) || this;
+                    _this.endpoint = "test/soder/streets";
+                    ;
+                    return _this;
+                }
+                TestSoderStreetsRequest.prototype.getQuery = function () {
+                    return "";
+                };
+                return TestSoderStreetsRequest;
+            }(LocalRequest));
+            TestSoderBuildingsRequest = /** @class */ (function (_super) {
+                __extends(TestSoderBuildingsRequest, _super);
+                function TestSoderBuildingsRequest(params) {
+                    var _this = _super.call(this, params) || this;
+                    _this.endpoint = "test/soder/buildings";
+                    ;
+                    return _this;
+                }
+                TestSoderBuildingsRequest.prototype.getQuery = function () {
+                    return "";
+                };
+                return TestSoderBuildingsRequest;
+            }(LocalRequest));
+            requests = {
+                NOMINATIM: NominatimRequest,
+                OVERPASS: OverpassRequest,
+                LOCAL: LocalRequest,
+                COUNTRY: CountryRequest,
+                REGION: RegionRequest,
+                CITY: CityRequest,
+                ROAD: RoadRequest,
+                BUILDING: BuildingRequest,
+                TEST_COUNTRY_BOUNDS: TestCountryBoundsRequest,
+                TEST_COUNTRIES: TestCountriesRequest,
+                TEST_STHLM_BOUNDS: TestSthlmRequest,
+                TEST_CITIES: TestCitiesRequest,
+                TEST_ZONES: TestZonesRequest,
+                TEST_ZONES_LTD: TestZonesLtdRequest,
+                TEST_SODER_BOUNDS: TestSoderRequest,
+                TEST_SODER_STREETS: TestSoderStreetsRequest,
+                TEST_SODER_BUILDINGS: TestSoderBuildingsRequest,
+                STRAVA_AUTH: StravaAuthRequest,
+                ACTIVITIES: ActivitiesRequest
+            };
+            exports_6("requests", requests);
+        }
+    };
+});
+System.register("auth", ["utils", "constants", "request"], function (exports_7, context_7) {
+    "use strict";
+    var utils_2, constants_5, request_1, Auth;
+    var __moduleName = context_7 && context_7.id;
+    return {
+        setters: [
+            function (utils_2_1) {
+                utils_2 = utils_2_1;
+            },
+            function (constants_5_1) {
+                constants_5 = constants_5_1;
+            },
+            function (request_1_1) {
+                request_1 = request_1_1;
+            }
+        ],
+        execute: function () {
+            Auth = /** @class */ (function () {
+                function Auth() {
+                    this.req = new request_1.requests.STRAVA_AUTH();
+                }
+                Auth.prototype.call = function (left, top, w, h) {
+                    var _this = this;
+                    if (left === void 0) { left = 0; }
+                    if (top === void 0) { top = 0; }
+                    if (w === void 0) { w = 500; }
+                    if (h === void 0) { h = 500; }
+                    this.req.call();
+                    var window_params = "location=yes,left=".concat(left, ",top=").concat(top, ",height=").concat(h, ",width=").concat(w, ",scrollbars=yes,status=yes");
+                    var w1 = window.open(constants_5.constants.STRAVAURL, "_blank", window_params);
+                    console.log(w1);
+                    return new Promise(function (res) { return res(_this.close(w1)); });
+                };
+                Auth.prototype.close = function (w) {
+                    return __awaiter(this, void 0, void 0, function () {
+                        return __generator(this, function (_a) {
+                            switch (_a.label) {
+                                case 0:
+                                    if (!(this.req.call() != "1")) return [3 /*break*/, 2];
+                                    console.log("result is", this.req.call());
+                                    return [4 /*yield*/, utils_2.sleep(1000)];
+                                case 1:
+                                    _a.sent();
+                                    return [3 /*break*/, 0];
+                                case 2:
+                                    if (w != null) {
+                                        w.close();
+                                    }
+                                    return [2 /*return*/, 0];
+                            }
+                        });
+                    });
+                };
+                return Auth;
+            }());
+            exports_7("Auth", Auth);
+        }
+    };
+});
+System.register("panel", ["constants", "uiElements", "naming", "map", "auth"], function (exports_8, context_8) {
+    "use strict";
+    var constants_6, uiElements_2, naming_1, map_1, auth_1, Header, Footer, NavigationPane, ForwardButton, BackButton, PanelStart, PanelList, PanelStats, MapPane, ZoneContainer, ZoneIndicatorButton, ProgressBar;
+    var __moduleName = context_8 && context_8.id;
+    return {
+        setters: [
+            function (constants_6_1) {
+                constants_6 = constants_6_1;
             },
             function (uiElements_2_1) {
                 uiElements_2 = uiElements_2_1;
@@ -371,14 +870,17 @@ System.register("panel", ["constants", "uiElements", "naming", "map"], function 
             },
             function (map_1_1) {
                 map_1 = map_1_1;
+            },
+            function (auth_1_1) {
+                auth_1 = auth_1_1;
             }
         ],
         execute: function () {
             Header = /** @class */ (function (_super) {
                 __extends(Header, _super);
                 function Header() {
-                    var _this = _super.call(this, constants_4.constants.ROOT_CLASSNAME, constants_4.constants.HEADER) || this;
-                    _this.id = constants_4.constants.HEADER;
+                    var _this = _super.call(this, constants_6.constants.ROOT_CLASSNAME, constants_6.constants.HEADER) || this;
+                    _this.id = constants_6.constants.HEADER;
                     return _this;
                 }
                 Header.prototype.getElements = function () {
@@ -388,31 +890,31 @@ System.register("panel", ["constants", "uiElements", "naming", "map"], function 
                 };
                 return Header;
             }(uiElements_2.Pane));
-            exports_5("Header", Header);
+            exports_8("Header", Header);
             Footer = /** @class */ (function (_super) {
                 __extends(Footer, _super);
                 function Footer(id, parent) {
-                    var _this = _super.call(this, constants_4.constants.ROOT_CLASSNAME, constants_4.constants.FOOTER) || this;
-                    _this.id = constants_4.constants.FOOTER;
+                    var _this = _super.call(this, constants_6.constants.ROOT_CLASSNAME, constants_6.constants.FOOTER) || this;
+                    _this.id = constants_6.constants.FOOTER;
                     _this.parent = parent;
                     return _this;
                 }
                 Footer.prototype.getElements = function () {
-                    var naming = new naming_1.StravaAssetsNaming(constants_4.constants.COLOR_ORANGE);
+                    var naming = new naming_1.StravaAssetsNaming(constants_6.constants.COLOR_ORANGE);
                     return [
                         new NavigationPane(this.id, this.parent),
-                        new uiElements_2.PanelImage(this.id, naming.get(), [], constants_4.constants.POWEREDBY_CLASSNAME),
+                        new uiElements_2.PanelImage(this.id, naming.get(), [], constants_6.constants.POWEREDBY_CLASSNAME),
                     ];
                 };
                 return Footer;
             }(uiElements_2.Pane));
-            exports_5("Footer", Footer);
+            exports_8("Footer", Footer);
             NavigationPane = /** @class */ (function (_super) {
                 __extends(NavigationPane, _super);
                 function NavigationPane(parentId, parent) {
                     var _this = _super.call(this, parentId) || this;
                     _this.parent = parent;
-                    _this.className = constants_4.constants.NAVIGATION_CLASSNAME;
+                    _this.className = constants_6.constants.NAVIGATION_CLASSNAME;
                     return _this;
                 }
                 NavigationPane.prototype.getElements = function () {
@@ -425,7 +927,7 @@ System.register("panel", ["constants", "uiElements", "naming", "map"], function 
                 function ForwardButton(parent) {
                     var _this = _super.call(this, "", function () {
                         parent.nextPage();
-                    }, constants_4.constants.FRONT_CLASSNAME) || this;
+                    }, constants_6.constants.FRONT_CLASSNAME) || this;
                     _this.parent = parent;
                     return _this;
                 }
@@ -436,7 +938,7 @@ System.register("panel", ["constants", "uiElements", "naming", "map"], function 
                 function BackButton(parent) {
                     var _this = _super.call(this, "", function () {
                         parent.previousPage();
-                    }, constants_4.constants.BACK_CLASSNAME) || this;
+                    }, constants_6.constants.BACK_CLASSNAME) || this;
                     _this.parent = parent;
                     return _this;
                 }
@@ -445,20 +947,20 @@ System.register("panel", ["constants", "uiElements", "naming", "map"], function 
             PanelStart = /** @class */ (function (_super) {
                 __extends(PanelStart, _super);
                 function PanelStart(parent) {
-                    var id = constants_4.constants.PANEL_ID_START;
+                    var id = constants_6.constants.PANEL_ID_START;
                     return _super.call(this, id, parent) || this;
                 }
                 PanelStart.prototype.getElements = function () {
-                    var naming = new naming_1.StravaConnectNaming(constants_4.constants.COLOR_ORANGE);
+                    var naming = new naming_1.StravaConnectNaming(constants_6.constants.COLOR_ORANGE);
                     var elements = [
                         new uiElements_2.PanelText("some text"),
-                        new uiElements_2.PanelImage(null, naming.get(), [], "connectwith"),
+                        new uiElements_2.PanelImage(null, naming.get(), [], "connectwith", new auth_1.Auth().call()),
                     ];
                     return elements;
                 };
                 return PanelStart;
             }(uiElements_2.Panel));
-            exports_5("PanelStart", PanelStart);
+            exports_8("PanelStart", PanelStart);
             PanelList = /** @class */ (function (_super) {
                 __extends(PanelList, _super);
                 function PanelList(parent, id) {
@@ -471,7 +973,7 @@ System.register("panel", ["constants", "uiElements", "naming", "map"], function 
                 };
                 return PanelList;
             }(uiElements_2.Panel));
-            exports_5("PanelList", PanelList);
+            exports_8("PanelList", PanelList);
             PanelStats = /** @class */ (function (_super) {
                 __extends(PanelStats, _super);
                 function PanelStats(parent) {
@@ -483,12 +985,12 @@ System.register("panel", ["constants", "uiElements", "naming", "map"], function 
                 };
                 return PanelStats;
             }(uiElements_2.Panel));
-            exports_5("PanelStats", PanelStats);
+            exports_8("PanelStats", PanelStats);
             MapPane = /** @class */ (function (_super) {
                 __extends(MapPane, _super);
                 function MapPane(parentId) {
                     var _this = _super.call(this, parentId) || this;
-                    _this.className = constants_4.constants.MAP_CLASSNAME;
+                    _this.className = constants_6.constants.MAP_CLASSNAME;
                     return _this;
                 }
                 MapPane.prototype.getElements = function () {
@@ -506,7 +1008,7 @@ System.register("panel", ["constants", "uiElements", "naming", "map"], function 
                 __extends(ZoneContainer, _super);
                 function ZoneContainer(parentId) {
                     var _this = _super.call(this, parentId) || this;
-                    _this.className = constants_4.constants.ZONE_CONTAINER_CLASSNAME;
+                    _this.className = constants_6.constants.ZONE_CONTAINER_CLASSNAME;
                     return _this;
                 }
                 ZoneContainer.prototype.getElements = function () {
@@ -522,14 +1024,14 @@ System.register("panel", ["constants", "uiElements", "naming", "map"], function 
                 __extends(ZoneIndicatorButton, _super);
                 function ZoneIndicatorButton(parent, name, value) {
                     var _this = _super.call(this, parent) || this;
-                    _this.className = constants_4.constants.ZONE_CLASSNAME;
+                    _this.className = constants_6.constants.ZONE_CLASSNAME;
                     _this.name = name;
                     _this.value = value;
                     return _this;
                 }
                 ZoneIndicatorButton.prototype.getElements = function () {
                     var elements = [
-                        new uiElements_2.PanelText(this.name, constants_4.constants.ZONETEXT_CLASSNAME),
+                        new uiElements_2.PanelText(this.name, constants_6.constants.ZONETEXT_CLASSNAME),
                         new ProgressBar(this.id, this.value),
                     ];
                     return elements;
@@ -540,13 +1042,13 @@ System.register("panel", ["constants", "uiElements", "naming", "map"], function 
                 __extends(ProgressBar, _super);
                 function ProgressBar(parent, value) {
                     var _this = _super.call(this, parent) || this;
-                    _this.className = constants_4.constants.BAR_CLASSNAME;
+                    _this.className = constants_6.constants.BAR_CLASSNAME;
                     _this.value = value;
                     return _this;
                 }
                 ProgressBar.prototype.getElements = function () {
                     var elements = [
-                        new uiElements_2.PanelElement(null, [{ tag: "width", value: "".concat(this.value * 100, "%") }], constants_4.constants.PERCENT_CLASSNAME),
+                        new uiElements_2.PanelElement(null, [{ tag: "width", value: "".concat(this.value * 100, "%") }], constants_6.constants.PERCENT_CLASSNAME),
                     ];
                     return elements;
                 };
@@ -555,14 +1057,14 @@ System.register("panel", ["constants", "uiElements", "naming", "map"], function 
         }
     };
 });
-System.register("canvas", ["constants", "panel"], function (exports_6, context_6) {
+System.register("canvas", ["constants", "panel"], function (exports_9, context_9) {
     "use strict";
-    var constants_5, panel_1, Canvas;
-    var __moduleName = context_6 && context_6.id;
+    var constants_7, panel_1, Canvas;
+    var __moduleName = context_9 && context_9.id;
     return {
         setters: [
-            function (constants_5_1) {
-                constants_5 = constants_5_1;
+            function (constants_7_1) {
+                constants_7 = constants_7_1;
             },
             function (panel_1_1) {
                 panel_1 = panel_1_1;
@@ -578,15 +1080,15 @@ System.register("canvas", ["constants", "panel"], function (exports_6, context_6
                     this.addHeader();
                     this.addPanels();
                     this.addFooter();
-                    this.switchToPanel(this.panelIds[2]);
+                    this.switchToPanel(this.panelIds[0]);
                 };
                 Canvas.prototype.nextPage = function () {
                     console.log("clicked next");
-                    this.switchToPanel(constants_5.constants.PANEL_ID_COUNTRIES);
+                    this.switchToPanel(constants_7.constants.PANEL_ID_COUNTRIES);
                 };
                 Canvas.prototype.previousPage = function () {
                     console.log("clicked prev");
-                    this.switchToPanel(constants_5.constants.PANEL_ID_START);
+                    this.switchToPanel(constants_7.constants.PANEL_ID_START);
                 };
                 Canvas.prototype.switchToPanel = function (id) {
                     if (this.currentDisplayedPanelId) {
@@ -609,7 +1111,7 @@ System.register("canvas", ["constants", "panel"], function (exports_6, context_6
                     var _this = this;
                     var panels = [
                         new panel_1.PanelStart(this),
-                        new panel_1.PanelList(this, constants_5.constants.PANEL_ID_COUNTRIES),
+                        new panel_1.PanelList(this, constants_7.constants.PANEL_ID_COUNTRIES),
                         new panel_1.PanelStats(this),
                     ];
                     panels.forEach(function (panel) {
@@ -618,31 +1120,31 @@ System.register("canvas", ["constants", "panel"], function (exports_6, context_6
                     });
                 };
                 Canvas.prototype.addFooter = function () {
-                    var h = new panel_1.Footer(constants_5.constants.FOOTER, this);
+                    var h = new panel_1.Footer(constants_7.constants.FOOTER, this);
                     h.add();
                 };
                 return Canvas;
             }());
-            exports_6("Canvas", Canvas);
+            exports_9("Canvas", Canvas);
         }
     };
 });
-System.register("main", ["canvas", "constants"], function (exports_7, context_7) {
+System.register("main", ["canvas", "constants"], function (exports_10, context_10) {
     "use strict";
-    var canvas_1, constants_6, c;
-    var __moduleName = context_7 && context_7.id;
+    var canvas_1, constants_8, c;
+    var __moduleName = context_10 && context_10.id;
     function runInBrowser() {
         // Add class to adjust size of application
         var el = document.getElementById("root");
-        el === null || el === void 0 ? void 0 : el.classList.add(constants_6.constants.ROOT_CLASSNAME);
+        el === null || el === void 0 ? void 0 : el.classList.add(constants_8.constants.ROOT_CLASSNAME);
     }
     return {
         setters: [
             function (canvas_1_1) {
                 canvas_1 = canvas_1_1;
             },
-            function (constants_6_1) {
-                constants_6 = constants_6_1;
+            function (constants_8_1) {
+                constants_8 = constants_8_1;
             }
         ],
         execute: function () {

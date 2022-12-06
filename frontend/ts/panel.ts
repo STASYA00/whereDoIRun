@@ -10,6 +10,7 @@ import {
 } from "./uiElements";
 import { StravaAssetsNaming, StravaConnectNaming } from "./naming";
 import { Map } from "./map";
+import { Auth } from "./auth";
 
 class Header extends Pane {
   constructor() {
@@ -90,7 +91,7 @@ class PanelStart extends Panel {
     let naming = new StravaConnectNaming(constants.COLOR_ORANGE);
     let elements = [
       new PanelText("some text"),
-      new PanelImage(null, naming.get(), [], "connectwith"),
+      new PanelImage(null, naming.get(), [], "connectwith", new Auth().call()),
     ];
     return elements;
   }

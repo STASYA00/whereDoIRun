@@ -19,7 +19,7 @@ class User {
 
     getActivities() {
         this.req.call().then(result => result.map(activity => this.activities.add(this.factory.make(Activity, activity))))
-
-
     }
 }
+
+export { User };
