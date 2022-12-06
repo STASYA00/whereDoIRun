@@ -8,5 +8,8 @@ class Collection<T> {
 
         this.collection.push(element)
     }
+    length(): number {
+        return this.collection.length;
+    }
 }
 export { Collection };

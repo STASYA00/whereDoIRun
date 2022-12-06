@@ -859,10 +859,112 @@ System.register("auth", ["utils", "constants", "request"], function (exports_7, 
         }
     };
 });
-System.register("panel", ["constants", "uiElements", "naming", "map", "auth"], function (exports_8, context_8) {
+System.register("collection", [], function (exports_8, context_8) {
     "use strict";
-    var constants_6, uiElements_2, naming_1, map_1, auth_1, Header, Footer, NavigationPane, ForwardButton, BackButton, PanelStart, PanelList, PanelStats, MapPane, ZoneContainer, ZoneIndicatorButton, ProgressBar;
+    var Collection;
     var __moduleName = context_8 && context_8.id;
+    return {
+        setters: [],
+        execute: function () {
+            Collection = /** @class */ (function () {
+                function Collection() {
+                    this.collection = [];
+                }
+                Collection.prototype.add = function (element) {
+                    this.collection.push(element);
+                };
+                Collection.prototype.length = function () {
+                    return this.collection.length;
+                };
+                return Collection;
+            }());
+            exports_8("Collection", Collection);
+        }
+    };
+});
+System.register("activity", [], function (exports_9, context_9) {
+    "use strict";
+    var Activity;
+    var __moduleName = context_9 && context_9.id;
+    return {
+        setters: [],
+        execute: function () {
+            Activity = /** @class */ (function () {
+                function Activity() {
+                }
+                return Activity;
+            }());
+            exports_9("Activity", Activity);
+        }
+    };
+});
+System.register("factory", [], function (exports_10, context_10) {
+    "use strict";
+    var Factory;
+    var __moduleName = context_10 && context_10.id;
+    return {
+        setters: [],
+        execute: function () {
+            Factory = /** @class */ (function () {
+                function Factory() {
+                }
+                Factory.prototype.make = function (type, params) {
+                    if (params === void 0) { params = null; }
+                    return new type(params);
+                };
+                return Factory;
+            }());
+            exports_10("Factory", Factory);
+        }
+    };
+});
+System.register("user", ["collection", "activity", "factory", "request"], function (exports_11, context_11) {
+    "use strict";
+    var collection_1, activity_1, factory_1, request_2, User;
+    var __moduleName = context_11 && context_11.id;
+    return {
+        setters: [
+            function (collection_1_1) {
+                collection_1 = collection_1_1;
+            },
+            function (activity_1_1) {
+                activity_1 = activity_1_1;
+            },
+            function (factory_1_1) {
+                factory_1 = factory_1_1;
+            },
+            function (request_2_1) {
+                request_2 = request_2_1;
+            }
+        ],
+        execute: function () {
+            User = /** @class */ (function () {
+                function User(userId) {
+                    this.id = userId;
+                    this.req = new request_2.requests.ACTIVITIES();
+                    this.activities = new collection_1.Collection();
+                    this.factory = new factory_1.Factory();
+                }
+                User.prototype.getActivities = function () {
+                    var _this = this;
+                    if (this.activities.length() > 0) {
+                        return new Promise(function (r) { return (r(_this.activities)); });
+                    }
+                    return this.req.call().then(function (result) {
+                        result.map(function (activity) { return _this.activities.add(_this.factory.make(activity_1.Activity, activity)); });
+                        return _this.activities;
+                    });
+                };
+                return User;
+            }());
+            exports_11("User", User);
+        }
+    };
+});
+System.register("panel", ["constants", "uiElements", "naming", "map", "auth", "user"], function (exports_12, context_12) {
+    "use strict";
+    var constants_6, uiElements_2, naming_1, map_1, auth_1, user_1, Header, Footer, NavigationPane, ForwardButton, BackButton, PanelStart, PanelList, PanelStats, MapPane, ZoneContainer, ZoneIndicatorButton, ProgressBar;
+    var __moduleName = context_12 && context_12.id;
     return {
         setters: [
             function (constants_6_1) {
@@ -879,6 +981,9 @@ System.register("panel", ["constants", "uiElements", "naming", "map", "auth"], f
             },
             function (auth_1_1) {
                 auth_1 = auth_1_1;
+            },
+            function (user_1_1) {
+                user_1 = user_1_1;
             }
         ],
         execute: function () {
@@ -896,7 +1001,7 @@ System.register("panel", ["constants", "uiElements", "naming", "map", "auth"], f
                 };
                 return Header;
             }(uiElements_2.Pane));
-            exports_8("Header", Header);
+            exports_12("Header", Header);
             Footer = /** @class */ (function (_super) {
                 __extends(Footer, _super);
                 function Footer(id, parent) {
@@ -914,7 +1019,7 @@ System.register("panel", ["constants", "uiElements", "naming", "map", "auth"], f
                 };
                 return Footer;
             }(uiElements_2.Pane));
-            exports_8("Footer", Footer);
+            exports_12("Footer", Footer);
             NavigationPane = /** @class */ (function (_super) {
                 __extends(NavigationPane, _super);
                 function NavigationPane(parentId, parent) {
@@ -961,13 +1066,19 @@ System.register("panel", ["constants", "uiElements", "naming", "map", "auth"], f
                     var naming = new naming_1.StravaConnectNaming(constants_6.constants.COLOR_ORANGE);
                     var elements = [
                         new uiElements_2.PanelText("some text"),
-                        new uiElements_2.PanelImage(null, naming.get(), [], "connectwith", function () { new auth_1.Auth().call().then(function (r) { console.log(r); _this.parent.nextPage(); }); }),
+                        new uiElements_2.PanelImage(null, naming.get(), [], "connectwith", function () {
+                            new auth_1.Auth().call().then(function (r) {
+                                console.log(r);
+                                new user_1.User(null).getActivities().then(function (r) { return console.log("Activities", r); });
+                                _this.parent.nextPage();
+                            });
+                        }),
                     ];
                     return elements;
                 };
                 return PanelStart;
             }(uiElements_2.Panel));
-            exports_8("PanelStart", PanelStart);
+            exports_12("PanelStart", PanelStart);
             PanelList = /** @class */ (function (_super) {
                 __extends(PanelList, _super);
                 function PanelList(parent, id) {
@@ -980,7 +1091,7 @@ System.register("panel", ["constants", "uiElements", "naming", "map", "auth"], f
                 };
                 return PanelList;
             }(uiElements_2.Panel));
-            exports_8("PanelList", PanelList);
+            exports_12("PanelList", PanelList);
             PanelStats = /** @class */ (function (_super) {
                 __extends(PanelStats, _super);
                 function PanelStats(parent) {
@@ -992,7 +1103,7 @@ System.register("panel", ["constants", "uiElements", "naming", "map", "auth"], f
                 };
                 return PanelStats;
             }(uiElements_2.Panel));
-            exports_8("PanelStats", PanelStats);
+            exports_12("PanelStats", PanelStats);
             MapPane = /** @class */ (function (_super) {
                 __extends(MapPane, _super);
                 function MapPane(parentId) {
@@ -1016,6 +1127,7 @@ System.register("panel", ["constants", "uiElements", "naming", "map", "auth"], f
                 function ZoneContainer(parentId) {
                     var _this = _super.call(this, parentId) || this;
                     _this.className = constants_6.constants.ZONE_CONTAINER_CLASSNAME;
+                    _this.selected = "";
                     return _this;
                 }
                 ZoneContainer.prototype.getElements = function () {
@@ -1064,10 +1176,10 @@ System.register("panel", ["constants", "uiElements", "naming", "map", "auth"], f
         }
     };
 });
-System.register("canvas", ["constants", "panel"], function (exports_9, context_9) {
+System.register("canvas", ["constants", "panel"], function (exports_13, context_13) {
     "use strict";
     var constants_7, panel_1, Canvas;
-    var __moduleName = context_9 && context_9.id;
+    var __moduleName = context_13 && context_13.id;
     return {
         setters: [
             function (constants_7_1) {
@@ -1132,14 +1244,14 @@ System.register("canvas", ["constants", "panel"], function (exports_9, context_9
                 };
                 return Canvas;
             }());
-            exports_9("Canvas", Canvas);
+            exports_13("Canvas", Canvas);
         }
     };
 });
-System.register("main", ["canvas", "constants"], function (exports_10, context_10) {
+System.register("main", ["canvas", "constants"], function (exports_14, context_14) {
     "use strict";
     var canvas_1, constants_8, c;
-    var __moduleName = context_10 && context_10.id;
+    var __moduleName = context_14 && context_14.id;
     function runInBrowser() {
         // Add class to adjust size of application
         var el = document.getElementById("root");

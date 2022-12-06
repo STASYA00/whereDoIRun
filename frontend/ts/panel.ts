@@ -11,6 +11,7 @@ import {
 import { StravaAssetsNaming, StravaConnectNaming } from "./naming";
 import { Map } from "./map";
 import { Auth } from "./auth";
+import { User } from "./user";
 
 class Header extends Pane {
   constructor() {
@@ -91,7 +92,15 @@ class PanelStart extends Panel {
     let naming = new StravaConnectNaming(constants.COLOR_ORANGE);
     let elements = [
       new PanelText("some text"),
-      new PanelImage(null, naming.get(), [], "connectwith", () => { new Auth().call().then(r => { console.log(r); this.parent.nextPage(); }); }),
+      new PanelImage(null, naming.get(), [],
+        "connectwith",
+        () => {
+          new Auth().call().then(r => {
+            console.log(r);
+            new User(null).getActivities().then(r => console.log("Activities", r));
+            this.parent.nextPage();
+          });
+        }),
     ];
     return elements;
   }

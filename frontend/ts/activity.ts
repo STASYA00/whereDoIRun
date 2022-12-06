@@ -1,5 +1,5 @@
 class Activity {
-    constructor() {
+    constructor(activityId: string, activityType: string, encodedCoords: string | undefined) {
 
     }
 }
