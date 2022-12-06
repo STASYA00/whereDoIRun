@@ -9,6 +9,7 @@ import {
   PanelText,
 } from "./uiElements";
 import { StravaAssetsNaming, StravaConnectNaming } from "./naming";
+import { Map } from "./map";
 
 class Header extends Pane {
   constructor() {
@@ -96,12 +97,38 @@ class PanelStart extends Panel {
 }
 
 class PanelList extends Panel {
-  constructor(parent: Canvas) {
-    let id = constants.PANEL_ID_COUNTRIES;
+  constructor(parent: Canvas, id: string | null = null) {
     super(id, parent);
   }
   getElements() {
     let elements = [new ZoneContainer(this.id)];
+    return elements;
+  }
+}
+
+class PanelStats extends Panel {
+  constructor(parent: Canvas) {
+    super(null, parent);
+  }
+  getElements() {
+    let elements = [new MapPane(this.id)];
+    return elements;
+  }
+}
+
+class MapPane extends Pane {
+  constructor(parentId: string) {
+    super(parentId);
+    this.className = constants.MAP_CLASSNAME;
+  }
+
+  getElements() {
+    let elements = [
+      new Map(this.id, [
+        [2, 3],
+        [104, 5],
+      ]),
+    ];
     return elements;
   }
 }
@@ -159,4 +186,4 @@ class ProgressBar extends Pane {
   }
 }
 
-export { Footer, Header, PanelStart, PanelList };
+export { Footer, Header, PanelStart, PanelList, PanelStats };

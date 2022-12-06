@@ -35,6 +35,7 @@ System.register("constants", ["uuid"], function (exports_1, context_1) {
                 BAR_CLASSNAME: "bar",
                 PERCENT_CLASSNAME: "percent",
                 POWEREDBY_CLASSNAME: "poweredby",
+                MAP_CLASSNAME: "map",
                 PANEL_ID_START: uuid.v4(),
                 PANEL_ID_COUNTRIES: uuid.v4(),
                 PANEL_ID_CITIES: uuid.v4(),
@@ -46,10 +47,18 @@ System.register("constants", ["uuid"], function (exports_1, context_1) {
                 ZONE_CLASSNAME: "zoneindicator",
                 ZONETEXT_CLASSNAME: "zonetext",
                 ZONE_CONTAINER_CLASSNAME: "zonecontainer",
+                STREET_CLASSNAME: "street",
                 ASSETS_PATH: "../../assets/attr",
                 COLOR_ORANGE: "orange",
                 COLOR_WHITE: "white",
-                COLOR_GRAY: "gray"
+                COLOR_GRAY: "gray",
+                OSMBASEURL: "https://openstreetmap.org/api/0.6",
+                NOMINATIMURL: "https://nominatim.openstreetmap.org/search",
+                OVERPASSURL: "https://overpass-api.de/api/interpreter",
+                WEBSERVERURL: "http://localhost",
+                PORT: "3000",
+                CLIENTID: "89141",
+                SCOPE: "activity:read_all"
             });
         }
     };
@@ -299,9 +308,9 @@ System.register("naming", ["constants"], function (exports_3, context_3) {
         }
     };
 });
-System.register("panel", ["constants", "uiElements", "naming"], function (exports_4, context_4) {
+System.register("map", ["constants", "uiElements"], function (exports_4, context_4) {
     "use strict";
-    var constants_3, uiElements_1, naming_1, Header, Footer, NavigationPane, ForwardButton, BackButton, PanelStart, PanelList, ZoneContainer, ZoneIndicatorButton, ProgressBar;
+    var constants_3, uiElements_1, Map;
     var __moduleName = context_4 && context_4.id;
     return {
         setters: [
@@ -310,17 +319,66 @@ System.register("panel", ["constants", "uiElements", "naming"], function (export
             },
             function (uiElements_1_1) {
                 uiElements_1 = uiElements_1_1;
+            }
+        ],
+        execute: function () {
+            //import * as d3 from "d3";
+            Map = /** @class */ (function (_super) {
+                __extends(Map, _super);
+                function Map(parentId, coords) {
+                    var _this = _super.call(this) || this;
+                    _this.className = "svg"; //constants.MAP_CLASSNAME;
+                    _this.coords = coords;
+                    _this.elementType = "svg";
+                    return _this;
+                }
+                Map.prototype.createElement = function () {
+                    var coords = this.coords
+                        .filter(function (c) { return c != undefined; })
+                        .map(function (c) { return ["".concat(c[0].toString(), ",").concat(c[1].toString())]; })
+                        .join(",");
+                    var el = document.createElement(this.elementType);
+                    el.setAttribute("width", "100");
+                    el.setAttribute("height", "100");
+                    el.className = "svg";
+                    console.log("123");
+                    var el1 = document.createElement("polyline");
+                    el1.setAttribute("points", coords);
+                    el1.className = constants_3.constants.STREET_CLASSNAME;
+                    el.appendChild(el1);
+                    return el;
+                };
+                return Map;
+            }(uiElements_1.PanelElement));
+            exports_4("Map", Map);
+        }
+    };
+});
+System.register("panel", ["constants", "uiElements", "naming", "map"], function (exports_5, context_5) {
+    "use strict";
+    var constants_4, uiElements_2, naming_1, map_1, Header, Footer, NavigationPane, ForwardButton, BackButton, PanelStart, PanelList, PanelStats, MapPane, ZoneContainer, ZoneIndicatorButton, ProgressBar;
+    var __moduleName = context_5 && context_5.id;
+    return {
+        setters: [
+            function (constants_4_1) {
+                constants_4 = constants_4_1;
+            },
+            function (uiElements_2_1) {
+                uiElements_2 = uiElements_2_1;
             },
             function (naming_1_1) {
                 naming_1 = naming_1_1;
+            },
+            function (map_1_1) {
+                map_1 = map_1_1;
             }
         ],
         execute: function () {
             Header = /** @class */ (function (_super) {
                 __extends(Header, _super);
                 function Header() {
-                    var _this = _super.call(this, constants_3.constants.ROOT_CLASSNAME, constants_3.constants.HEADER) || this;
-                    _this.id = constants_3.constants.HEADER;
+                    var _this = _super.call(this, constants_4.constants.ROOT_CLASSNAME, constants_4.constants.HEADER) || this;
+                    _this.id = constants_4.constants.HEADER;
                     return _this;
                 }
                 Header.prototype.getElements = function () {
@@ -329,82 +387,82 @@ System.register("panel", ["constants", "uiElements", "naming"], function (export
                     ];
                 };
                 return Header;
-            }(uiElements_1.Pane));
-            exports_4("Header", Header);
+            }(uiElements_2.Pane));
+            exports_5("Header", Header);
             Footer = /** @class */ (function (_super) {
                 __extends(Footer, _super);
                 function Footer(id, parent) {
-                    var _this = _super.call(this, constants_3.constants.ROOT_CLASSNAME, constants_3.constants.FOOTER) || this;
-                    _this.id = constants_3.constants.FOOTER;
+                    var _this = _super.call(this, constants_4.constants.ROOT_CLASSNAME, constants_4.constants.FOOTER) || this;
+                    _this.id = constants_4.constants.FOOTER;
                     _this.parent = parent;
                     return _this;
                 }
                 Footer.prototype.getElements = function () {
-                    var naming = new naming_1.StravaAssetsNaming(constants_3.constants.COLOR_ORANGE);
+                    var naming = new naming_1.StravaAssetsNaming(constants_4.constants.COLOR_ORANGE);
                     return [
                         new NavigationPane(this.id, this.parent),
-                        new uiElements_1.PanelImage(this.id, naming.get(), [], constants_3.constants.POWEREDBY_CLASSNAME),
+                        new uiElements_2.PanelImage(this.id, naming.get(), [], constants_4.constants.POWEREDBY_CLASSNAME),
                     ];
                 };
                 return Footer;
-            }(uiElements_1.Pane));
-            exports_4("Footer", Footer);
+            }(uiElements_2.Pane));
+            exports_5("Footer", Footer);
             NavigationPane = /** @class */ (function (_super) {
                 __extends(NavigationPane, _super);
                 function NavigationPane(parentId, parent) {
                     var _this = _super.call(this, parentId) || this;
                     _this.parent = parent;
-                    _this.className = constants_3.constants.NAVIGATION_CLASSNAME;
+                    _this.className = constants_4.constants.NAVIGATION_CLASSNAME;
                     return _this;
                 }
                 NavigationPane.prototype.getElements = function () {
                     return [new BackButton(this.parent), new ForwardButton(this.parent)];
                 };
                 return NavigationPane;
-            }(uiElements_1.Pane));
+            }(uiElements_2.Pane));
             ForwardButton = /** @class */ (function (_super) {
                 __extends(ForwardButton, _super);
                 function ForwardButton(parent) {
                     var _this = _super.call(this, "", function () {
                         parent.nextPage();
-                    }, constants_3.constants.FRONT_CLASSNAME) || this;
+                    }, constants_4.constants.FRONT_CLASSNAME) || this;
                     _this.parent = parent;
                     return _this;
                 }
                 return ForwardButton;
-            }(uiElements_1.PanelButton));
+            }(uiElements_2.PanelButton));
             BackButton = /** @class */ (function (_super) {
                 __extends(BackButton, _super);
                 function BackButton(parent) {
                     var _this = _super.call(this, "", function () {
                         parent.previousPage();
-                    }, constants_3.constants.BACK_CLASSNAME) || this;
+                    }, constants_4.constants.BACK_CLASSNAME) || this;
                     _this.parent = parent;
                     return _this;
                 }
                 return BackButton;
-            }(uiElements_1.PanelButton));
+            }(uiElements_2.PanelButton));
             PanelStart = /** @class */ (function (_super) {
                 __extends(PanelStart, _super);
                 function PanelStart(parent) {
-                    var id = constants_3.constants.PANEL_ID_START;
+                    var id = constants_4.constants.PANEL_ID_START;
                     return _super.call(this, id, parent) || this;
                 }
                 PanelStart.prototype.getElements = function () {
-                    var naming = new naming_1.StravaConnectNaming(constants_3.constants.COLOR_ORANGE);
+                    var naming = new naming_1.StravaConnectNaming(constants_4.constants.COLOR_ORANGE);
                     var elements = [
-                        new uiElements_1.PanelText("some text"),
-                        new uiElements_1.PanelImage(null, naming.get(), [], "connectwith"),
+                        new uiElements_2.PanelText("some text"),
+                        new uiElements_2.PanelImage(null, naming.get(), [], "connectwith"),
                     ];
                     return elements;
                 };
                 return PanelStart;
-            }(uiElements_1.Panel));
-            exports_4("PanelStart", PanelStart);
+            }(uiElements_2.Panel));
+            exports_5("PanelStart", PanelStart);
             PanelList = /** @class */ (function (_super) {
                 __extends(PanelList, _super);
-                function PanelList(parent) {
-                    var id = constants_3.constants.PANEL_ID_COUNTRIES;
+                function PanelList(parent, id) {
+                    if (id === void 0) { id = null; }
                     return _super.call(this, id, parent) || this;
                 }
                 PanelList.prototype.getElements = function () {
@@ -412,13 +470,43 @@ System.register("panel", ["constants", "uiElements", "naming"], function (export
                     return elements;
                 };
                 return PanelList;
-            }(uiElements_1.Panel));
-            exports_4("PanelList", PanelList);
+            }(uiElements_2.Panel));
+            exports_5("PanelList", PanelList);
+            PanelStats = /** @class */ (function (_super) {
+                __extends(PanelStats, _super);
+                function PanelStats(parent) {
+                    return _super.call(this, null, parent) || this;
+                }
+                PanelStats.prototype.getElements = function () {
+                    var elements = [new MapPane(this.id)];
+                    return elements;
+                };
+                return PanelStats;
+            }(uiElements_2.Panel));
+            exports_5("PanelStats", PanelStats);
+            MapPane = /** @class */ (function (_super) {
+                __extends(MapPane, _super);
+                function MapPane(parentId) {
+                    var _this = _super.call(this, parentId) || this;
+                    _this.className = constants_4.constants.MAP_CLASSNAME;
+                    return _this;
+                }
+                MapPane.prototype.getElements = function () {
+                    var elements = [
+                        new map_1.Map(this.id, [
+                            [2, 3],
+                            [104, 5],
+                        ]),
+                    ];
+                    return elements;
+                };
+                return MapPane;
+            }(uiElements_2.Pane));
             ZoneContainer = /** @class */ (function (_super) {
                 __extends(ZoneContainer, _super);
                 function ZoneContainer(parentId) {
                     var _this = _super.call(this, parentId) || this;
-                    _this.className = constants_3.constants.ZONE_CONTAINER_CLASSNAME;
+                    _this.className = constants_4.constants.ZONE_CONTAINER_CLASSNAME;
                     return _this;
                 }
                 ZoneContainer.prototype.getElements = function () {
@@ -429,52 +517,52 @@ System.register("panel", ["constants", "uiElements", "naming"], function (export
                     return elements;
                 };
                 return ZoneContainer;
-            }(uiElements_1.Pane));
+            }(uiElements_2.Pane));
             ZoneIndicatorButton = /** @class */ (function (_super) {
                 __extends(ZoneIndicatorButton, _super);
                 function ZoneIndicatorButton(parent, name, value) {
                     var _this = _super.call(this, parent) || this;
-                    _this.className = constants_3.constants.ZONE_CLASSNAME;
+                    _this.className = constants_4.constants.ZONE_CLASSNAME;
                     _this.name = name;
                     _this.value = value;
                     return _this;
                 }
                 ZoneIndicatorButton.prototype.getElements = function () {
                     var elements = [
-                        new uiElements_1.PanelText(this.name, constants_3.constants.ZONETEXT_CLASSNAME),
+                        new uiElements_2.PanelText(this.name, constants_4.constants.ZONETEXT_CLASSNAME),
                         new ProgressBar(this.id, this.value),
                     ];
                     return elements;
                 };
                 return ZoneIndicatorButton;
-            }(uiElements_1.Pane));
+            }(uiElements_2.Pane));
             ProgressBar = /** @class */ (function (_super) {
                 __extends(ProgressBar, _super);
                 function ProgressBar(parent, value) {
                     var _this = _super.call(this, parent) || this;
-                    _this.className = constants_3.constants.BAR_CLASSNAME;
+                    _this.className = constants_4.constants.BAR_CLASSNAME;
                     _this.value = value;
                     return _this;
                 }
                 ProgressBar.prototype.getElements = function () {
                     var elements = [
-                        new uiElements_1.PanelElement(null, [{ tag: "width", value: "".concat(this.value * 100, "%") }], constants_3.constants.PERCENT_CLASSNAME),
+                        new uiElements_2.PanelElement(null, [{ tag: "width", value: "".concat(this.value * 100, "%") }], constants_4.constants.PERCENT_CLASSNAME),
                     ];
                     return elements;
                 };
                 return ProgressBar;
-            }(uiElements_1.Pane));
+            }(uiElements_2.Pane));
         }
     };
 });
-System.register("canvas", ["constants", "panel"], function (exports_5, context_5) {
+System.register("canvas", ["constants", "panel"], function (exports_6, context_6) {
     "use strict";
-    var constants_4, panel_1, Canvas;
-    var __moduleName = context_5 && context_5.id;
+    var constants_5, panel_1, Canvas;
+    var __moduleName = context_6 && context_6.id;
     return {
         setters: [
-            function (constants_4_1) {
-                constants_4 = constants_4_1;
+            function (constants_5_1) {
+                constants_5 = constants_5_1;
             },
             function (panel_1_1) {
                 panel_1 = panel_1_1;
@@ -490,16 +578,15 @@ System.register("canvas", ["constants", "panel"], function (exports_5, context_5
                     this.addHeader();
                     this.addPanels();
                     this.addFooter();
-                    //this.switchToPanel(constants.PANEL_ID_START);
-                    this.switchToPanel(constants_4.constants.PANEL_ID_COUNTRIES);
+                    this.switchToPanel(this.panelIds[2]);
                 };
                 Canvas.prototype.nextPage = function () {
                     console.log("clicked next");
-                    this.switchToPanel(constants_4.constants.PANEL_ID_COUNTRIES);
+                    this.switchToPanel(constants_5.constants.PANEL_ID_COUNTRIES);
                 };
                 Canvas.prototype.previousPage = function () {
                     console.log("clicked prev");
-                    this.switchToPanel(constants_4.constants.PANEL_ID_START);
+                    this.switchToPanel(constants_5.constants.PANEL_ID_START);
                 };
                 Canvas.prototype.switchToPanel = function (id) {
                     if (this.currentDisplayedPanelId) {
@@ -519,35 +606,43 @@ System.register("canvas", ["constants", "panel"], function (exports_5, context_5
                     h.add();
                 };
                 Canvas.prototype.addPanels = function () {
-                    var panels = [new panel_1.PanelStart(this), new panel_1.PanelList(this)];
-                    panels.forEach(function (panel) { return panel.add(); });
+                    var _this = this;
+                    var panels = [
+                        new panel_1.PanelStart(this),
+                        new panel_1.PanelList(this, constants_5.constants.PANEL_ID_COUNTRIES),
+                        new panel_1.PanelStats(this),
+                    ];
+                    panels.forEach(function (panel) {
+                        panel.add();
+                        _this.panelIds.push(panel.id);
+                    });
                 };
                 Canvas.prototype.addFooter = function () {
-                    var h = new panel_1.Footer(constants_4.constants.FOOTER, this);
+                    var h = new panel_1.Footer(constants_5.constants.FOOTER, this);
                     h.add();
                 };
                 return Canvas;
             }());
-            exports_5("Canvas", Canvas);
+            exports_6("Canvas", Canvas);
         }
     };
 });
-System.register("main", ["canvas", "constants"], function (exports_6, context_6) {
+System.register("main", ["canvas", "constants"], function (exports_7, context_7) {
     "use strict";
-    var canvas_1, constants_5, c;
-    var __moduleName = context_6 && context_6.id;
+    var canvas_1, constants_6, c;
+    var __moduleName = context_7 && context_7.id;
     function runInBrowser() {
         // Add class to adjust size of application
         var el = document.getElementById("root");
-        el === null || el === void 0 ? void 0 : el.classList.add(constants_5.constants.ROOT_CLASSNAME);
+        el === null || el === void 0 ? void 0 : el.classList.add(constants_6.constants.ROOT_CLASSNAME);
     }
     return {
         setters: [
             function (canvas_1_1) {
                 canvas_1 = canvas_1_1;
             },
-            function (constants_5_1) {
-                constants_5 = constants_5_1;
+            function (constants_6_1) {
+                constants_6 = constants_6_1;
             }
         ],
         execute: function () {

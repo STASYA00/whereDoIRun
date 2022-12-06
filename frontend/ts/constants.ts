@@ -12,6 +12,7 @@ export const constants = {
   BAR_CLASSNAME: "bar" as string,
   PERCENT_CLASSNAME: "percent" as string,
   POWEREDBY_CLASSNAME: "poweredby" as string,
+  MAP_CLASSNAME: "map" as string,
 
   PANEL_ID_START: uuid.v4(),
   PANEL_ID_COUNTRIES: uuid.v4(),
@@ -26,9 +27,21 @@ export const constants = {
   ZONE_CLASSNAME: "zoneindicator" as string,
   ZONETEXT_CLASSNAME: "zonetext" as string,
   ZONE_CONTAINER_CLASSNAME: "zonecontainer" as string,
+  STREET_CLASSNAME: "street" as string,
   ASSETS_PATH: "../../assets/attr" as string,
 
   COLOR_ORANGE: "orange" as string,
   COLOR_WHITE: "white" as string,
   COLOR_GRAY: "gray" as string,
+
+  OSMBASEURL: "https://openstreetmap.org/api/0.6" as string,
+  NOMINATIMURL: "https://nominatim.openstreetmap.org/search" as string,
+  OVERPASSURL: "https://overpass-api.de/api/interpreter" as string,
+
+  WEBSERVERURL: "http://localhost" as string,
+  PORT: "3000" as string,
+  CLIENTID: "89141" as string,
+  SCOPE: "activity:read_all" as string,
+
+
 } as const;

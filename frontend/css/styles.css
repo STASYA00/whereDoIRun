@@ -83,13 +83,23 @@ img.background {
   justify-content: space-between;
 }
 
+.map {
+  height: 100px;
+  width: 100px;
+}
+.map[type="svg"] {
+  stroke: #ffffff;
+  width: 100px;
+  height: 100px;
+}
+
 .area {
   background-color: greenyellow;
   fill: greenyellow;
 }
 
 .street {
-  stroke: red;
+  stroke: rgb(255, 255, 255);
 }
 
 .house {

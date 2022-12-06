@@ -1,6 +1,6 @@
 import { PanelElement } from "./uiElements";
 import { constants } from "./constants";
-import { Header, Footer, PanelStart, PanelList } from "./panel";
+import { Header, Footer, PanelStart, PanelList, PanelStats } from "./panel";
 
 class Canvas {
   currentDisplayedPanelId: string;
@@ -16,8 +16,7 @@ class Canvas {
 
     this.addPanels();
     this.addFooter();
-    //this.switchToPanel(constants.PANEL_ID_START);
-    this.switchToPanel(constants.PANEL_ID_COUNTRIES);
+    this.switchToPanel(this.panelIds[2]);
   }
 
   nextPage() {
@@ -50,8 +49,15 @@ class Canvas {
   }
 
   addPanels() {
-    let panels = [new PanelStart(this), new PanelList(this)];
-    panels.forEach((panel) => panel.add());
+    let panels = [
+      new PanelStart(this),
+      new PanelList(this, constants.PANEL_ID_COUNTRIES),
+      new PanelStats(this),
+    ];
+    panels.forEach((panel) => {
+      panel.add();
+      this.panelIds.push(panel.id);
+    });
   }
 
   addFooter() {
