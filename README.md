@@ -232,4 +232,7 @@ to compile the Typescript files:
 
 ## TODO:
 
-define a standard for lat-lon
++ define a standard for lat-lon
++ when there is a registered token and user clicks on the connect button again -> confirm dialog -> remove the token (?)
++ if after connect the user chooses not to log in or does not grant the permissions -> warning dialog: app can not function without the login and permission grant
+

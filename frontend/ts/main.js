@@ -957,10 +957,11 @@ System.register("panel", ["constants", "uiElements", "naming", "map", "auth"], f
                     return _super.call(this, id, parent) || this;
                 }
                 PanelStart.prototype.getElements = function () {
+                    var _this = this;
                     var naming = new naming_1.StravaConnectNaming(constants_6.constants.COLOR_ORANGE);
                     var elements = [
                         new uiElements_2.PanelText("some text"),
-                        new uiElements_2.PanelImage(null, naming.get(), [], "connectwith", function () { new auth_1.Auth().call(); }),
+                        new uiElements_2.PanelImage(null, naming.get(), [], "connectwith", function () { new auth_1.Auth().call().then(function (r) { console.log(r); _this.parent.nextPage(); }); }),
                     ];
                     return elements;
                 };
