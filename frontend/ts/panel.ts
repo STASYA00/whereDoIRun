@@ -98,8 +98,10 @@ class PanelStart extends Panel {
 }
 
 class PanelList extends Panel {
+
   constructor(parent: Canvas, id: string | null = null) {
     super(id, parent);
+
   }
   getElements() {
     let elements = [new ZoneContainer(this.id)];
@@ -135,9 +137,11 @@ class MapPane extends Pane {
 }
 
 class ZoneContainer extends Pane {
+  selected: string;
   constructor(parentId: string) {
     super(parentId);
     this.className = constants.ZONE_CONTAINER_CLASSNAME;
+    this.selected = "";
   }
 
   getElements() {
