@@ -12,7 +12,6 @@ class Request {
     }
 
     call(): any {
-        //let req = await this.#request();
         return this.request();
     }
 
@@ -79,6 +78,20 @@ class StravaAuthRequest extends LocalRequest {
     constructor(params: any = null) {
         super(params);
         this.endpoint = "has_token";
+    }
+}
+
+class ActivitiesRequest extends LocalRequest {
+    endpoint: string;
+    constructor(params: any = null) {
+        super(params);
+        this.endpoint = "activities";
+    }
+    call(): Promise<string[]> {
+        return this.request();
+    }
+    request(callback?: any): Promise<string[]> {
+        return super.request(callback);
     }
 }
 
@@ -314,6 +327,7 @@ const requests = {
     TEST_SODER_BUILDINGS: TestSoderBuildingsRequest,
 
     STRAVA_AUTH: StravaAuthRequest,
+    ACTIVITIES: ActivitiesRequest,
 }
 
-export { requests, Request };
+export { requests, Request, ActivitiesRequest };
