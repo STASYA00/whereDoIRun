@@ -49,7 +49,7 @@ class PanelElement {
       parent.appendChild(child);
     }
   }
-  postprocess(el: HTMLElement) {}
+  postprocess(el: HTMLElement) { }
 }
 
 class PanelText extends PanelElement {
@@ -184,7 +184,7 @@ class Panel {
     this.postActions();
   }
 
-  postActions() {}
+  postActions() { }
 }
 
 class PanelImage extends PanelElement {
@@ -208,6 +208,7 @@ class PanelImage extends PanelElement {
     const img = document.createElement("img");
     img.id = this.id;
     img.src = this.src;
+    img.onclick = this.onchangeFn;
     return img;
   }
 }

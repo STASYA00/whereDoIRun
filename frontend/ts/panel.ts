@@ -91,7 +91,7 @@ class PanelStart extends Panel {
     let naming = new StravaConnectNaming(constants.COLOR_ORANGE);
     let elements = [
       new PanelText("some text"),
-      new PanelImage(null, naming.get(), [], "connectwith", new Auth().call()),
+      new PanelImage(null, naming.get(), [], "connectwith", () => { new Auth().call(); }),
     ];
     return elements;
   }

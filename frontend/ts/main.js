@@ -291,6 +291,7 @@ System.register("uiElements", ["uuid", "constants"], function (exports_2, contex
                     var img = document.createElement("img");
                     img.id = this.id;
                     img.src = this.src;
+                    img.onclick = this.onchangeFn;
                     return img;
                 };
                 return PanelImage;
@@ -497,8 +498,15 @@ System.register("request", ["constants", "utils"], function (exports_6, context_
                     _this.endpoint = "has_token";
                     return _this;
                 }
+                StravaAuthRequest.prototype.call = function () {
+                    return this.request();
+                };
+                StravaAuthRequest.prototype.request = function (callback) {
+                    return _super.prototype.request.call(this, callback);
+                };
                 return StravaAuthRequest;
             }(LocalRequest));
+            exports_6("StravaAuthRequest", StravaAuthRequest);
             ActivitiesRequest = /** @class */ (function (_super) {
                 __extends(ActivitiesRequest, _super);
                 function ActivitiesRequest(params) {
@@ -829,21 +837,19 @@ System.register("auth", ["utils", "constants", "request"], function (exports_7, 
                 };
                 Auth.prototype.close = function (w) {
                     return __awaiter(this, void 0, void 0, function () {
+                        var _this = this;
                         return __generator(this, function (_a) {
-                            switch (_a.label) {
-                                case 0:
-                                    if (!(this.req.call() != "1")) return [3 /*break*/, 2];
-                                    console.log("result is", this.req.call());
-                                    return [4 /*yield*/, utils_2.sleep(1000)];
-                                case 1:
-                                    _a.sent();
-                                    return [3 /*break*/, 0];
-                                case 2:
-                                    if (w != null) {
-                                        w.close();
+                            return [2 /*return*/, this.req.call().then(function (r) {
+                                    if (r == "1") {
+                                        if (w != null) {
+                                            w.close();
+                                        }
+                                        return 0;
                                     }
-                                    return [2 /*return*/, 0];
-                            }
+                                    else {
+                                        return utils_2.sleep(1000).then(function (r) { return _this.close(w); });
+                                    }
+                                })];
                         });
                     });
                 };
@@ -954,7 +960,7 @@ System.register("panel", ["constants", "uiElements", "naming", "map", "auth"], f
                     var naming = new naming_1.StravaConnectNaming(constants_6.constants.COLOR_ORANGE);
                     var elements = [
                         new uiElements_2.PanelText("some text"),
-                        new uiElements_2.PanelImage(null, naming.get(), [], "connectwith", new auth_1.Auth().call()),
+                        new uiElements_2.PanelImage(null, naming.get(), [], "connectwith", function () { new auth_1.Auth().call(); }),
                     ];
                     return elements;
                 };

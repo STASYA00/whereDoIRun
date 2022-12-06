@@ -1,9 +1,9 @@
 import { sleep } from "./utils";
 import { constants } from "./constants";
-import { requests, Request } from "./request";
+import { requests, Request, StravaAuthRequest } from "./request";
 
 class Auth {
-    req: Request;
+    req: StravaAuthRequest;
     constructor() {
         this.req = new requests.STRAVA_AUTH();
 
@@ -16,15 +16,19 @@ class Auth {
         return new Promise((res) => res(this.close(w1)));
 
     }
-    async close(w: Window | null) {
-        while (this.req.call() != "1") {
-            console.log("result is", this.req.call());
-            await sleep(1000);
-        }
-        if (w != null) {
-            w.close();
-        }
-        return 0;
+    async close(w: Window | null): Promise<number> {
+
+        return this.req.call().then(r => {
+            if (r == "1") {
+                if (w != null) {
+                    w.close();
+                }
+                return 0;
+            }
+            else {
+                return sleep(1000).then(r => this.close(w));
+            }
+        });
     }
 }
 

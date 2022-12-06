@@ -79,6 +79,12 @@ class StravaAuthRequest extends LocalRequest {
         super(params);
         this.endpoint = "has_token";
     }
+    call(): Promise<string> {
+        return this.request();
+    }
+    request(callback?: any): Promise<string> {
+        return super.request(callback);
+    }
 }
 
 class ActivitiesRequest extends LocalRequest {
@@ -334,4 +340,4 @@ const requests = {
     ACTIVITIES: ActivitiesRequest,
 }
 
-export { requests, Request, ActivitiesRequest };
+export { requests, Request, ActivitiesRequest, StravaAuthRequest };
