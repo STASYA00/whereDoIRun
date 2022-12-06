@@ -1,7 +1,7 @@
 import { Collection } from "./collection";
 import { Activity } from "./activity";
 import { Factory } from "./factory";
-import { Request, ActivitiesRequest, requests } from "./request"
+import { Request, ActivitiesRequest, requests } from "./request";
 
 class User {
     id: string;
