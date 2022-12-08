@@ -1,4 +1,5 @@
 import { stringify } from "uuid";
+import {StravaStruct} from "./activity"
 import { constants } from "./constants";
 import { sleep } from "./utils";
 
@@ -93,10 +94,10 @@ class ActivitiesRequest extends LocalRequest {
         super(params);
         this.endpoint = "activities";
     }
-    call(): Promise<string[]> {
+    call(): Promise<StravaStruct[]> {
         return this.request();
     }
-    request(callback?: any): Promise<string[]> {
+    request(callback?: any): Promise<StravaStruct[]> {
         return super.request(callback);
     }
 }

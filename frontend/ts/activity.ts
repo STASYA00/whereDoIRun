@@ -1,3 +1,6 @@
+import { decode } from "./google_codec";
+//import * as polyline from "@mapbox/polyline";
+
 class Activity {
     id: string;
     activityType: string;
@@ -9,10 +12,18 @@ class Activity {
         if (encodedCoords!=undefined){
             this.decodeCoords(encodedCoords);
         }
+        console.log(this.coords);
     }
 
     decodeCoords(encodedCoords: string){
-        
+        this.coords = decode(encodedCoords, 6);
+        //this.coords = polyline.decode(encodedCoords, 6);
+
     }
 }
-export { Activity };
+interface StravaStruct{
+    id: string;
+    type: string;
+    map: {summary_polyline: string};
+}
+export { Activity, StravaStruct };

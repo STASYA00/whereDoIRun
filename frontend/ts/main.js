@@ -28,7 +28,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     function verb(n) { return function (v) { return step([n, v]); }; }
     function step(op) {
         if (f) throw new TypeError("Generator is already executing.");
-        while (g && (g = 0, op[0] && (_ = 0)), _) try {
+        while (_) try {
             if (f = 1, y && (t = op[0] & 2 ? y["return"] : op[0] ? y["throw"] || ((t = y["return"]) && t.call(y), 0) : y.next) && !(t = t.call(y, op[1])).done) return t;
             if (y = 0, t) op = [op[0] & 2, t.value];
             switch (op[0]) {
@@ -410,10 +410,219 @@ System.register("utils", [], function (exports_5, context_5) {
         }
     };
 });
-System.register("request", ["constants", "utils"], function (exports_6, context_6) {
+/**
+ * Copyright 2020 Google LLC
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+System.register("google_codec", [], function (exports_6, context_6) {
+    "use strict";
+    var decode, encode, polylineEncodeLine, polylineEncodeSigned, polylineEncodeUnsigned, round;
+    var __moduleName = context_6 && context_6.id;
+    return {
+        setters: [],
+        execute: function () {/**
+             * Copyright 2020 Google LLC
+             *
+             * Licensed under the Apache License, Version 2.0 (the "License");
+             * you may not use this file except in compliance with the License.
+             * You may obtain a copy of the License at
+             *
+             *      http://www.apache.org/licenses/LICENSE-2.0
+             *
+             * Unless required by applicable law or agreed to in writing, software
+             * distributed under the License is distributed on an "AS IS" BASIS,
+             * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+             * See the License for the specific language governing permissions and
+             * limitations under the License.
+             */
+            /**
+             * Decodes an encoded path string into a sequence of LatLngs.
+             *
+             * See {@link https://developers.google.com/maps/documentation/utilities/polylinealgorithm}
+             *
+             *  #### Example
+             *
+             * ```js
+             * import { decode } from "@googlemaps/polyline-codec";
+             *
+             * const encoded = "_p~iF~ps|U_ulLnnqC_mqNvxq`@";
+             * console.log(decode(encoded, 5));
+             * // [
+             * //   [38.5, -120.2],
+             * //   [40.7, -120.95],
+             * //   [43.252, -126.453],
+             * // ]
+             * ```
+             */
+            exports_6("decode", decode = function (encodedPath, precision) {
+                if (precision === void 0) { precision = 5; }
+                var factor = Math.pow(10, precision);
+                var len = encodedPath.length;
+                // For speed we preallocate to an upper bound on the final length, then
+                // truncate the array before returning.
+                var path = new Array(Math.floor(encodedPath.length / 2));
+                var index = 0;
+                var lat = 0;
+                var lng = 0;
+                var pointIndex = 0;
+                // This code has been profiled and optimized, so don't modify it without
+                // measuring its performance.
+                for (; index < len; ++pointIndex) {
+                    // Fully unrolling the following loops speeds things up about 5%.
+                    var result = 1;
+                    var shift = 0;
+                    var b = void 0;
+                    do {
+                        // Invariant: "result" is current partial result plus (1 << shift).
+                        // The following line effectively clears this bit by decrementing "b".
+                        b = encodedPath.charCodeAt(index++) - 63 - 1;
+                        result += b << shift;
+                        shift += 5;
+                    } while (b >= 0x1f); // See note above.
+                    lat += result & 1 ? ~(result >> 1) : result >> 1;
+                    result = 1;
+                    shift = 0;
+                    do {
+                        b = encodedPath.charCodeAt(index++) - 63 - 1;
+                        result += b << shift;
+                        shift += 5;
+                    } while (b >= 0x1f);
+                    lng += result & 1 ? ~(result >> 1) : result >> 1;
+                    path[pointIndex] = [lat / factor, lng / factor];
+                }
+                // truncate array
+                path.length = pointIndex;
+                return path;
+            });
+            /**
+             * Polyline encodes an array of objects having lat and lng properties.
+             *
+             * See {@link https://developers.google.com/maps/documentation/utilities/polylinealgorithm}
+             *
+             * #### Example
+             *
+             * ```js
+             * import { encode } from "@googlemaps/polyline-codec";
+             *
+             * const path = [
+             *   [38.5, -120.2],
+             *   [40.7, -120.95],
+             *   [43.252, -126.453],
+             * ];
+             * console.log(encode(path, 5));
+             * // "_p~iF~ps|U_ulLnnqC_mqNvxq`@"
+             * ```
+             */
+            exports_6("encode", encode = function (path, precision) {
+                if (precision === void 0) { precision = 5; }
+                var factor = Math.pow(10, precision);
+                var transform = function latLngToFixed(latLng) {
+                    if (!Array.isArray(latLng)) {
+                        latLng = [latLng.lat, latLng.lng];
+                    }
+                    return [round(latLng[0] * factor), round(latLng[1] * factor)];
+                };
+                return polylineEncodeLine(path, transform);
+            });
+            /**
+             * Encodes a generic polyline; optionally performing a transform on each point
+             * before encoding it.
+             *
+             * @ignore
+             */
+            exports_6("polylineEncodeLine", polylineEncodeLine = function (array, transform) {
+                var v = [];
+                var start = [0, 0];
+                var end;
+                for (var i = 0, I = array.length; i < I; ++i) {
+                    // In order to prevent drift (from quantizing deltas), we explicitly convert
+                    // coordinates to fixed-precision to obtain integer deltas.
+                    end = transform(array[i]);
+                    // Push the next edge
+                    polylineEncodeSigned(round(end[0]) - round(start[0]), v); // lat
+                    polylineEncodeSigned(round(end[1]) - round(start[1]), v); // lng
+                    start = end;
+                }
+                return v.join("");
+            });
+            /**
+             * Encodes the given value in our compact polyline format, appending the
+             * encoded value to the given array of strings.
+             *
+             * @ignore
+             */
+            polylineEncodeSigned = function (value, array) {
+                return polylineEncodeUnsigned(value < 0 ? ~(value << 1) : value << 1, array);
+            };
+            /**
+             * Helper function for encodeSigned.
+             *
+             * @ignore
+             */
+            polylineEncodeUnsigned = function (value, array) {
+                while (value >= 0x20) {
+                    array.push(String.fromCharCode((0x20 | (value & 0x1f)) + 63));
+                    value >>= 5;
+                }
+                array.push(String.fromCharCode(value + 63));
+                return array;
+            };
+            /**
+             * @ignore
+             */
+            round = function (v) {
+                return Math.floor(Math.abs(v) + 0.5) * (v >= 0 ? 1 : -1);
+            };
+        }
+    };
+});
+System.register("activity", ["google_codec"], function (exports_7, context_7) {
+    "use strict";
+    var google_codec_1, Activity;
+    var __moduleName = context_7 && context_7.id;
+    return {
+        setters: [
+            function (google_codec_1_1) {
+                google_codec_1 = google_codec_1_1;
+            }
+        ],
+        execute: function () {
+            //import * as polyline from "@mapbox/polyline";
+            Activity = /** @class */ (function () {
+                function Activity(activityId, activityType, encodedCoords) {
+                    this.id = activityId;
+                    this.activityType = activityType;
+                    this.coords = [];
+                    if (encodedCoords != undefined) {
+                        this.decodeCoords(encodedCoords);
+                    }
+                    console.log(this.coords);
+                }
+                Activity.prototype.decodeCoords = function (encodedCoords) {
+                    this.coords = google_codec_1.decode(encodedCoords, 6);
+                    //this.coords = polyline.decode(encodedCoords, 6);
+                };
+                return Activity;
+            }());
+            exports_7("Activity", Activity);
+        }
+    };
+});
+System.register("request", ["constants", "utils"], function (exports_8, context_8) {
     "use strict";
     var constants_4, utils_1, Request, LocalRequest, StravaAuthRequest, ActivitiesRequest, NominatimRequest, OverpassRequest, CountryRequest, PreciseCountryRequest, RegionRequest, CityRequest, RoadRequest, BuildingRequest, TestCountryBoundsRequest, TestCountriesRequest, TestSthlmRequest, TestCitiesRequest, TestZonesRequest, TestZonesLtdRequest, TestSoderRequest, TestSoderStreetsRequest, TestSoderBuildingsRequest, requests;
-    var __moduleName = context_6 && context_6.id;
+    var __moduleName = context_8 && context_8.id;
     return {
         setters: [
             function (constants_4_1) {
@@ -474,7 +683,7 @@ System.register("request", ["constants", "utils"], function (exports_6, context_
                 };
                 return Request;
             }());
-            exports_6("Request", Request);
+            exports_8("Request", Request);
             LocalRequest = /** @class */ (function (_super) {
                 __extends(LocalRequest, _super);
                 function LocalRequest(params) {
@@ -506,7 +715,7 @@ System.register("request", ["constants", "utils"], function (exports_6, context_
                 };
                 return StravaAuthRequest;
             }(LocalRequest));
-            exports_6("StravaAuthRequest", StravaAuthRequest);
+            exports_8("StravaAuthRequest", StravaAuthRequest);
             ActivitiesRequest = /** @class */ (function (_super) {
                 __extends(ActivitiesRequest, _super);
                 function ActivitiesRequest(params) {
@@ -523,7 +732,7 @@ System.register("request", ["constants", "utils"], function (exports_6, context_
                 };
                 return ActivitiesRequest;
             }(LocalRequest));
-            exports_6("ActivitiesRequest", ActivitiesRequest);
+            exports_8("ActivitiesRequest", ActivitiesRequest);
             NominatimRequest = /** @class */ (function (_super) {
                 __extends(NominatimRequest, _super);
                 function NominatimRequest(params) {
@@ -798,14 +1007,14 @@ System.register("request", ["constants", "utils"], function (exports_6, context_
                 STRAVA_AUTH: StravaAuthRequest,
                 ACTIVITIES: ActivitiesRequest
             };
-            exports_6("requests", requests);
+            exports_8("requests", requests);
         }
     };
 });
-System.register("auth", ["utils", "constants", "request"], function (exports_7, context_7) {
+System.register("auth", ["utils", "constants", "request"], function (exports_9, context_9) {
     "use strict";
     var utils_2, constants_5, request_1, Auth;
-    var __moduleName = context_7 && context_7.id;
+    var __moduleName = context_9 && context_9.id;
     return {
         setters: [
             function (utils_2_1) {
@@ -855,14 +1064,14 @@ System.register("auth", ["utils", "constants", "request"], function (exports_7, 
                 };
                 return Auth;
             }());
-            exports_7("Auth", Auth);
+            exports_9("Auth", Auth);
         }
     };
 });
-System.register("collection", [], function (exports_8, context_8) {
+System.register("collection", [], function (exports_10, context_10) {
     "use strict";
     var Collection;
-    var __moduleName = context_8 && context_8.id;
+    var __moduleName = context_10 && context_10.id;
     return {
         setters: [],
         execute: function () {
@@ -878,32 +1087,20 @@ System.register("collection", [], function (exports_8, context_8) {
                 };
                 return Collection;
             }());
-            exports_8("Collection", Collection);
+            exports_10("Collection", Collection);
         }
     };
 });
-System.register("activity", [], function (exports_9, context_9) {
+System.register("factory", ["activity"], function (exports_11, context_11) {
     "use strict";
-    var Activity;
-    var __moduleName = context_9 && context_9.id;
+    var activity_1, Factory, FactoryActivity;
+    var __moduleName = context_11 && context_11.id;
     return {
-        setters: [],
-        execute: function () {
-            Activity = /** @class */ (function () {
-                function Activity() {
-                }
-                return Activity;
-            }());
-            exports_9("Activity", Activity);
-        }
-    };
-});
-System.register("factory", [], function (exports_10, context_10) {
-    "use strict";
-    var Factory;
-    var __moduleName = context_10 && context_10.id;
-    return {
-        setters: [],
+        setters: [
+            function (activity_1_1) {
+                activity_1 = activity_1_1;
+            }
+        ],
         execute: function () {
             Factory = /** @class */ (function () {
                 function Factory() {
@@ -914,21 +1111,27 @@ System.register("factory", [], function (exports_10, context_10) {
                 };
                 return Factory;
             }());
-            exports_10("Factory", Factory);
+            exports_11("Factory", Factory);
+            FactoryActivity = /** @class */ (function () {
+                function FactoryActivity() {
+                }
+                FactoryActivity.prototype.make = function (id, activityType, encodedCoords) {
+                    return new activity_1.Activity(id, activityType, encodedCoords);
+                };
+                return FactoryActivity;
+            }());
+            exports_11("FactoryActivity", FactoryActivity);
         }
     };
 });
-System.register("user", ["collection", "activity", "factory", "request"], function (exports_11, context_11) {
+System.register("user", ["collection", "factory", "request"], function (exports_12, context_12) {
     "use strict";
-    var collection_1, activity_1, factory_1, request_2, User;
-    var __moduleName = context_11 && context_11.id;
+    var collection_1, factory_1, request_2, User;
+    var __moduleName = context_12 && context_12.id;
     return {
         setters: [
             function (collection_1_1) {
                 collection_1 = collection_1_1;
-            },
-            function (activity_1_1) {
-                activity_1 = activity_1_1;
             },
             function (factory_1_1) {
                 factory_1 = factory_1_1;
@@ -943,7 +1146,7 @@ System.register("user", ["collection", "activity", "factory", "request"], functi
                     this.id = userId;
                     this.req = new request_2.requests.ACTIVITIES();
                     this.activities = new collection_1.Collection();
-                    this.factory = new factory_1.Factory();
+                    this.factory = new factory_1.FactoryActivity();
                 }
                 User.prototype.getActivities = function () {
                     var _this = this;
@@ -951,20 +1154,20 @@ System.register("user", ["collection", "activity", "factory", "request"], functi
                         return new Promise(function (r) { return (r(_this.activities)); });
                     }
                     return this.req.call().then(function (result) {
-                        result.map(function (activity) { return _this.activities.add(_this.factory.make(activity_1.Activity, activity)); });
+                        result.map(function (activity) { return _this.activities.add(_this.factory.make(activity["id"], activity["type"], activity["map"]["summary_polyline"])); });
                         return _this.activities;
                     });
                 };
                 return User;
             }());
-            exports_11("User", User);
+            exports_12("User", User);
         }
     };
 });
-System.register("panel", ["constants", "uiElements", "naming", "map", "auth", "user"], function (exports_12, context_12) {
+System.register("panel", ["constants", "uiElements", "naming", "map", "auth", "user"], function (exports_13, context_13) {
     "use strict";
     var constants_6, uiElements_2, naming_1, map_1, auth_1, user_1, Header, Footer, NavigationPane, ForwardButton, BackButton, PanelStart, PanelList, PanelStats, MapPane, ZoneContainer, ZoneIndicatorButton, ProgressBar;
-    var __moduleName = context_12 && context_12.id;
+    var __moduleName = context_13 && context_13.id;
     return {
         setters: [
             function (constants_6_1) {
@@ -1001,7 +1204,7 @@ System.register("panel", ["constants", "uiElements", "naming", "map", "auth", "u
                 };
                 return Header;
             }(uiElements_2.Pane));
-            exports_12("Header", Header);
+            exports_13("Header", Header);
             Footer = /** @class */ (function (_super) {
                 __extends(Footer, _super);
                 function Footer(id, parent) {
@@ -1019,7 +1222,7 @@ System.register("panel", ["constants", "uiElements", "naming", "map", "auth", "u
                 };
                 return Footer;
             }(uiElements_2.Pane));
-            exports_12("Footer", Footer);
+            exports_13("Footer", Footer);
             NavigationPane = /** @class */ (function (_super) {
                 __extends(NavigationPane, _super);
                 function NavigationPane(parentId, parent) {
@@ -1058,8 +1261,10 @@ System.register("panel", ["constants", "uiElements", "naming", "map", "auth", "u
             PanelStart = /** @class */ (function (_super) {
                 __extends(PanelStart, _super);
                 function PanelStart(parent) {
+                    var _this = this;
                     var id = constants_6.constants.PANEL_ID_START;
-                    return _super.call(this, id, parent) || this;
+                    _this = _super.call(this, id, parent) || this;
+                    return _this;
                 }
                 PanelStart.prototype.getElements = function () {
                     var _this = this;
@@ -1078,7 +1283,7 @@ System.register("panel", ["constants", "uiElements", "naming", "map", "auth", "u
                 };
                 return PanelStart;
             }(uiElements_2.Panel));
-            exports_12("PanelStart", PanelStart);
+            exports_13("PanelStart", PanelStart);
             PanelList = /** @class */ (function (_super) {
                 __extends(PanelList, _super);
                 function PanelList(parent, id) {
@@ -1091,7 +1296,7 @@ System.register("panel", ["constants", "uiElements", "naming", "map", "auth", "u
                 };
                 return PanelList;
             }(uiElements_2.Panel));
-            exports_12("PanelList", PanelList);
+            exports_13("PanelList", PanelList);
             PanelStats = /** @class */ (function (_super) {
                 __extends(PanelStats, _super);
                 function PanelStats(parent) {
@@ -1103,7 +1308,7 @@ System.register("panel", ["constants", "uiElements", "naming", "map", "auth", "u
                 };
                 return PanelStats;
             }(uiElements_2.Panel));
-            exports_12("PanelStats", PanelStats);
+            exports_13("PanelStats", PanelStats);
             MapPane = /** @class */ (function (_super) {
                 __extends(MapPane, _super);
                 function MapPane(parentId) {
@@ -1176,10 +1381,10 @@ System.register("panel", ["constants", "uiElements", "naming", "map", "auth", "u
         }
     };
 });
-System.register("canvas", ["constants", "panel"], function (exports_13, context_13) {
+System.register("canvas", ["constants", "panel"], function (exports_14, context_14) {
     "use strict";
     var constants_7, panel_1, Canvas;
-    var __moduleName = context_13 && context_13.id;
+    var __moduleName = context_14 && context_14.id;
     return {
         setters: [
             function (constants_7_1) {
@@ -1244,14 +1449,14 @@ System.register("canvas", ["constants", "panel"], function (exports_13, context_
                 };
                 return Canvas;
             }());
-            exports_13("Canvas", Canvas);
+            exports_14("Canvas", Canvas);
         }
     };
 });
-System.register("main", ["canvas", "constants"], function (exports_14, context_14) {
+System.register("main", ["canvas", "constants"], function (exports_15, context_15) {
     "use strict";
     var canvas_1, constants_8, c;
-    var __moduleName = context_14 && context_14.id;
+    var __moduleName = context_15 && context_15.id;
     function runInBrowser() {
         // Add class to adjust size of application
         var el = document.getElementById("root");

@@ -20,7 +20,8 @@ class User {
             return new Promise((r) => (r(this.activities)));
         }
         return this.req.call().then(result => {
-            result.map(activity => this.activities.add(this.factory.make(activity)));
+            result.map(activity => this.activities.add(this.factory.make(activity["id"], activity["type"],
+                                                                         activity["map"]["summary_polyline"])));
             return this.activities;
         });
     }
