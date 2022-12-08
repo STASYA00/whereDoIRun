@@ -13,7 +13,6 @@ class Canvas {
 
   make() {
     this.addHeader();
-
     this.addPanels();
     this.addFooter();
     this.switchToPanel(this.panelIds[0]);

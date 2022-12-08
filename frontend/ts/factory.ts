@@ -1,3 +1,5 @@
+import {Activity} from "./activity";
+
 class Factory<T> {
 
     constructor() {
@@ -8,4 +10,14 @@ class Factory<T> {
         return new type(params);
     }
 }
-export { Factory };
+class FactoryActivity {
+
+    constructor() {
+    }
+
+    make( id: string, activityType: string, encodedCoords: string): Activity {
+
+        return new Activity(id, activityType, encodedCoords);
+    }
+}
+export { Factory, FactoryActivity };

@@ -1,18 +1,18 @@
 import { Collection } from "./collection";
 import { Activity } from "./activity";
-import { Factory } from "./factory";
+import { FactoryActivity } from "./factory";
 import { Request, ActivitiesRequest, requests } from "./request";
 
 class User {
     id: string | null;
     activities: Collection<Activity>;
     req: ActivitiesRequest;
-    factory: Factory<Activity>;
+    factory: FactoryActivity;
     constructor(userId: string | null) {
         this.id = userId;
         this.req = new requests.ACTIVITIES();
         this.activities = new Collection<Activity>();
-        this.factory = new Factory<Activity>();
+        this.factory = new FactoryActivity();
     }
 
     getActivities(): Promise<Collection<Activity>> {
@@ -20,7 +20,7 @@ class User {
             return new Promise((r) => (r(this.activities)));
         }
         return this.req.call().then(result => {
-            result.map(activity => this.activities.add(this.factory.make(Activity, activity)));
+            result.map(activity => this.activities.add(this.factory.make(activity)));
             return this.activities;
         });
     }
