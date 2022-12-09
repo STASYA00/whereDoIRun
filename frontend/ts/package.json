@@ -8,6 +8,7 @@
   "dependencies": {
     "@googlemaps/polyline-codec": "^1.0.28",
     "@mapbox/polyline": "^1.1.1",
+    "@types/d3": "^7.4.0",
     "@types/node": "^18.11.11",
     "body-parser": "^1.20.0",
     "commonjs": "0.0.1",

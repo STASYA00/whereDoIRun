@@ -20,12 +20,22 @@ class Canvas {
 
   nextPage() {
     console.log("clicked next");
-    this.switchToPanel(constants.PANEL_ID_COUNTRIES);
+    let ind = this.panelIds.indexOf(this.currentDisplayedPanelId)
+    console.log(ind);
+    if (ind < this.panelIds.length - 1) {
+      ind = ind + 1;
+    }
+    this.switchToPanel(this.panelIds[ind]);
   }
 
   previousPage() {
     console.log("clicked prev");
-    this.switchToPanel(constants.PANEL_ID_START);
+    let ind = this.panelIds.indexOf(this.currentDisplayedPanelId)
+    console.log(ind);
+    if (ind > 0) {
+      ind = ind - 1;
+    }
+    this.switchToPanel(this.panelIds[ind]);
   }
 
   switchToPanel(id: string): void {

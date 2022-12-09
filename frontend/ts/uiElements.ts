@@ -24,22 +24,26 @@ class PanelElement {
     this.className = classname;
   }
 
-  createElement() {
+  createElement(): HTMLElement | null {
     const el = document.createElement(this.elementType);
     return el;
   }
 
   add(parentId: string = "") {
     const el = this.createElement();
-    el.id = this.id;
-    if (this.className) {
-      el.className = this.className;
+    if (el != null) {
+      el.id = this.id;
+      if (this.className) {
+        el.className = this.className;
+      }
+      this.css.forEach((x) => {
+        el.style.setProperty(x.tag, x.value);
+      });
+      this.appendElement(parentId, el);
+      this.postprocess(el);
+
     }
-    this.css.forEach((x) => {
-      el.style.setProperty(x.tag, x.value);
-    });
-    this.appendElement(parentId, el);
-    this.postprocess(el);
+
   }
 
   appendElement(parentId: string, child: Node) {
@@ -153,7 +157,7 @@ class Panel {
   parentId: string;
 
   constructor(id: string | null = null, parent: Canvas) {
-    this.id = id ? id : "11"; //uuid.v4();
+    this.id = id ? id : uuid.v4();
     this.classname = "panel";
     this.parent = parent;
     this.parentId = constants.ROOT_CLASSNAME;

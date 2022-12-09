@@ -28,7 +28,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     function verb(n) { return function (v) { return step([n, v]); }; }
     function step(op) {
         if (f) throw new TypeError("Generator is already executing.");
-        while (_) try {
+        while (g && (g = 0, op[0] && (_ = 0)), _) try {
             if (f = 1, y && (t = op[0] & 2 ? y["return"] : op[0] ? y["throw"] || ((t = y["return"]) && t.call(y), 0) : y.next) && !(t = t.call(y, op[1])).done) return t;
             if (y = 0, t) op = [op[0] & 2, t.value];
             switch (op[0]) {
@@ -136,15 +136,17 @@ System.register("uiElements", ["uuid", "constants"], function (exports_2, contex
                 PanelElement.prototype.add = function (parentId) {
                     if (parentId === void 0) { parentId = ""; }
                     var el = this.createElement();
-                    el.id = this.id;
-                    if (this.className) {
-                        el.className = this.className;
+                    if (el != null) {
+                        el.id = this.id;
+                        if (this.className) {
+                            el.className = this.className;
+                        }
+                        this.css.forEach(function (x) {
+                            el.style.setProperty(x.tag, x.value);
+                        });
+                        this.appendElement(parentId, el);
+                        this.postprocess(el);
                     }
-                    this.css.forEach(function (x) {
-                        el.style.setProperty(x.tag, x.value);
-                    });
-                    this.appendElement(parentId, el);
-                    this.postprocess(el);
                 };
                 PanelElement.prototype.appendElement = function (parentId, child) {
                     var parent = document.getElementById(parentId);
@@ -243,7 +245,7 @@ System.register("uiElements", ["uuid", "constants"], function (exports_2, contex
             Panel = /** @class */ (function () {
                 function Panel(id, parent) {
                     if (id === void 0) { id = null; }
-                    this.id = id ? id : "11"; //uuid.v4();
+                    this.id = id ? id : uuid.v4();
                     this.classname = "panel";
                     this.parent = parent;
                     this.parentId = constants_1.constants.ROOT_CLASSNAME;
@@ -351,9 +353,9 @@ System.register("naming", ["constants"], function (exports_3, context_3) {
         }
     };
 });
-System.register("map", ["constants", "uiElements"], function (exports_4, context_4) {
+System.register("map", ["constants", "uiElements", "d3"], function (exports_4, context_4) {
     "use strict";
-    var constants_3, uiElements_1, Map;
+    var constants_3, uiElements_1, d3, Map;
     var __moduleName = context_4 && context_4.id;
     return {
         setters: [
@@ -362,34 +364,26 @@ System.register("map", ["constants", "uiElements"], function (exports_4, context
             },
             function (uiElements_1_1) {
                 uiElements_1 = uiElements_1_1;
+            },
+            function (d3_1) {
+                d3 = d3_1;
             }
         ],
         execute: function () {
-            //import * as d3 from "d3";
             Map = /** @class */ (function (_super) {
                 __extends(Map, _super);
                 function Map(parentId, coords) {
                     var _this = _super.call(this) || this;
                     _this.className = "svg"; //constants.MAP_CLASSNAME;
-                    _this.coords = coords;
+                    _this.coords = coords.filter(function (c) { return c != undefined; });
                     _this.elementType = "svg";
                     return _this;
                 }
                 Map.prototype.createElement = function () {
-                    var coords = this.coords
-                        .filter(function (c) { return c != undefined; })
-                        .map(function (c) { return ["".concat(c[0].toString(), ",").concat(c[1].toString())]; })
-                        .join(",");
-                    var el = document.createElement(this.elementType);
-                    el.setAttribute("width", "100");
-                    el.setAttribute("height", "100");
-                    el.className = "svg";
-                    console.log("123");
-                    var el1 = document.createElement("polyline");
-                    el1.setAttribute("points", coords);
-                    el1.className = constants_3.constants.STREET_CLASSNAME;
-                    el.appendChild(el1);
-                    return el;
+                    var svg = d3.select(".".concat(constants_3.constants.MAP_CLASSNAME)).append("svg").attr("class", constants_3.constants.MAP_CLASSNAME);
+                    console.log(this.coords.join(","));
+                    var el = svg.append("polyline").attr("class", constants_3.constants.STREET_CLASSNAME).attr("points", this.coords.join(","));
+                    return null;
                 };
                 return Map;
             }(uiElements_1.PanelElement));
@@ -598,7 +592,6 @@ System.register("activity", ["google_codec"], function (exports_7, context_7) {
             }
         ],
         execute: function () {
-            //import * as polyline from "@mapbox/polyline";
             Activity = /** @class */ (function () {
                 function Activity(activityId, activityType, encodedCoords) {
                     this.id = activityId;
@@ -611,7 +604,6 @@ System.register("activity", ["google_codec"], function (exports_7, context_7) {
                 }
                 Activity.prototype.decodeCoords = function (encodedCoords) {
                     this.coords = google_codec_1.decode(encodedCoords, 6);
-                    //this.coords = polyline.decode(encodedCoords, 6);
                 };
                 return Activity;
             }());
@@ -1261,10 +1253,8 @@ System.register("panel", ["constants", "uiElements", "naming", "map", "auth", "u
             PanelStart = /** @class */ (function (_super) {
                 __extends(PanelStart, _super);
                 function PanelStart(parent) {
-                    var _this = this;
                     var id = constants_6.constants.PANEL_ID_START;
-                    _this = _super.call(this, id, parent) || this;
-                    return _this;
+                    return _super.call(this, id, parent) || this;
                 }
                 PanelStart.prototype.getElements = function () {
                     var _this = this;
@@ -1408,11 +1398,21 @@ System.register("canvas", ["constants", "panel"], function (exports_14, context_
                 };
                 Canvas.prototype.nextPage = function () {
                     console.log("clicked next");
-                    this.switchToPanel(constants_7.constants.PANEL_ID_COUNTRIES);
+                    var ind = this.panelIds.indexOf(this.currentDisplayedPanelId);
+                    console.log(ind);
+                    if (ind < this.panelIds.length - 1) {
+                        ind = ind + 1;
+                    }
+                    this.switchToPanel(this.panelIds[ind]);
                 };
                 Canvas.prototype.previousPage = function () {
                     console.log("clicked prev");
-                    this.switchToPanel(constants_7.constants.PANEL_ID_START);
+                    var ind = this.panelIds.indexOf(this.currentDisplayedPanelId);
+                    console.log(ind);
+                    if (ind > 0) {
+                        ind = ind - 1;
+                    }
+                    this.switchToPanel(this.panelIds[ind]);
                 };
                 Canvas.prototype.switchToPanel = function (id) {
                     if (this.currentDisplayedPanelId) {
