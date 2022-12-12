@@ -64,6 +64,8 @@
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
+Rewriting as TypeScript, work in progress.
+
 [![WhereDoIRun][product-screenshot]](https://github.com/STASYA00/whereDoIRun)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
